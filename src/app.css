@@ -1,3 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.section {
+	@apply min-h-screen bg-gray-100 flex items-center justify-center px-8 relative;
+}
+.card {
+	@apply w-full max-w-md bg-white rounded-lg shadow-lg border-gray-300;
+}
+
+.btn {
+	@apply w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg shadow font-nunito transition duration-200;
+}
+
+.googlebtn {
+	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-gray-900 font-nunito rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 transition;
+}
+.select {
+	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg px-2 py-2 font-nunito;
+}
+
+.input {
+	@apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg w-full px-3 py-2;
+}
+
+.label {
+	@apply block mb-2 text-sm font-medium text-gray-900 font-nunito;
+}
+
+.para {
+	@apply text-sm font-light text-gray-600 text-center font-nunito;
+}
+
+.heading {
+	@apply text-xl font-bold text-gray-900 font-nunito;
+}
+
+.logo {
+	@apply w-10 h-10 mr-2;
+}
+
+.anchor {
+	@apply font-medium font-nunito text-gray-900 hover:underline;
+}
