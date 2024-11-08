@@ -48,7 +48,7 @@
 
 	<div class="card">
 		<div class="p-6 space-y-4 sm:p-8">
-			<form method="post" action="?/login" class="space-y-6">
+			<form method="post" action="?/loginWithOtp" class="space-y-6">
 				<div>
 					<label for="otp" class="label"> Enter OTP </label>
 					<div class="flex space-x-2">

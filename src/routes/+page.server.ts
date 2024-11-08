@@ -1,33 +1,44 @@
-import type { Actions, RequestEvent } from './$types';
-import { generateOtp } from './api/services/user';
+import type { PageServerLoad } from './$types';
+import { fail, type Actions, type RequestEvent, type ServerLoadEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils.ts/message.utils';
-import type { PageServerLoad } from './$types';
-import type { ServerLoadEvent } from '@sveltejs/kit';
+import { generateOtp } from '$routes/api/services/user';
+import { validateFormData } from '$lib/utils.ts/validate.form';
+import { generateOtpSchema } from './auth/auth.validation.schema';
+
+////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 	event.depends('app');
 };
 
-export const actions = {
+export const actions: Actions = {
 	generateOtp: async (event: RequestEvent) => {
-		const request = event.request;
-		const formData = Object.fromEntries(await request.formData());
-		console.log('FORM DATA', formData);
-		let countryCode = (formData.countryCode as string).trim();
-		countryCode = countryCode.replace('+', '');
-		const phone = (countryCode + '-' + formData.phone) as string;
-		console.log(phone,"phone");
-		
-		const response = await generateOtp(phone, 'Login');
-		console.log('Login Response ', response);
+		const formData = await event.request.formData();
+		const { validationResult, validationErrors } = await validateFormData(
+			formData,
+			generateOtpSchema
+		);
+
+		if (validationErrors) {
+			return fail(422, {
+				validationResult,
+				validationErrors
+			});
+		}
+
+		if (!validationResult) {
+			return fail(400, { validationResult: null, validationErrors: errorMessage('Invalid data') });
+		}
+
+		const phone = validationResult.countryCode + '-' + validationResult.phone;
+
+		const response = await generateOtp(phone);
+
 		if (response.Status == 'failure' || response.HttpCode !== 200) {
 			throw redirect('/', errorMessage(response.Message), event);
 		}
-		throw redirect(
-			`/login-otp?phone=${countryCode}-${formData.phone as string}`,
-			successMessage(response.Message),
-			event
-		);
+		
+		throw redirect(`/login-otp`, successMessage(response.Message), event);
 	}
-} satisfies Actions;
+};
