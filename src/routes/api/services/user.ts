@@ -9,17 +9,17 @@ export const generateOtp = async (phone: string, purpose?: string, loginRoleId?:
 	const body = {
 		Phone: phone,
 		Purpose: purpose ? purpose : 'Login',
-		RoleId: loginRoleId ? loginRoleId : 2
+		RoleId: loginRoleId ? loginRoleId : 3
 	};
 	return await post_(url, body);
 };
 
-export const loginWithOtp = async (otp: string, phone: string, loginRoleId: number = 2) => {
+export const loginWithOtp = async (otp: string, phone: string, loginRoleId: number = 3) => {
 	const url = BACKEND_API_URL + `/users/login-with-otp`;
 	const body = {
 		Phone: `+${phone}`,
 		Otp: otp,
-		LoginRoleId: loginRoleId ?? 2
+		LoginRoleId: loginRoleId ?? 3
 	};
 	return await post_(url, body);
 };
@@ -38,4 +38,5 @@ export const deletePatient = async (sessionId: string, patientId: string) => {
 	const url = BACKEND_API_URL + `/patients/${patientId}`;
 	return await delete_(url, true, sessionId);
 };
+
 

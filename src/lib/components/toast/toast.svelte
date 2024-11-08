@@ -12,7 +12,7 @@
   export let dismissible = true;
 </script>
 
-<article class={type} role="alert" transition:fade>
+<article class="{type} bg-gray-700"  role="alert" transition:fade>
   {#if type === "success"}
     <SuccessIcon width="1.1em" />
   {:else if type === "error"}
