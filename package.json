@@ -38,6 +38,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@iconify/svelte": "^4.0.2",
 		"redis": "^4.7.0",
 		"sveltekit-flash-message": "^2.4.4",
 		"zod": "^3.23.8",

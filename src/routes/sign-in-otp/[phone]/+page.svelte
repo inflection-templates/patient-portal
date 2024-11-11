@@ -9,7 +9,7 @@
 	export let data: PageServerData;
 	let phone = data.phone;
 	console.log('Phone: ' + phone);
-	let enteredOtp: string; // Explicitly set the type to string
+	let enteredOtp: string;
 
 	let otp: string[] = ['', '', '', '', '', ''];
 	let otpInputs: Array<HTMLInputElement> = [];
@@ -25,22 +25,11 @@
 			otpInputs[index + 1].focus();
 		}
 	};
-
-	// var showtoast = false;
-	// function clickToast() {
-	// 	showtoast = true;
-	// }
 </script>
-
-<!-- <button on:click={clickToast}>Show toast</button> -->
-<!-- 
-{#if showtoast}
-	<Toast type="Success" dismissible={true} />
-{/if} -->
 
 <section class="section">
 	<div class="absolute top-4 left-4 flex items-center">
-		<img src="patient.png" alt="Logo" class="logo" />
+		<img src="/patient.png" alt="Logo" class="logo" />
 		<h1 class="heading">Patient Portal</h1>
 	</div>
 
@@ -64,14 +53,14 @@
 								maxlength="1"
 								pattern="[0-9]"
 								inputmode="numeric"
-								class="input"
+								class="inputotp"
 								bind:this={otpInputs[i]}
 								required
 							/>
 						{/each}
 					</div>
-					<input hidden type="text" name=otp bind:value={enteredOtp} />
-					<input hidden type="text" name=phone bind:value={phone} />
+					<input hidden type="text" name="otp" bind:value={enteredOtp} />
+					<input hidden type="text" name="phone" bind:value={phone} />
 				</div>
 
 				<button type="submit" class="btn"> Submit </button>
