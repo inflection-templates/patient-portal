@@ -45,3 +45,77 @@
 .anchor {
 	@apply font-medium font-nunito text-gray-900 hover:underline;
 }
+.navbar {
+	@apply bg-gray-100 border border-gray-300 text-gray-900 text-sm  px-2 py-2 font-nunito
+}
+
+
+/* Navbar styles */
+.navbar {
+	@apply flex items-center justify-between px-4 h-14;
+  }
+  
+  /* Logo and heading styles */
+  .logo {
+	@apply w-8 h-8 mr-2;
+  }
+  
+  .heading {
+	@apply text-lg font-bold text-gray-900;
+  }
+  
+  /* User profile button */
+  .user-profile-btn {
+	@apply w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center;
+  }
+  
+  .user-profile-btn-text {
+	@apply text-gray-800;
+  }
+  
+  /* Dropdown menu */
+  .user-menu {
+	@apply absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 text-gray-700 z-50;
+  }
+  
+  /* User name in the menu */
+  .user-name {
+	@apply px-4 py-2 text-sm font-semibold text-gray-900;
+  }
+  
+  /* Menu item styles */
+  .user-menu-item {
+	@apply flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100;
+  }
+  
+  /* Divider between user name and menu items */
+  .user-menu-divider {
+	@apply border-gray-200;
+  }
+  
+
+/* Sidebar styles */
+.sidebar {
+	@apply w-16 sm:w-48 h-screen bg-gray-100 border-gray-300 font-nunito text-gray-900 px-4 sm:px-8 py-4;
+  }
+  
+  /* Sidebar list styles */
+  .sidebar-list {
+	@apply space-y-2;
+  }
+  
+  /* Sidebar link item styles */
+  .sidebar-item {
+	@apply flex items-center hover:bg-gray-200 px-2 py-2 rounded;
+  }
+  
+  /* Icon size */
+  .sidebar-icon {
+	@apply w-5 h-5 mr-3;
+  }
+  
+  /* Hidden text for small screens */
+  .sidebar-text {
+	@apply hidden sm:inline;
+  }
+  
