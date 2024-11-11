@@ -27,7 +27,7 @@
 }
 .inputotp {
 	@apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg w-full px-3 py-2 text-center;
-} 
+}
 .label {
 	@apply block mb-2 text-sm font-medium text-gray-900 font-nunito;
 }
@@ -48,93 +48,98 @@
 	@apply font-medium font-nunito text-gray-900 hover:underline;
 }
 .navbar {
-	@apply bg-gray-100 border border-gray-300 text-gray-900 text-sm  px-2 py-2 font-nunito
+	@apply bg-gray-200 border border-gray-300 text-gray-900 text-sm  px-2 py-2 font-nunito;
 }
-
 
 /* Navbar styles */
 .navbar {
 	@apply flex items-center justify-between px-4 h-14;
-  }
-  
-  /* Logo and heading styles */
-  .logo {
+}
+
+/* Logo and heading styles */
+.logo {
 	@apply w-8 h-8 mr-2;
-  }
-  
-  .heading {
+}
+
+.heading {
 	@apply text-lg font-bold text-gray-900;
-  }
-  
-  /* User profile button */
-  .user-profile-btn {
+}
+
+/* User profile button */
+.user-profile-btn {
 	@apply w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center;
-  }
-  
-  .user-profile-btn-text {
+}
+
+.user-profile-btn-text {
 	@apply text-gray-800;
-  }
-  
-  /* Dropdown menu */
-  .user-menu {
+}
+
+/* Dropdown menu */
+.user-menu {
 	@apply absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 text-gray-700 z-50;
-  }
-  
-  
-  /* User name in the menu */
-  .user-name {
-	@apply px-4 py-2 text-sm font-semibold text-gray-900;
-  }
-  
-  /* Menu item styles */
-  .user-menu-item {
+}
+
+/* User name in the menu */
+.user-name {
+	@apply px-4 py-2 text-base font-semibold text-gray-900;
+}
+
+/* Menu item styles */
+.user-menu-item {
 	@apply flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100;
-  }
-  
-  
-  /* Divider between user name and menu items */
-  .user-menu-divider {
+}
+
+/* Add custom styles for the Delete Account button */
+.user-menu-item.delete-account {
+	@apply text-red-500 bg-transparent hover:bg-red-100 border-none cursor-pointer;
+}
+
+.user-menu-item.delete-account:hover {
+	@apply text-red-700;
+}
+
+/* Divider between user name and menu items */
+.user-menu-divider {
 	@apply border-gray-200;
-  }
-  
+}
 
 /* Sidebar styles */
 .sidebar {
-	@apply w-16 sm:w-56 h-screen bg-gray-100 border-gray-300 font-nunito text-gray-900 px-4 sm:px-8 py-4;
-  }
-  
-  /* Sidebar list styles */
-  .sidebar-list {
-	@apply space-y-2;
-  }
-  
-  /* Sidebar link item styles */
-  .sidebar-item {
-	@apply flex items-center hover:bg-gray-200 px-2 py-2 rounded;
-  }
-  
-  /* Space between icon and text */
-.sidebar-item span {
-  @apply ml-2; /* Adjust the value as needed */
+	@apply w-16 sm:w-56 h-screen bg-gray-200 border-gray-300 font-nunito text-gray-900 px-4 sm:px-8 py-4;
 }
-  
-  /* Icon size */
-  .sidebar-icon {
+
+/* Sidebar list styles */
+.sidebar-list {
+	@apply space-y-2;
+}
+
+/* Sidebar link item styles */
+.sidebar-item {
+	@apply flex items-center hover:bg-gray-300 px-2 py-2 rounded;
+}
+
+/* Space between icon and text */
+.sidebar-item span {
+	@apply ml-2; /* Adjust the value as needed */
+}
+
+/* Icon size */
+.sidebar-icon {
 	@apply w-5 h-5 mr-3;
-  }
-  
-  /* Hidden text for small screens */
-  .sidebar-text {
+}
+
+/* Hidden text for small screens */
+.sidebar-text {
 	@apply hidden sm:inline;
-  }
+}
 /* Adjust icon size for different screen sizes */
 .iconsize {
-  @apply w-6 h-6; /* Default icon size */
+	@apply w-6 h-6; /* Default icon size */
 }
 
 /* Larger icon size on medium screens (sm, md, lg, xl) */
 @media (min-width: 640px) {
-  .iconsize {
-    @apply w-5 h-5; /* Medium screens */
-  }
+	.iconsize {
+		@apply w-5 h-5; /* Medium screens */
+	}
 }

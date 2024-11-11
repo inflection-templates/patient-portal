@@ -8,8 +8,15 @@
 		{ label: 'User Profile', href: '/user-profile' },
 		{ label: 'Help', href: '/help' },
 		{ label: 'Sign Out', href: '/signout' },
-		{ label: 'Delete Account', href: '/delete-account' }
+		{ label: 'Delete Account', type: 'button', class:'delete-account'  }
 	];
+
+	// Add a function to handle account deletion
+	const handleDeleteAccount = () => {
+		if (confirm('Are you sure you want to delete your account? This action is irreversible.')) {
+			alert('Account deleted!');
+		}
+	};
 </script>
 
 <header class="navbar">
@@ -21,7 +28,7 @@
 
 		<div class="relative ml-auto">
 			<button class="user-profile-btn" on:click={() => (showUserMenu = !showUserMenu)}>
-				<Icon icon="ant-design:user-outlined"  class="iconsize" />
+				<Icon icon="ant-design:user-outlined" class="iconsize" />
 			</button>
 
 			{#if showUserMenu}
@@ -32,9 +39,18 @@
 					<hr class="user-menu-divider" />
 
 					{#each userMenuItems as item}
-						<a href={item.href} class="user-menu-item">
-							<span>{item.label}</span>
-						</a>
+						{#if item.type === 'button'}
+							<button
+								class="user-menu-item {item.class}"
+								on:click={handleDeleteAccount}
+							>
+								<span>{item.label}</span>
+							</button>
+						{:else}
+							<a href={item.href} class="user-menu-item">
+								<span>{item.label}</span>
+							</a>
+						{/if}
 					{/each}
 				</div>
 			{/if}
