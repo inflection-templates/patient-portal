@@ -5,7 +5,6 @@ import { post_, get_, delete_ } from './common';
 
 export const generateOtp = async (phone: string, purpose?: string, loginRoleId?: number) => {
 	const url = BACKEND_API_URL + `/users/generate-otp`;
-	phone = phone;
 	const body = {
 		Phone: phone,
 		Purpose: purpose ? purpose : 'Login',
@@ -17,11 +16,11 @@ export const generateOtp = async (phone: string, purpose?: string, loginRoleId?:
 export const loginWithOtp = async (otp: string, phone: string, loginRoleId: number = 3) => {
 	const url = BACKEND_API_URL + `/users/login-with-otp`;
 	const body = {
-		Phone: `+${phone}`,
+		Phone: phone,
 		Otp: otp,
 		LoginRoleId: loginRoleId ?? 3
 	};
-
+	console.log("body-------------",body);
 	return await post_(url, body);
 };
 

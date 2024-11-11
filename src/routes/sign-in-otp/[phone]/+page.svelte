@@ -1,10 +1,14 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import Success from '$lib/components/icons/success.icon.svelte';
 	import Toast from '$lib/components/toast/toast.svelte';
 	import type { PageServerData } from './$types';
 
+	////////////////////////////////////////////////////////////////////////////
+
 	export let data: PageServerData;
 	let phone = data.phone;
+	console.log('Phone: ' + phone);
 	let enteredOtp: string; // Explicitly set the type to string
 
 	let otp: string[] = ['', '', '', '', '', ''];
@@ -48,7 +52,7 @@
 
 	<div class="card">
 		<div class="p-6 space-y-4 sm:p-8">
-			<form method="post" action="?/loginWithOtp" class="space-y-6">
+			<form method="post" action="?/loginWithOtp" class="space-y-6" use:enhance>
 				<div>
 					<label for="otp" class="label"> Enter OTP </label>
 					<div class="flex space-x-2">
@@ -66,8 +70,8 @@
 							/>
 						{/each}
 					</div>
-					<input hidden type="text" name="otp" bind:value={enteredOtp} />
-					<input hidden type="text" name="phone" bind:value={phone} />
+					<input hidden type="text" name=otp bind:value={enteredOtp} />
+					<input hidden type="text" name=phone bind:value={phone} />
 				</div>
 
 				<button type="submit" class="btn"> Submit </button>

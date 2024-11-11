@@ -43,12 +43,12 @@
 //         throw redirect(303, `/dashboard`, successMessage(`Login successful!`), event);
 // 	}
 // };
-import { type RequestEvent, fail } from '@sveltejs/kit';
+import { type Actions, type RequestEvent} from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
-import type { PageServerLoad } from '../$types.js';
+import type { PageServerLoad } from '../../$types.js';
 import { loginWithOtp } from '$routes/api/services/user';
-import { loginWithOtpSchema } from '$routes/auth/auth.validation.schema';
-import { validateFormData } from '$lib/utils.ts/validate.form';
+// import { loginWithOtpSchema } from '$routes/auth/auth.validation.schema';
+// import { validateFormData } from '$lib/utils.ts/validate.form';
 import { errorMessage, successMessage } from '$lib/utils.ts/message.utils';
 import { SessionManager } from '$routes/api/sessions/session.manager';
 import { CookieUtils } from '$lib/utils.ts/cookie.utils';
@@ -69,27 +69,40 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
-export const actions = {
+export const actions: Actions = {
 	loginWithOtp: async (event: RequestEvent) => {
 		const request = event.request;
-		const formData = await request.formData();
-		const { validationResult, validationErrors } = await validateFormData(
-			formData,
-			loginWithOtpSchema
-		);
+		// const data = Object.fromEntries(await request.formData());; // or .json(), or .text(), etc
+        // console.log('Form Data Input', data);
+        // const otp = data.otp as string;
+        // const phone = data.phone as string;
+        // console.log('OTPPP: ' + otp);
+		// console.log('PHONE: ' + phone);
+		// const formData = await request.formData();
+		// const { validationResult, validationErrors } = await validateFormData(
+		// 	formData,
+		// 	loginWithOtpSchema
+		// );
 
-		if (validationErrors) {
-			return fail(422, {
-				validationResult,
-				validationErrors
-			});
-		}
+		// if (validationErrors) {
+		// 	return fail(422, {
+		// 		validationResult,
+		// 		validationErrors
+		// 	});
+		// }
 
-		if (!validationResult) {
-			return fail(400, { validationResult: null, validationErrors: errorMessage('Invalid data') });
-		}
+		// if (!validationResult) {
+		// 	return fail(400, { validationResult: null, validationErrors: errorMessage('Invalid data') });
+		// }
 
-		const response = await loginWithOtp(validationResult.otp, validationResult.phone);
+		// console.log('Validation Result: ' + JSON.stringify(validationResult, null, 2));
+		// const response = await loginWithOtp(validationResult.otp, validationResult.phone);
+
+		const data = Object.fromEntries(await request.formData());
+        const otp = data.otp as string;
+        const phone = data.phone as string;
+		
+        const response = await loginWithOtp(otp, phone);
 
 		if (response.Status == 'failure' || response.HttpCode !== 200) {
 			throw redirect('/', errorMessage(response.Message), event);

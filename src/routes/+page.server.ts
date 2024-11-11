@@ -39,6 +39,6 @@ export const actions: Actions = {
 			throw redirect('/', errorMessage(response.Message), event);
 		}
 		
-		throw redirect(`/login-otp`, successMessage(response.Message), event);
+		throw redirect(`/sign-in-otp/${phone}`, successMessage(response.Message), event);
 	}
 };
