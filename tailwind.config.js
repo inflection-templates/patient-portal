@@ -1,13 +1,13 @@
-/** @type {import('tailwindcss').Config} */
-import daisyui from "daisyui"
-
-export default {
-  content: ["./src/**/*.{html,js}"],
-  theme: {
-    extend: {},
-  },
-  plugins: [
-    daisyui
+module.exports = {
+  content: [
+    './src/**/*.{html,js,svelte,ts}',
   ],
+  theme: {
+    extend: {
+      fontFamily: {
+        nunito: ['Nunito', 'sans-serif'], // Adding Nunito to Tailwind
+      },
+    },
+  },
+  plugins: [],
 }
-
