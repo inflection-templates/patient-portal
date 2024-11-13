@@ -19,7 +19,7 @@
 	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-gray-900 font-nunito rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 transition;
 }
 .select {
-	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg px-2 py-2 font-nunito;
+	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg px-1 py-2 font-nunito;
 }
 
 .input {
@@ -53,12 +53,12 @@
 
 /* Navbar styles */
 .navbar {
-	@apply flex items-center justify-between px-4 h-14;
+	@apply flex items-center justify-between px-4  h-14;
 }
 
 /* Logo and heading styles */
 .logo {
-	@apply w-8 h-8 mr-2;
+	@apply w-10 h-10;
 }
 
 .heading {
@@ -76,17 +76,17 @@
 
 /* Dropdown menu */
 .user-menu {
-	@apply absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 text-gray-700 z-50;
+	@apply absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 text-gray-900 z-50;
 }
 
 /* User name in the menu */
 .user-name {
-	@apply px-4 py-2 text-base font-semibold text-gray-900;
+	@apply px-4 py-2 text-lg font-semibold text-gray-900;
 }
 
 /* Menu item styles */
 .user-menu-item {
-	@apply flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100;
+	@apply flex items-center w-full px-4 py-2 text-base hover:bg-gray-100;
 }
 
 /* Add custom styles for the Delete Account button */
@@ -105,7 +105,7 @@
 
 /* Sidebar styles */
 .sidebar {
-	@apply w-16 sm:w-56 h-screen bg-gray-200 border-gray-300 font-nunito text-gray-900 px-4 sm:px-8 py-4;
+	@apply w-16 sm:w-56 h-screen bg-gray-200 border-gray-200 font-nunito text-gray-900 px-4 sm:px-8 py-4;
 }
 
 /* Sidebar list styles */
@@ -130,16 +130,10 @@
 
 /* Hidden text for small screens */
 .sidebar-text {
-	@apply hidden sm:inline;
+	@apply hidden sm:inline  text-base;
 }
 /* Adjust icon size for different screen sizes */
 .iconsize {
-	@apply w-6 h-6; /* Default icon size */
+	@apply w-5 h-5  ;
 }
 
-/* Larger icon size on medium screens (sm, md, lg, xl) */
-@media (min-width: 640px) {
-	.iconsize {
-		@apply w-5 h-5; /* Medium screens */
-	}
-}
