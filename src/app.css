@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+/* Importing Lato font */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,18 +9,18 @@
 	@apply min-h-screen bg-gray-100 flex items-center justify-center px-8 relative;
 }
 .card {
-	@apply w-full max-w-md bg-white rounded-lg shadow-lg border-gray-300;
+	@apply w-full max-w-md bg-white  rounded-3xl shadow-lg border-gray-300;
 }
 
 .btn {
-	@apply w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg shadow font-nunito transition duration-200;
+	@apply w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg shadow font-lato transition duration-200;
 }
 
 .googlebtn {
-	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-gray-900 font-nunito rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 transition;
+	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-gray-900 font-lato rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 transition;
 }
 .select {
-	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg px-1 py-2 font-nunito;
+	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg px-1 py-2 font-lato;
 }
 
 .input {
@@ -29,15 +30,15 @@
 	@apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg w-full px-3 py-2 text-center;
 }
 .label {
-	@apply block mb-2 text-sm font-medium text-gray-900 font-nunito;
+	@apply block mb-2 mt-2 text-sm font-medium text-gray-900 font-lato;
 }
 
 .para {
-	@apply text-sm font-light text-gray-600 text-center font-nunito;
+	@apply text-sm font-light text-gray-600 text-center font-lato;
 }
 
 .heading {
-	@apply text-xl font-bold text-gray-900 font-nunito;
+	@apply text-xl font-bold text-gray-900  font-lato;
 }
 
 .logo {
@@ -45,10 +46,10 @@
 }
 
 .anchor {
-	@apply font-medium font-nunito text-gray-900 hover:underline;
+	@apply font-medium font-lato text-gray-900 hover:underline;
 }
 .navbar {
-	@apply bg-gray-200 border border-gray-300 text-gray-900 text-sm  px-2 py-2 font-nunito;
+	@apply bg-gray-200 border border-gray-300 text-gray-900 text-sm  px-2 py-2 font-lato;
 }
 
 /* Navbar styles */
@@ -105,7 +106,7 @@
 
 /* Sidebar styles */
 .sidebar {
-	@apply w-16 sm:w-56 h-screen bg-gray-200 border-gray-200 font-nunito text-gray-900 px-4 sm:px-8 py-4;
+	@apply w-16 sm:w-56 h-screen bg-gray-200 border-gray-200 font-lato text-gray-900 px-4 sm:px-8 py-4;
 }
 
 /* Sidebar list styles */

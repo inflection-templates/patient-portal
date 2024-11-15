@@ -9,7 +9,7 @@
 	</div>
 
 	<div class="absolute top-4 right-4 flex items-center">
-		<a href="/login">
+		<a href="/">
 			<button class="py-2 px-3 btn">Log in</button>
 		</a>
 	</div>
