@@ -1,1 +1,26 @@
-<h1>Home page</h1>
+<script lang="ts">
+	import { page } from '$app/stores';
+
+	const userId = $page.params.userId;
+	let activeButton : string = ''; // Variable to track the active button
+
+	function setActive(button: string) {
+		activeButton = button;
+	}
+</script>
+
+<div class="space-x-2 mt-4 ml-10">
+	<button
+		class="btn1 {activeButton === 'taskHistory' ? 'active' : ''}"
+		on:click={() => setActive('taskHistory')}
+	>
+		Task History
+	</button>
+	<a
+		class="btn1 {activeButton === 'vitalsHistory' ? 'active' : ''}"
+		href="/users/{userId}/home/vitals-history"
+		on:click={() => setActive('vitalsHistory')}
+	>
+		vitals History</a
+	>
+</div>

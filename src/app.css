@@ -143,3 +143,23 @@
 		@apply w-5 h-5; /* Medium screens */
 	}
 }
+
+.btn1 {
+	@apply bg-gray-100 px-8 py-2  text-gray-900  rounded-md shadow hover:bg-gray-200;
+  }
+  .btn1.active {
+		@apply bg-sky-200;
+  }
+
+.table1 {
+    @apply w-full border border-gray-200 rounded-lg;
+  }
+.th1 {
+    @apply text-center text-lg font-semibold  border border-gray-200 dark:border-gray-600;
+  }
+.td1 {
+    @apply text-center text-sm  border border-gray-200 dark:border-gray-600;
+  }
+.tr1 {
+    @apply w-full border border-gray-200 dark:border-gray-600;
+  }
