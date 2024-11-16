@@ -6,6 +6,8 @@ module.exports = {
     extend: {
       fontFamily: {
         nunito: ['Nunito', 'sans-serif'], // Adding Nunito to Tailwind
+        lato: ['Lato', 'sans-serif'], // Adding Lato font family
+
       },
     },
   },

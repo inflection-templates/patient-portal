@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+/* Importing Lato font */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,18 +9,18 @@
 	@apply min-h-screen bg-gray-100 flex items-center justify-center px-8 relative;
 }
 .card {
-	@apply w-full max-w-md bg-white rounded-lg shadow-lg border-gray-300;
+	@apply w-full max-w-md bg-white  rounded-3xl shadow-lg border-gray-300;
 }
 
 .btn {
-	@apply w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg shadow font-nunito transition duration-200;
+	@apply w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg shadow font-lato transition duration-200;
 }
 
 .googlebtn {
-	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-gray-900 font-nunito rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 transition;
+	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-gray-900 font-lato rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 transition;
 }
 .select {
-	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg px-2 py-2 font-nunito;
+	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg px-1 py-2 font-lato;
 }
 
 .input {
@@ -29,15 +30,15 @@
 	@apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg w-full px-3 py-2 text-center;
 }
 .label {
-	@apply block mb-2 text-sm font-medium text-gray-900 font-nunito;
+	@apply block mb-2 mt-2 text-sm font-medium text-gray-900 font-lato;
 }
 
 .para {
-	@apply text-sm font-light text-gray-600 text-center font-nunito;
+	@apply text-sm font-light text-gray-600 text-center font-lato;
 }
 
 .heading {
-	@apply text-xl font-bold text-gray-900 font-nunito;
+	@apply text-xl font-bold text-gray-900  font-lato;
 }
 
 .logo {
@@ -45,20 +46,20 @@
 }
 
 .anchor {
-	@apply font-medium font-nunito text-gray-900 hover:underline;
+	@apply font-medium font-lato text-gray-900 hover:underline;
 }
 .navbar {
-	@apply bg-gray-200 border border-gray-300 text-gray-900 text-sm  px-2 py-2 font-nunito;
+	@apply bg-gray-200 border border-gray-300 text-gray-900 text-sm  px-2 py-2 font-lato;
 }
 
 /* Navbar styles */
 .navbar {
-	@apply flex items-center justify-between px-4 h-14;
+	@apply flex items-center justify-between px-4  h-14;
 }
 
 /* Logo and heading styles */
 .logo {
-	@apply w-8 h-8 mr-2;
+	@apply w-10 h-10;
 }
 
 .heading {
@@ -76,17 +77,17 @@
 
 /* Dropdown menu */
 .user-menu {
-	@apply absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 text-gray-700 z-50;
+	@apply absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 text-gray-900 z-50;
 }
 
 /* User name in the menu */
 .user-name {
-	@apply px-4 py-2 text-base font-semibold text-gray-900;
+	@apply px-4 py-2 text-lg font-semibold text-gray-900;
 }
 
 /* Menu item styles */
 .user-menu-item {
-	@apply flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100;
+	@apply flex items-center w-full px-4 py-2 text-base hover:bg-gray-100;
 }
 
 /* Add custom styles for the Delete Account button */
@@ -105,7 +106,7 @@
 
 /* Sidebar styles */
 .sidebar {
-	@apply w-16 sm:w-56 h-screen bg-gray-200 border-gray-300 font-nunito text-gray-900 px-4 sm:px-8 py-4;
+	@apply w-16 sm:w-56 h-screen bg-gray-200 border-gray-200 font-lato text-gray-900 px-4 sm:px-8 py-4;
 }
 
 /* Sidebar list styles */
@@ -130,36 +131,10 @@
 
 /* Hidden text for small screens */
 .sidebar-text {
-	@apply hidden sm:inline;
+	@apply hidden sm:inline  text-base;
 }
 /* Adjust icon size for different screen sizes */
 .iconsize {
-	@apply w-6 h-6; /* Default icon size */
+	@apply w-5 h-5  ;
 }
 
-/* Larger icon size on medium screens (sm, md, lg, xl) */
-@media (min-width: 640px) {
-	.iconsize {
-		@apply w-5 h-5; /* Medium screens */
-	}
-}
-
-.btn1 {
-	@apply bg-gray-100 px-8 py-2  text-gray-900  rounded-md shadow hover:bg-gray-200;
-  }
-  .btn1.active {
-		@apply bg-sky-200;
-  }
-
-.table1 {
-    @apply w-full border border-gray-200 rounded-lg;
-  }
-.th1 {
-    @apply text-center text-lg font-semibold  border border-gray-200 dark:border-gray-600;
-  }
-.td1 {
-    @apply text-center text-sm  border border-gray-200 dark:border-gray-600;
-  }
-.tr1 {
-    @apply w-full border border-gray-200 dark:border-gray-600;
-  }

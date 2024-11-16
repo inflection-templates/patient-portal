@@ -19,7 +19,7 @@
 </script>
 
 <header class="navbar">
-	<div class="flex items-center justify-between px-4 h-14 w-full">
+	<div class="flex items-center justify-between sm:px-4 h-14 w-full">
 		<div class="flex items-center">
 			<img src="/patient.png" alt="Logo" class="logo" />
 			<h1 class="heading">Patient Portal</h1>
