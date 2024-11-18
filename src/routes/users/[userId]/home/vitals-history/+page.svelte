@@ -8,14 +8,45 @@
 
 	const userId = $page.params.userId;
 	export let data: PageServerData;
-	let heightData: any = [];
-	let weightData = [];
-	let bloodPressureData = [];
-	let glucoseData: any = [];
-	let oxygenSaturationData: any = [];
-	let temperatureData: any = [];
-	let pulseData: any = [];
+	let heightData = data.heightData?.BodyHeightRecords?.Items;
+	let weightData = data.weightData?.BodyWeightRecords?.Items;
+	let bloodPressureData = data.pressureData?.BloodPressureRecords?.Items;
+	let glucoseData = data.glucoseData?.BloodGlucoseRecords?.Items;
+	let oxygenSaturationData = data.oxygenSaturationData?.BloodOxygenSaturationRecords?.Items;
+	let temperatureData = data.temperatureData?.BodyTemperatureRecords?.Items;
+	let pulseData = data.pulseRateData?.PulseRecords?.Items;
 
+	function formatData(data: any, valueKey: any) {
+		return data.map((item) => ({
+			value: item[valueKey],
+			date: formatDateMonth(item.RecordDate),
+			unit: item.Unit
+		}));
+	}
+
+	function formatBloodPressureData(data: any, valueKey1: any, valueKey2: any) {
+		return data.map((item) => ({
+			value: item[valueKey1],
+			value1: item[valueKey2],
+			date: formatDateMonth(item.RecordDate),
+			unit: item.Unit
+		}));
+	}
+
+	const formattedHeightData = formatData(heightData, 'BodyHeight');
+	console.log('formattedHeightData', formattedHeightData);
+	const formattedWeightData = formatData(weightData, 'BodyWeight');
+	const formattedBloodPressureData = formatBloodPressureData(
+		bloodPressureData,
+		'Systolic',
+		'Diastolic'
+	);
+	const formattedGlucoseData = formatData(glucoseData, 'BloodGlucose');
+	const formattedOxygenSaturationData = formatData(oxygenSaturationData, 'BloodOxygenSaturation');
+	const formattedTemperatureData = formatData(temperatureData, 'BodyTemperature');
+	const formattedPulseData = formatData(pulseData, 'Pulse');
+
+	console.log('heightData', formattedBloodPressureData);
 
 	let activeVital: string = 'Height';
 	const vitals = [
@@ -28,104 +59,51 @@
 		'Pulse'
 	];
 
-
-
-	if (data.heightData?.BodyHeightRecords?.Items) {
-		for (let item of data.heightData.BodyHeightRecords.Items) {
-			heightData.push({
-				value: item.BodyHeight,
-				date: formatDateMonth(item.RecordDate),
-				unit: item.Unit
-			});
-		}
-	}
-
-	if (data.weightData?.BodyWeightRecords?.Items) {
-		for (let item of data.weightData.BodyWeightRecords.Items) {
-			weightData.push({
-				value: item.BodyWeight,
-				date: formatDateMonth(item.RecordDate),
-				unit: item.Unit
-			});
-		}
-	}
-	if (data.pressureData?.BloodPressureRecords?.Items) {
-		for (let item of data.pressureData.BloodPressureRecords.Items) {
-			bloodPressureData.push({
-				value: item.Systolic,
-				// + '/' + item.Diastolic,
-				date: formatDateMonth(item.RecordDate),
-				unit: item.Unit
-			});
-		}
-	}
-
-	if (data.glucoseData?.BloodGlucoseRecords?.Items) {
-		for (let item of data.glucoseData.BloodGlucoseRecords.Items) {
-			glucoseData.push({
-				value: item.BloodGlucose,
-				date: formatDateMonth(item.RecordDate),
-				unit: item.Unit
-			});
-		}
-	}
-	if (data.oxygenSaturationData?.BloodOxygenSaturationRecords?.Items) {
-		for (let item of data.oxygenSaturationData.BloodOxygenSaturationRecords.Items) {
-			oxygenSaturationData.push({
-				value: item.BloodOxygenSaturation,
-				date: formatDateMonth(item.RecordDate),
-				unit: item.Unit
-			});
-		}
-	}
-	if (data.temperatureData?.BodyTemperatureRecords?.Items) {
-		for (let item of data.temperatureData.BodyTemperatureRecords.Items) {
-			temperatureData.push({
-				value: item.BodyTemperature,
-				date: formatDateMonth(item.RecordDate),
-				unit: item.Unit
-			});
-		}
-	}
-	if (data.pulseRateData?.PulseRecords?.Items) {
-		for (let item of data.pulseRateData.PulseRecords.Items) {
-			pulseData.push({
-				value: item.Pulse,
-				date: formatDateMonth(item.RecordDate),
-				unit: item.Unit
-			});
-		}
-	}
-
 	$: currentData = (() => {
 		switch (activeVital) {
 			case 'Height':
-				return heightData;
+				return formattedHeightData;
 			case 'Weight':
-				return weightData;
+				return formattedWeightData;
 			case 'Blood Pressure':
-				return bloodPressureData;
+				return formattedBloodPressureData;
 			case 'Glucose':
-				return glucoseData;
+				return formattedGlucoseData;
 			case 'Oxygen Saturation':
-				return oxygenSaturationData;
+				return formattedOxygenSaturationData;
 			case 'Temperature':
-				return temperatureData;
+				return formattedTemperatureData;
 			case 'Pulse':
-				return pulseData;
+				return formattedPulseData;
 			default:
 				return [];
 		}
 	})();
+	let activeButton: string = 'vitalsHistory';
 	function setActiveVitals(vital: string) {
 		activeVital = vital;
+	}
+	function setActive(button: string) {
+		activeButton = button;
 	}
 </script>
 
 <div class="container">
 	<div class="space-x-2 mt-4 ml-10">
-		<a class="btn1" href="/users/{userId}/home"> Task History</a>
-		<button class="btn1"> vitals History </button>
+		<a
+			class={`btn1 ${activeButton === 'taskHistory' ? 'active' : ''}`}
+			href={`/users/${userId}/home/`}
+			on:click={() => setActive('taskHistory')}
+		>
+			Task History
+		</a>
+
+		<button
+			class={`btn1 ${activeButton === 'vitalsHistory' ? 'active' : ''}`}
+			on:click={() => setActive('vitalsHistory')}
+		>
+			Vitals History
+		</button>
 	</div>
 	<div class="space-x-2 mt-4 mx-10">
 		{#each vitals as vital}

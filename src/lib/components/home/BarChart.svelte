@@ -49,21 +49,24 @@
 						},
 						title: {
 							display: true,
-							text: 'dates',
+							text: 'Dates',
 							color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080'
 						}
 					},
 					y: {
 						beginAtZero: true,
 						grid: {
-							display: true
+							display: true,
+							color: 'rgba(0, 0, 0, 0.1)', // Light gray, 10% opacity
+							lineWidth: 0.3,
+							tickBorderDash: [10, 10] // Dashed lines
 						},
 						ticks: {
 							color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080'
 						},
 						title: {
 							display: true,
-							text: 'Heights in cm',
+							text: title,
 							color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080'
 						}
 					}
