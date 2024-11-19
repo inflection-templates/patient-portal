@@ -5,6 +5,7 @@ import { errorMessage, successMessage } from '$lib/utils.ts/message.utils';
 import { generateOtp } from '$routes/api/services/user';
 import { validateFormData } from '$lib/utils.ts/validate.form';
 import { generateOtpSchema } from './auth/auth.validation.schema';
+import { findIdByRoleName, getUserRoles } from './api/services/types';
 
 ////////////////////////////////////////////////////////////////////
 
@@ -33,7 +34,13 @@ export const actions: Actions = {
 
 		const phone = validationResult.countryCode + '-' + validationResult.phone;
 
-		const response = await generateOtp(phone);
+		const allRoles = await getUserRoles();
+
+		const loginRoleId = findIdByRoleName(allRoles, 'Patient');
+
+		console.log("loginRoleId",loginRoleId);
+
+		const response = await generateOtp(phone, loginRoleId);
 
 		if (response.Status == 'failure' || response.HttpCode !== 200) {
 			throw redirect('/', errorMessage(response.Message), event);
