@@ -14,33 +14,28 @@
 		value = data.map((item) => item.value);
 		value1 = data.map((item) => item.value1);
 	}
-
 </script>
 
 {#if date.length > 0}
-	<div class="h-96 w-full">
-		
-			{#if title == "Height"}
-			<LineChart data={value} labels={date} title={title} />
-			{:else if title == "Weight"}
-			<BarChart dataSource={value} labels={date} title={title} />
-			{:else if title == "Blood Pressure"}
-			<JoinLineChart data1={value} data2={value1} labels={date} title={title} />
-			{:else if title == "Glucose"}
-			<LineChart data={value} labels={date} title={title} />
-			{:else if title == "Oxygen Saturation"}
-			<LineChart data={value} labels={date} title={title} />
-			{:else if title == "Temperature"}
-			<LineChart data={value} labels={date} title={title} />
-			{:else if title == "Pulse"}
-			<LineChart data={value} labels={date} title={title} />
-			{/if}
+	<div>
+		{#if title == 'Height'}
+			<LineChart data={value} labels={date} {title} />
+		{:else if title == 'Weight'}
+			<BarChart dataSource={value} labels={date} {title} />
+		{:else if title == 'Blood Pressure'}
+			<JoinLineChart data1={value} data2={value1} labels={date} {title} />
+		{:else if title == 'Glucose'}
+			<LineChart data={value} labels={date} {title} />
+		{:else if title == 'Oxygen Saturation'}
+			<LineChart data={value} labels={date} {title} />
+		{:else if title == 'Temperature'}
+			<LineChart data={value} labels={date} {title} />
+		{:else if title == 'Pulse'}
+			<LineChart data={value} labels={date} {title} />
+		{/if}
 	</div>
 {:else}
 	<div class="">
-		<p class="justify-left items-center flex text-2xl">
-			<!-- Access Frequency -->
-		</p>
-		<p class="justify-center items-center flex text-xl ">Data Not Available</p>
+		<p class="">Data Not Available</p>
 	</div>
 {/if}

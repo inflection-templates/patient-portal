@@ -1,4 +1,3 @@
-/* Importing Lato font */
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 @tailwind base;
@@ -52,12 +51,10 @@
 	@apply bg-gray-200 border border-gray-300 text-gray-900 text-sm  px-2 py-2 font-lato;
 }
 
-/* Navbar styles */
 .navbar {
 	@apply flex items-center justify-between px-4  h-14;
 }
 
-/* Logo and heading styles */
 .logo {
 	@apply w-10 h-10;
 }
@@ -66,7 +63,6 @@
 	@apply text-lg font-bold text-gray-900;
 }
 
-/* User profile button */
 .user-profile-btn {
 	@apply w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center;
 }
@@ -75,22 +71,18 @@
 	@apply text-gray-800;
 }
 
-/* Dropdown menu */
 .user-menu {
 	@apply absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 text-gray-900 z-50;
 }
 
-/* User name in the menu */
 .user-name {
 	@apply px-4 py-2 text-lg font-semibold text-gray-900;
 }
 
-/* Menu item styles */
 .user-menu-item {
 	@apply flex items-center w-full px-4 py-2 text-base hover:bg-gray-100;
 }
 
-/* Add custom styles for the Delete Account button */
 .user-menu-item.delete-account {
 	@apply text-red-500 bg-transparent hover:bg-red-100 border-none cursor-pointer;
 }
@@ -99,81 +91,79 @@
 	@apply text-red-700;
 }
 
-/* Divider between user name and menu items */
 .user-menu-divider {
 	@apply border-gray-200;
 }
 
-/* Sidebar styles */
 .sidebar {
-	@apply w-16 sm:w-56 h-screen bg-gray-200 border-gray-200 font-lato text-gray-900 px-4 sm:px-8 py-4;
+	@apply w-16 sm:w-56 min-h-screen bg-gray-200 border-gray-200 font-lato text-gray-900 px-4 sm:px-8 py-4;
 }
 
-/* Sidebar list styles */
 .sidebar-list {
 	@apply space-y-2;
 }
 
-/* Sidebar link item styles */
 .sidebar-item {
 	@apply flex items-center hover:bg-gray-300 px-2 py-2 rounded;
 }
 
-/* Space between icon and text */
 .sidebar-item span {
-	@apply ml-2; /* Adjust the value as needed */
+	@apply ml-2;
 }
 
-/* Icon size */
 .sidebar-icon {
 	@apply w-5 h-5 mr-3;
 }
 
-/* Hidden text for small screens */
 .sidebar-text {
 	@apply hidden sm:inline  text-base;
 }
-/* Adjust icon size for different screen sizes */
+
 .iconsize {
-	@apply w-5 h-5  ;
+	@apply w-5 h-5;
 }
 
 .btn1 {
-	@apply bg-gray-100 px-8 py-2  text-gray-900  rounded-md shadow hover:bg-gray-200;
-  }
-  .btn1.active {
-		@apply bg-sky-200;
-  }
+	@apply bg-gray-100 px-4 py-2 text-gray-900  rounded-md shadow hover:bg-gray-200;
+}
+.btn1.active {
+	@apply bg-sky-200 font-lato;
+}
 
-.table1 {
-    @apply w-full border border-gray-200 rounded-lg;
-  }
- .th1 {
-    @apply text-center text-lg font-semibold  border border-gray-200 dark:border-gray-600;
-  }
-.td1 {
-    @apply text-center text-sm  border border-gray-200 dark:border-gray-600;
-  }
-.tr1 {
-    @apply w-full border border-gray-200 dark:border-gray-600;
-  } 
+.taskbutton1 {
+	@apply space-x-8 sm:space-x-2  text-sm  sm:text-base my-3 mx-2 sm:mx-8 font-lato flex flex-row text-center;
+}
 
-  .h-96 {
-    max-height: 24rem; /* Adjust the height to your preference */
-  }
-  th {
-    background-color: #f1f5f9; /* Light color for the header */
-  }
-  tbody {
-    display: block;
-    overflow-y: auto;
-  }
-  thead,
-  tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
-  thead {
-    width: calc(100% - 1px);
-  }
+.taskbutton2 {
+	@apply space-y-2 sm:space-y-0 sm:space-x-2 mx-2 sm:mx-8 sm:text-base font-lato flex flex-col md:flex-row text-sm;
+}
+
+.tabs {
+	@apply w-full border rounded-lg  font-lato;
+}
+
+.thead {
+	@apply sticky top-0 text-sm sm:text-base text-gray-900 font-lato bg-gray-300;
+}
+
+.tabledata {
+	@apply text-center text-sm  border border-gray-200 dark:border-gray-600 font-lato hover:bg-gray-100;
+}
+
+.tbody {
+	@apply block overflow-y-auto;
+}
+
+.chart {
+	@apply h-80 w-full relative;
+}
+.canvas {
+	@apply absolute inset-0 w-full h-full;
+}
+
+thead,
+tbody tr {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
