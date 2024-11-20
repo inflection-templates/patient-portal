@@ -1,7 +1,6 @@
 <script lang="ts">
 	import VitalsGraph from './vitals-graph.svelte';
 	import VitalsData from './vitals-data.svelte';
-	import JoinLineChart from './JoinLineChart.svelte';
 	// export let data;
 
 	export let title;
@@ -12,13 +11,13 @@
 <div class="flex flex-col justify-center mx-10 py-2">
 	<div class="grid grid-cols-1 justify-center rounded-lg gap-8 my-2">
 		<div
-			class="flex flex-col justify-center items-center h-full gap-10 w-full p-4 rounded-lg shadow-xl border"
+			class="flex flex-col justify-center items-center h-full gap-2 w-full p-4 rounded-lg shadow-xl border"
 		>
 			<div
-				class="flex overflow-x-auto h-[100%] p-2 justify-center items-center rounded-lg sm:px-4 w-full"
+				class="flex overflow-x-auto h-full p-2 justify-center items-center rounded-lg sm:px-4 w-full "
 			>
-				<div class="w-full">
-					<div class="flex items-center flex-col">
+				<div class="w-full ">
+					<div class="flex items-center flex-col ">
 						{#if title == 'Height'}
 							<VitalsGraph {data} {title} />
 						{:else if title == 'Weight'}
@@ -38,9 +37,9 @@
 				</div>
 			</div>
 
-			<div class="flex h-[100%] justify-center items-center rounded-lg sm:px-4 w-full">
+			<div class="flex h-full justify-center items-center rounded-lg sm:px-4 w-full ">
 				<div class="w-full">
-					<div class="flex items-center flex-col p-8">
+					<div class="flex items-center flex-col p-2">
 						<VitalsData {data} {title} />
 					</div>
 				</div>

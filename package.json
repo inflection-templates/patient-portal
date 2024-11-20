@@ -40,6 +40,7 @@
 	"dependencies": {
 		"@iconify/svelte": "^4.0.2",
 		"chart.js": "^4.4.6",
+		"chartjs-plugin-annotation": "^3.1.0",
 		"redis": "^4.7.0",
 		"sveltekit-flash-message": "^2.4.4",
 		"zod": "^3.23.8",

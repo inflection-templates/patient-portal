@@ -1,7 +1,7 @@
 <script lang="ts">
-	import BarChart from './BarChart.svelte';
-	import LineChart from './LineChart.svelte';
-	import JoinLineChart from './JoinLineChart.svelte';
+	import BarChart from '../vitals.graphs/BarChart.svelte';
+	import LineChart from '../vitals.graphs/LineChart.svelte';
+	import JoinLineChart from '../vitals.graphs/JoinLineChart.svelte';
 	export let data;
 	export let title;
 
@@ -10,6 +10,9 @@
 	let value1: any[] = [];
 
 	$: if (data && Array.isArray(data)) {
+		data.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
 		date = data.map((item) => item.date);
 		value = data.map((item) => item.value);
 		value1 = data.map((item) => item.value1);

@@ -3,7 +3,7 @@
 	import type { PageServerData } from './$types';
 	import chalk from 'chalk';
 	import { page } from '$app/stores';
-	import { formatDateMonth } from '$lib/components/home/functions';
+	import { formatDateMonth,handleVitals,formatBloodPressureData,formatData } from '$lib/utils.ts/functions';
 	import { onMount } from 'svelte';
 
 	const userId = $page.params.userId;
@@ -16,22 +16,7 @@
 	let temperatureData = data.temperatureData?.BodyTemperatureRecords?.Items;
 	let pulseData = data.pulseRateData?.PulseRecords?.Items;
 
-	function formatData(data: any, valueKey: any) {
-		return data.map((item) => ({
-			value: item[valueKey],
-			date: formatDateMonth(item.RecordDate),
-			unit: item.Unit
-		}));
-	}
 
-	function formatBloodPressureData(data: any, valueKey1: any, valueKey2: any) {
-		return data.map((item) => ({
-			value: item[valueKey1],
-			value1: item[valueKey2],
-			date: formatDateMonth(item.RecordDate),
-			unit: item.Unit
-		}));
-	}
 
 	const formattedHeightData = formatData(heightData, 'BodyHeight');
 	console.log('formattedHeightData', formattedHeightData);
@@ -41,12 +26,23 @@
 		'Systolic',
 		'Diastolic'
 	);
+	console.log('BloodPressureData', formattedBloodPressureData);
 	const formattedGlucoseData = formatData(glucoseData, 'BloodGlucose');
 	const formattedOxygenSaturationData = formatData(oxygenSaturationData, 'BloodOxygenSaturation');
 	const formattedTemperatureData = formatData(temperatureData, 'BodyTemperature');
 	const formattedPulseData = formatData(pulseData, 'Pulse');
 
-	console.log('heightData', formattedBloodPressureData);
+	const sampleHeightData = handleVitals(formattedHeightData, 'Height');
+	const sampleWeightData = handleVitals(formattedWeightData, 'Weight');
+	const sampleBloodPressureData = handleVitals(formattedBloodPressureData, 'Blood Pressure');
+	const sampleGlucoseData = handleVitals(formattedGlucoseData, 'Glucose');
+	const sampleOxygenSaturationData = handleVitals(formattedOxygenSaturationData, 'Oxygen Saturation');
+	const sampleTemperatureData = handleVitals(formattedTemperatureData, 'Temperature');
+	const samplePulseData = handleVitals(formattedPulseData, 'Pulse');
+
+	console.log("sampledBloodPressureData", sampleBloodPressureData);
+
+	
 
 	let activeVital: string = 'Height';
 	const vitals = [
@@ -62,19 +58,19 @@
 	$: currentData = (() => {
 		switch (activeVital) {
 			case 'Height':
-				return formattedHeightData;
+				return sampleHeightData;
 			case 'Weight':
-				return formattedWeightData;
+				return sampleWeightData;
 			case 'Blood Pressure':
 				return formattedBloodPressureData;
 			case 'Glucose':
-				return formattedGlucoseData;
+				return sampleGlucoseData;
 			case 'Oxygen Saturation':
-				return formattedOxygenSaturationData;
+				return sampleOxygenSaturationData;
 			case 'Temperature':
-				return formattedTemperatureData;
+				return sampleTemperatureData;
 			case 'Pulse':
-				return formattedPulseData;
+				return samplePulseData;
 			default:
 				return [];
 		}

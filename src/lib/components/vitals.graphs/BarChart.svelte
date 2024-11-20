@@ -45,6 +45,10 @@
 							display: false
 						},
 						ticks: {
+							autoSkip: true,
+							autoSkipPadding: 10,
+							maxRotation: 30,
+							minRotation: 0,
 							color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080'
 						},
 						title: {
@@ -54,7 +58,7 @@
 						}
 					},
 					y: {
-						beginAtZero: true,
+						beginAtZero: false,
 						grid: {
 							display: true,
 							color: 'rgba(0, 0, 0, 0.1)', // Light gray, 10% opacity
@@ -73,7 +77,7 @@
 				},
 				layout: {
 					padding: {
-						bottom: 20
+						bottom: 0
 					}
 				},
 				plugins: {

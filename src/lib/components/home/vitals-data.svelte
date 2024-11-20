@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDateMonth } from "./functions";
+	import { formatDateMonth } from "../../utils.ts/functions";
 
 	export let data
 	export let title

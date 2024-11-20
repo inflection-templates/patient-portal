@@ -1,15 +1,21 @@
-<script lang="ts">
+
+  <script lang="ts">
     import { onMount, onDestroy } from 'svelte';
     import Chart from 'chart.js/auto';
-  
+    import annotationPlugin from 'chartjs-plugin-annotation';
+
+    Chart.register(annotationPlugin);
+
     export let labels: string[] = [];
     export let data1: number[] = []; // Data for first line
     export let data2: number[] = []; // Data for second line
     export let title: string;
-  
+    export let systolicReference: number = 120; // Reference line value for systolic
+    export let diastolicReference: number = 80; // Reference line value for diastolic
+
     let barChart: Chart;
     let ctx;
-  
+
     onMount(() => {
       try {
         ctx = barChart.getContext('2d');
@@ -31,7 +37,7 @@
               {
                 label: 'Diastolic',
                 data: data2,
-                borderColor: '#FF0000', // Different color for second line
+                borderColor: '#A5DFF3', // Different color for second line
                 backgroundColor: 'transparent',
                 borderWidth: 2,
                 pointRadius: 2,
@@ -49,6 +55,10 @@
                   display: false
                 },
                 ticks: {
+                  autoSkip: true,
+                  autoSkipPadding: 10,
+                  maxRotation: 30,
+                  minRotation: 0,
                   color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080'
                 },
                 title: {
@@ -76,7 +86,7 @@
             },
             layout: {
               padding: {
-                bottom: 20
+                bottom: 0
               }
             },
             plugins: {
@@ -97,26 +107,52 @@
                   weight: 'normal',
                   lineHeight: 1.2
                 }
+              },
+              annotation: {
+                annotations: {
+                  systolicLine: {
+                    type: 'line',
+                    yMin: systolicReference,
+                    yMax: systolicReference,
+                    borderColor: '808080', // Red color for reference line
+                    borderWidth: 0.5,
+                    borderDash: [5, 5],
+                    label: {
+                      content: 'Systolic Reference',
+                      enabled: true,
+                      position: 'end',
+                      color: '#FF0000'
+                    }
+                  },
+                  diastolicLine: {
+                    type: 'line',
+                    yMin: diastolicReference,
+                    yMax: diastolicReference,
+                    borderColor: '808080', // Blue color for reference line
+                    borderWidth: 0.5,
+                    borderDash: [5, 5],
+                    label: {
+                      content: 'Diastolic Reference',
+                      enabled: true,
+                      position: 'end',
+                      color: '#0000FF'
+                    }
+                  }
+                }
               }
             }
           }
         });
       } catch (error) {
-        console.error('Error initializing chart:', error);
+        console.error('Chart.js initialization error:', error);
       }
     });
-  
+
     onDestroy(() => {
       if (barChart) {
         barChart.destroy();
       }
     });
-  </script>
-  
-  <div class="h-80 w-full p-2">
-    {#if data1 && data1.length > 0 && data2 && data2.length > 0}
-      <canvas bind:this={barChart} style="display: block;"></canvas>
-    {:else}
-      <p>No data available.</p>
-    {/if}
-  </div>
+</script>
+
+<canvas bind:this={barChart} class="w-full h-96"></canvas>

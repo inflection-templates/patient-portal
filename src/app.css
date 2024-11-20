@@ -149,13 +149,13 @@
     @apply w-full border border-gray-200 rounded-lg;
   }
  .th1 {
-    @apply text-center text-lg font-semibold  border border-gray-200 dark:border-gray-600;
+    @apply text-center text-lg font-semibold  border border-gray-200 dark:border-gray-200;
   }
 .td1 {
-    @apply text-center text-sm  border border-gray-200 dark:border-gray-600;
+    @apply text-center text-sm  border border-gray-200 dark:border-gray-200;
   }
 .tr1 {
-    @apply w-full border border-gray-200 dark:border-gray-600;
+    @apply w-full border border-gray-200 dark:border-gray-200;
   } 
 
   .h-96 {
