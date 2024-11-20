@@ -8,42 +8,25 @@
 	export let data;
 </script>
 
-<div class="flex flex-col justify-center mx-10 py-2">
-	<div class="grid grid-cols-1 justify-center rounded-lg gap-8 my-2">
-		<div
-			class="flex flex-col justify-center items-center h-full gap-2 w-full p-4 rounded-lg shadow-xl border"
-		>
-			<div
-				class="flex overflow-x-auto h-full p-2 justify-center items-center rounded-lg sm:px-4 w-full "
-			>
-				<div class="w-full ">
-					<div class="flex items-center flex-col ">
-						{#if title == 'Height'}
-							<VitalsGraph {data} {title} />
-						{:else if title == 'Weight'}
-							<VitalsGraph {data} {title} />
-						{:else if title == 'Blood Pressure'}
-							<VitalsGraph {data} {title} />
-						{:else if title == 'Glucose'}
-							<VitalsGraph {data} {title} />
-						{:else if title == 'Oxygen Saturation'}
-							<VitalsGraph {data} {title} />
-						{:else if title == 'Temperature'}
-							<VitalsGraph {data} {title} />
-						{:else if title == 'Pulse'}
-							<VitalsGraph {data} {title} />
-						{/if}
-					</div>
-				</div>
-			</div>
-
-			<div class="flex h-full justify-center items-center rounded-lg sm:px-4 w-full ">
-				<div class="w-full">
-					<div class="flex items-center flex-col p-2">
-						<VitalsData {data} {title} />
-					</div>
-				</div>
-			</div>
+<div class="mx-2 sm:mx-8">
+	<div class=" my-4">
+		<div class=" border">
+			{#if title == 'Height'}
+				<VitalsGraph {data} {title} />
+			{:else if title == 'Weight'}
+				<VitalsGraph {data} {title} />
+			{:else if title == 'Blood Pressure'}
+				<VitalsGraph {data} {title} />
+			{:else if title == 'Glucose'}
+				<VitalsGraph {data} {title} />
+			{:else if title == 'Oxygen Saturation'}
+				<VitalsGraph {data} {title} />
+			{:else if title == 'Temperature'}
+				<VitalsGraph {data} {title} />
+			{:else if title == 'Pulse'}
+				<VitalsGraph {data} {title} />
+			{/if}
 		</div>
 	</div>
+	<VitalsData {data} {title} />
 </div>

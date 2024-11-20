@@ -108,4 +108,6 @@
 	});
 </script>
 
-<canvas class="w-full" bind:this={barChart}></canvas>
+<div class="chart">
+	<canvas bind:this={barChart} class="canvas"></canvas>
+</div>

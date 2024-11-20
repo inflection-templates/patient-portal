@@ -84,8 +84,8 @@
 	}
 </script>
 
-<div class="container">
-	<div class="space-x-2 mt-4 ml-10">
+<div>
+	<div class="taskbutton1">
 		<a
 			class={`btn1 ${activeButton === 'taskHistory' ? 'active' : ''}`}
 			href={`/users/${userId}/home/`}
@@ -101,7 +101,8 @@
 			Vitals History
 		</button>
 	</div>
-	<div class="space-x-2 mt-4 mx-10">
+
+	<div class="taskbutton2">
 		{#each vitals as vital}
 			<button
 				class="btn1"
@@ -112,5 +113,5 @@
 			</button>
 		{/each}
 	</div>
-	<VitalsMain data={currentData} title={activeVital} />
 </div>
+<VitalsMain data={currentData} title={activeVital} />

@@ -3,12 +3,11 @@
 	import Sidebar from '$lib/components/home/Sidebar.svelte';
 </script>
 
-<!-- <Navbar />
-<Sidebar />
-<slot /> -->
-
 <Navbar />
-<div class="flex flex-row">
-	<div><Sidebar /></div>
-	<div class="w-full"><slot/></div>
+
+<div class="flex">
+	<Sidebar />
+	<div class="flex-1 p-4">
+		<slot />
+	</div>
 </div>
