@@ -1,4 +1,3 @@
-
 <script lang="ts">
     import { onMount, onDestroy } from 'svelte';
     import Chart from 'chart.js/auto';
@@ -57,7 +56,7 @@
                 beginAtZero: false,
                 grid: {
                 display: true,
-                Color: 'rgba(0, 0, 0, 0.1)', // Light gray, 10% opacity
+                Color: 'rgba(0, 0, 0, 0.1)',
                 lineWidth: 0.5,
                 borderDash: [5, 30]
 
@@ -113,7 +112,7 @@
   
   <div class="h-full w-full p-2">
     {#if data && data.length > 0}
-      <canvas bind:this={barChart} style="display: block;"></canvas>
+      <canvas bind:this={barChart}></canvas>
     {:else}
       <p>No data available.</p>
     {/if}

@@ -9,7 +9,7 @@
 	export let secondDataSource: number[] = [];
 	export let title: string;
 
-	let barChart;
+	let barChart:any;
 	let ctx;
 
 	let xLabel = 'Month';
@@ -108,21 +108,13 @@
 					tooltip: {
 						callbacks: {
 							label: function (context) {
-								// Get the label for the dataset
 								let label = context.dataset.label || '';
-
-								// Add the x-axis value (label)
 								let xLabel = labels[context.dataIndex] || 'No label';
-
-								// Add the y-axis value (data point value)
 								let yValue = context.parsed.y !== null ? context.parsed.y : 'No value';
-
-								// Customizing the tooltip text
 								if (label) {
 									label += ': ';
 								}
 								label += `${xLabel} , Value: ${yValue}`;
-
 								return label;
 							}
 						}

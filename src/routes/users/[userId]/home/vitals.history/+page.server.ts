@@ -15,31 +15,37 @@ import { errorMessage } from '$lib/utils.ts/message.utils';
 import { string } from 'zod';
 
 ////////////////////////////////////////////////////////////////////////////
+const itemsPerPage = 100
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const sessionId = event.cookies.get('sessionId');
 		const userId = event.params.userId;
 
-		const height = await getHeights(sessionId, {userId});
+		const searchParams = {
+			userId: event.params.userId as string,
+			itemsPerPage: itemsPerPage
+		}
+
+		const height = await getHeights(sessionId, searchParams);
 		const heightData = height.Data;
 
-		const weight = await getWeights(sessionId, { userId });
+		const weight = await getWeights(sessionId, searchParams);
 		const weightData = weight.Data;
 
-		const temperature = await getTemperature(sessionId, {userId});
+		const temperature = await getTemperature(sessionId, searchParams);
 		const temperatureData = temperature.Data;
 
-		const glucose = await getGlucose(sessionId, {userId});
+		const glucose = await getGlucose(sessionId, searchParams);
 		const glucoseData = glucose.Data;
 
-		const oxygenSaturation = await getOxygenSaturation(sessionId, {userId});
+		const oxygenSaturation = await getOxygenSaturation(sessionId, searchParams);
 		const oxygenSaturationData = oxygenSaturation.Data;
 
-		const pressure = await getBloodPressure(sessionId, {userId});
+		const pressure = await getBloodPressure(sessionId, searchParams);
 		const pressureData = pressure.Data;
 
-		const pulseRate = await getPulse(sessionId, {userId});
+		const pulseRate = await getPulse(sessionId, searchParams);
 		const pulseRateData = pulseRate.Data;
 
 		if (

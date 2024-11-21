@@ -1,11 +1,11 @@
 import { BACKEND_API_URL } from '$env/static/private';
 import { delete_, get_, post_, put_ } from './common';
+import chalk from 'chalk';
 
 export const getHeights = async (
 	sessionId     :       string | undefined,
 	searchParams? : any,
 ) => {
-
 	console.log("getWeights searchParams:", searchParams);
 	let searchString = '';
 	if (searchParams) {
@@ -24,7 +24,7 @@ export const getHeights = async (
 	}
 	const url =
 		BACKEND_API_URL + `/clinical/biometrics/body-heights/search${searchString}`;
-	console.log(`getHeights url: ${url}`);
+		console.log(chalk.red(`url: ${url}`));
 	return await get_(url, true, sessionId);
 };
 
@@ -32,8 +32,6 @@ export const getGlucose = async (
 	sessionId     : string | undefined,
 	searchParams? : any,
 ) => {
-
-	console.log("getWeights searchParams:", searchParams);
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);
@@ -58,8 +56,6 @@ export const getBloodPressure = async (
 	sessionId     : string | undefined,
 	searchParams? : any,
 ) => {
-
-	console.log("getWeights searchParams:", searchParams);
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);
@@ -84,8 +80,6 @@ export const getOxygenSaturation = async (
 	sessionId     : string | undefined,
 	searchParams? : any,
 ) => {
-
-	console.log("getWeights searchParams:", searchParams);
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);
@@ -111,8 +105,6 @@ export const getTemperature = async (
 	sessionId     : string | undefined,
 	searchParams? : any,
 ) => {
-
-	console.log("getWeights searchParams:", searchParams);
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);
@@ -138,8 +130,6 @@ export const getWeights = async (
 	sessionId     : string | undefined,
 	searchParams?: any,
 ) => {
-
-	console.log("getWeights searchParams:", searchParams);
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);
@@ -157,7 +147,6 @@ export const getWeights = async (
 	}
 	const url =
 		BACKEND_API_URL + `/clinical/biometrics/body-weights/search${searchString}`;
-	console.log("getWeights url:", searchString,url);
 	return await get_(url, true, sessionId);
 };
 
@@ -165,8 +154,6 @@ export const getPulse = async (
 	sessionId     : string | undefined,
 	searchParams? : any,
 ) => {
-
-	console.log("getWeights searchParams:", searchParams);
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);

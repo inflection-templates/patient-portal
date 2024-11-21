@@ -30,7 +30,7 @@
 
 	<a
 		class={`btn1 ${activeButton === 'vitalsHistory' ? 'active' : ''}`}
-		href={`/users/${userId}/home/vitals-history`}
+		href={`/users/${userId}/home/vitals.history`}
 		on:click={() => setActive('vitalsHistory')}
 	>
 		Vitals History

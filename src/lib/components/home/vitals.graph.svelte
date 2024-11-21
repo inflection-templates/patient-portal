@@ -1,7 +1,7 @@
 <script lang="ts">
-	import BarChart from '../vitals.graphs/BarChart.svelte';
-	import LineChart from '../vitals.graphs/LineChart.svelte';
-	import JoinLineChart from '../vitals.graphs/JoinLineChart.svelte';
+	import BarChart from '../vitals.graphs/Bar.Chart.svelte';
+	import LineChart from '../vitals.graphs/Line.Chart.svelte';
+	import JoinLineChart from '../vitals.graphs/Join.Line.Chart.svelte';
 	export let data;
 	export let title;
 
