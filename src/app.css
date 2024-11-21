@@ -172,6 +172,12 @@
 .canvas {
 	@apply absolute inset-0 w-full h-full;
 }
+.text-center {
+	text-align: center;
+  }
+.p-4 {
+	padding: 1rem;
+  }
 
 thead,
 tbody tr {
