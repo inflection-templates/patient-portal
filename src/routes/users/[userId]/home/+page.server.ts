@@ -5,7 +5,6 @@ import { getUserTasks } from '$routes/api/services/user.task';
 import { format } from 'date-fns';
 import type { ProcessedChartData } from '$lib/utils.ts/chart.config';
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 interface UserTask {
     Status: string;
@@ -14,10 +13,7 @@ interface UserTask {
 }
 
 function processChartData(items: UserTask[]): ProcessedChartData {
-    // Filter for completed tasks only
     const completedItems = items.filter(item => item.Status === 'Completed');
-
-    // Group data by date and category
     const categoryCountsByDate = completedItems.reduce((acc, item) => {
         const date = new Date(item.FinishedAt);
         const dateStr = format(date, 'yyyy-MM-dd');
@@ -36,14 +32,11 @@ function processChartData(items: UserTask[]): ProcessedChartData {
         return acc;
     }, {} as Record<string, Record<string, number>>);
 
-    // Get sorted dates
     const sortedDates = Object.keys(categoryCountsByDate)
         .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
 
-    // Get unique categories
     const categories = Array.from(new Set(completedItems.map(item => item.Category)));
 
-    // Prepare datasets
     const datasets = categories.map(category => {
         const data = sortedDates
             .map(date => ({
@@ -64,16 +57,28 @@ function processChartData(items: UserTask[]): ProcessedChartData {
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
     const sessionId = event.cookies.get('sessionId') as string;
     
-    const response = await getUserTasks(sessionId, {
+    let itemsPerPage = 500;
+    let response;
+    const searchParams = {
         userId: event.params.userId as string,
         status: 'completed',
-    });
+        itemsPerPage: itemsPerPage 
+    }
+    
+    response = await getUserTasks(sessionId, searchParams);
 
     if (response.Status === 'failure' || response.HttpCode !== 200) {
         throw error(response.HttpCode, response.Message || 'An error occurred');
     }
 
     const userTasks = response.Data.UserTasks;
+    console.log(userTasks);
+
+    if (userTasks.TotalCount > itemsPerPage) {
+        itemsPerPage = userTasks.TotalCount;
+        response = await getUserTasks(sessionId, searchParams);
+    }
+
     const chartData = processChartData(userTasks.Items);
 
     return {
