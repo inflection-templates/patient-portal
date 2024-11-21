@@ -1,25 +1,27 @@
 <script lang="ts">
-	import VitalsMain from '$lib/components/home/vitals-main.svelte';
+	import VitalsMain from '$lib/components/home/vitals.main.svelte';
 	import type { PageServerData } from './$types';
 	import chalk from 'chalk';
 	import { page } from '$app/stores';
-	import { formatDateMonth,handleVitals,formatBloodPressureData,formatData } from '$lib/utils.ts/functions';
+	import {
+		formatDateMonth,
+		handleVitals,
+		formatBloodPressureData,
+		formatData
+	} from '$lib/utils.ts/functions';
 	import { onMount } from 'svelte';
 
 	const userId = $page.params.userId;
 	export let data: PageServerData;
-	let heightData = data.heightData?.BodyHeightRecords?.Items;
-	let weightData = data.weightData?.BodyWeightRecords?.Items;
-	let bloodPressureData = data.pressureData?.BloodPressureRecords?.Items;
-	let glucoseData = data.glucoseData?.BloodGlucoseRecords?.Items;
-	let oxygenSaturationData = data.oxygenSaturationData?.BloodOxygenSaturationRecords?.Items;
-	let temperatureData = data.temperatureData?.BodyTemperatureRecords?.Items;
-	let pulseData = data.pulseRateData?.PulseRecords?.Items;
-
-
+	let heightData = data.heightData?.BodyHeightRecords?.Items ?? [];
+	let weightData = data.weightData?.BodyWeightRecords?.Items ?? [];
+	let bloodPressureData = data.pressureData?.BloodPressureRecords?.Items ?? [];
+	let glucoseData = data.glucoseData?.BloodGlucoseRecords?.Items ?? [];
+	let oxygenSaturationData = data.oxygenSaturationData?.BloodOxygenSaturationRecords?.Items ?? [];
+	let temperatureData = data.temperatureData?.BodyTemperatureRecords?.Items ?? [];
+	let pulseData = data.pulseRateData?.PulseRecords?.Items ?? [];
 
 	const formattedHeightData = formatData(heightData, 'BodyHeight');
-	console.log('formattedHeightData', formattedHeightData);
 	const formattedWeightData = formatData(weightData, 'BodyWeight');
 	const formattedBloodPressureData = formatBloodPressureData(
 		bloodPressureData,
@@ -36,13 +38,12 @@
 	const sampleWeightData = handleVitals(formattedWeightData, 'Weight');
 	const sampleBloodPressureData = handleVitals(formattedBloodPressureData, 'Blood Pressure');
 	const sampleGlucoseData = handleVitals(formattedGlucoseData, 'Glucose');
-	const sampleOxygenSaturationData = handleVitals(formattedOxygenSaturationData, 'Oxygen Saturation');
+	const sampleOxygenSaturationData = handleVitals(
+		formattedOxygenSaturationData,
+		'Oxygen Saturation'
+	);
 	const sampleTemperatureData = handleVitals(formattedTemperatureData, 'Temperature');
 	const samplePulseData = handleVitals(formattedPulseData, 'Pulse');
-
-	console.log("sampledBloodPressureData", sampleBloodPressureData);
-
-	
 
 	let activeVital: string = 'Height';
 	const vitals = [
@@ -62,7 +63,7 @@
 			case 'Weight':
 				return sampleWeightData;
 			case 'Blood Pressure':
-				return formattedBloodPressureData;
+				return sampleBloodPressureData;
 			case 'Glucose':
 				return sampleGlucoseData;
 			case 'Oxygen Saturation':
