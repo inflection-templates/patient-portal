@@ -4,5 +4,10 @@
 </script>
 
 <Navbar />
-<Sidebar />
-<slot />
+
+<div class="flex">
+	<Sidebar />
+	<div class="flex-1 p-4">
+		<slot />
+	</div>
+</div>
