@@ -3,7 +3,7 @@ import { get_ } from "./common";
 
 /////////////////////////////////////////////////////////////////////////////
 
-export const getUserTasks = async (sessionId: string, searchParams?: Record<string, string>) => {
+export const getUserTasks = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);
