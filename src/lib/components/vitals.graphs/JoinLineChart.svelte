@@ -32,7 +32,7 @@
                 borderWidth: 2,
                 pointRadius: 2,
                 pointHoverRadius: 4,
-                tension: 0.1
+                tension: 0.3
               },
               {
                 label: 'Diastolic',
@@ -42,7 +42,7 @@
                 borderWidth: 2,
                 pointRadius: 2,
                 pointHoverRadius: 4,
-                tension: 0.1
+                tension: 0.3
               }
             ]
           },
