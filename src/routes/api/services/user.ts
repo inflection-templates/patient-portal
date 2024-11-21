@@ -3,12 +3,12 @@ import { post_, get_, delete_ } from './common';
 
 ///////////////////////////////////////////////////////////////////////////////
 
-export const generateOtp = async (phone: string, purpose?: string, loginRoleId?: number) => {
+export const generateOtp = async (phone: string, loginRoleId?: number, purpose?: string) => {
 	const url = BACKEND_API_URL + `/users/generate-otp`;
 	const body = {
 		Phone: phone,
+		RoleId: loginRoleId ? loginRoleId : 2,
 		Purpose: purpose ? purpose : 'Login',
-		RoleId: loginRoleId ? loginRoleId : 2
 	};
 	return await post_(url, body);
 };
