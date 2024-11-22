@@ -1,20 +1,19 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
-	// import { getTickColorLight, getTickColorDark } from '$lib/themes/theme.selector';
 
 	/////////////////////////////////////////////////////////////////////////////
 
 	export let labels: string[] = [];
-	export let dataSource: number[] = [];
+	export let firstDataSource: number[] = [];
+	export let secondDataSource: number[] = [];
 	export let title: string;
 
-	$: console.log('labels', labels);
-	$: console.log('dataSource', dataSource);
-
-	let barChart: any;
+	let barChart:any;
 	let ctx;
 
+	let xLabel = 'Month';
+	let yLabel = 'User Count';
 	onMount(() => {
 		ctx = barChart.getContext('2d');
 		barChart = new Chart(ctx, {
@@ -23,11 +22,22 @@
 				labels: labels,
 				datasets: [
 					{
-						label: title,
-						data: dataSource,
-						backgroundColor: '#A8E3F7',
-						borderColor: '#D72929',
+						data: firstDataSource,
+						backgroundColor: '#68d33d',
+						borderColor: '#5EC009',
 						borderWidth: 1,
+						label: 'Patient Registration Moth',
+						borderRadius: {
+							topLeft: 4,
+							topRight: 4
+						}
+					},
+					{
+						data: secondDataSource,
+						backgroundColor: '#f86565',
+						borderColor: '#5EC1E9',
+						borderWidth: 1,
+						label: 'Patient Deregistration Month',
 						borderRadius: {
 							topLeft: 4,
 							topRight: 4
@@ -49,24 +59,21 @@
 						},
 						title: {
 							display: true,
-							text: 'Dates',
+							text: xLabel,
 							color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080'
 						}
 					},
 					y: {
 						beginAtZero: true,
 						grid: {
-							display: true,
-							color: 'rgba(0, 0, 0, 0.1)', // Light gray, 10% opacity
-							lineWidth: 0.3,
-							tickBorderDash: [10, 10] // Dashed lines
+							display: true
 						},
 						ticks: {
 							color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080'
 						},
 						title: {
 							display: true,
-							text: title,
+							text: yLabel,
 							color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080'
 						}
 					}
@@ -77,26 +84,40 @@
 					}
 				},
 				plugins: {
-					// legend: {
-					// 	display: true,
-					// 	position: 'top',
-					// 	align: 'center'
-					// },
-					title: {
+					legend: {
 						display: true,
+						position: 'top',
+						align: 'center',
+						labels: {
+							color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080'
+						}
+					},
+					title: {
+						display: false,
 						text: title,
 						position: 'top',
+						color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080',
 						align: 'start',
-						padding: 5,
+						padding: 20,
 						font: {
 							size: 22,
 							weight: 'normal',
 							lineHeight: 1.2
 						}
 					},
-
 					tooltip: {
-						callbacks: {}
+						callbacks: {
+							label: function (context) {
+								let label = context.dataset.label || '';
+								let xLabel = labels[context.dataIndex] || 'No label';
+								let yValue = context.parsed.y !== null ? context.parsed.y : 'No value';
+								if (label) {
+									label += ': ';
+								}
+								label += `${xLabel} , Value: ${yValue}`;
+								return label;
+							}
+						}
 					}
 				}
 			}
@@ -104,6 +125,4 @@
 	});
 </script>
 
-<div class="chart">
-	<canvas bind:this={barChart} class="canvas"></canvas>
-</div>
+<canvas class="canvas" bind:this={barChart}></canvas>

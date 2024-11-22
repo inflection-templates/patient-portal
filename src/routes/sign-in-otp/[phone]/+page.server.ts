@@ -52,6 +52,7 @@ import { loginWithOtp } from '$routes/api/services/user';
 import { errorMessage, successMessage } from '$lib/utils.ts/message.utils';
 import { SessionManager } from '$routes/api/sessions/session.manager';
 import { CookieUtils } from '$lib/utils.ts/cookie.utils';
+import { findIdByRoleName, getUserRoles } from '$routes/api/services/types.js';
 
 //////////////////////////////////////////////////////////////////
 
@@ -101,8 +102,12 @@ export const actions: Actions = {
 		const data = Object.fromEntries(await request.formData());
         const otp = data.otp as string;
         const phone = data.phone as string;
+
+		const allRoles = await getUserRoles();
+
+		const loginRoleId = findIdByRoleName(allRoles, 'Patient');
 		
-        const response = await loginWithOtp(otp, phone);
+        const response = await loginWithOtp(otp, phone, loginRoleId);
 
 		if (response.Status == 'failure' || response.HttpCode !== 200) {
 			throw redirect('/', errorMessage(response.Message), event);

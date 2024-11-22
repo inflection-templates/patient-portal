@@ -144,6 +144,18 @@
 	@apply bg-sky-200;
 }
 
+.table1 {
+    @apply w-full border border-gray-200 rounded-lg;
+  }
+ .th1 {
+    @apply text-center text-lg font-semibold  border border-gray-200 dark:border-gray-200;
+  }
+.td1 {
+    @apply text-center text-sm  border border-gray-200 dark:border-gray-200;
+  }
+.tr1 {
+    @apply w-full border border-gray-200 dark:border-gray-200;
+  } 
 .taskbutton1 {
 	@apply space-x-8 sm:space-x-2  text-sm sm:text-base my-3 mx-2 sm:mx-8 flex flex-row text-center;
 }
@@ -175,6 +187,12 @@
 .canvas {
 	@apply absolute inset-0 w-full h-full;
 }
+.text-center {
+	text-align: center;
+  }
+.p-4 {
+	padding: 1rem;
+  }
 
 thead,
 tbody tr {
