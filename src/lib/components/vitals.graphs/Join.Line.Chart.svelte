@@ -155,4 +155,10 @@
     });
 </script>
 
-<canvas bind:this={barChart} class="w-full h-96"></canvas>
+<div class="chart">
+  {#if data1 && data1.length > 0 && data2 && data2.length > 0}
+      <canvas bind:this={barChart} class="canvas"></canvas>
+  {:else}
+      <p>No data available.</p>
+  {/if}
+</div>
