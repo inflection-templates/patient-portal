@@ -1,21 +1,50 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 
+	///////////////////////////////////////////////////////////////////////////////
+
+	export let logout;
+	export let userId : string | undefined;
+	export let deleteAccount;
+	export let userName : string | undefined;
+	export let imageUrl : string | undefined;	
+
 	let showUserMenu = false;
-	const userName = 'Mayur Bankar';
 
-	const userMenuItems = [
-		{ label: 'User Profile', href: '/user-profile' },
-		{ label: 'Help', href: '/help' },
-		{ label: 'Sign Out', href: '/signout' },
-		{ label: 'Delete Account', type: 'button', class: 'delete-account' }
-	];
+	// const userMenuItems = [
+	// 	{ label: 'User Profile', href: '/user-profile' },
+	// 	{ label: 'Help', href: '/help' },
+	// 	{ label: 'Sign Out',type: 'button', href: '/signout' },
+	// 	{ label: 'Delete Account', type: 'button', class: 'delete-account' }
+	// ];
 
-	const handleDeleteAccount = () => {
-		if (confirm('Are you sure you want to delete your account? This action is irreversible.')) {
-			alert('Account deleted!');
+
+	async function myProfile() {
+
+		await goto(`/users/${userId}/my-profile`);
+	}
+
+	let userMenuItems = [
+		{ 
+		name   : 'User Profile', 
+		icon   : 'material-symbols:person-outline' ,
+		href   : `/users/${userId}/my-profile`
+		},
+		{ 
+		name	 : 'Sign Out', 
+		action : logout, 
+		icon	 : 'material-symbols:lock-outline',
+		type    : 'button' 
+		},
+		{ 
+		name   : 'Delete Account', 
+		action : deleteAccount, 
+		icon   : 'material-symbols:logout' ,
+		type    : 'button'
 		}
-	};
+  ];
+
 </script>
 
 <header class="navbar">
@@ -39,12 +68,12 @@
 
 					{#each userMenuItems as item}
 						{#if item.type === 'button'}
-							<button class="user-menu-item {item.class}" on:click={handleDeleteAccount}>
-								<span>{item.label}</span>
+							<button class="user-menu-item" on:click={item.action}>
+								<span>{item.name}</span>
 							</button>
 						{:else}
 							<a href={item.href} class="user-menu-item">
-								<span>{item.label}</span>
+								<span>{item.name}</span>
 							</a>
 						{/if}
 					{/each}
