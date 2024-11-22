@@ -1,49 +1,52 @@
 <script lang="ts">
-	import VitalsMain from '$lib/components/home/vitals.main.svelte';
+		import VitalsMain from '$lib/components/home/vitals.main.svelte';
 	import type { PageServerData } from './$types';
 	import chalk from 'chalk';
 	import { page } from '$app/stores';
-	import {
-		formatDateMonth,
-		handleVitals,
-		formatBloodPressureData,
-		formatData
-	} from '$lib/utils.ts/functions';
+	import { formatDateMonth } from '$lib/components/home/functions';
 	import { onMount } from 'svelte';
 
 	const userId = $page.params.userId;
 	export let data: PageServerData;
-	let heightData = data.heightData?.BodyHeightRecords?.Items ?? [];
-	let weightData = data.weightData?.BodyWeightRecords?.Items ?? [];
-	let bloodPressureData = data.pressureData?.BloodPressureRecords?.Items ?? [];
-	let glucoseData = data.glucoseData?.BloodGlucoseRecords?.Items ?? [];
-	let oxygenSaturationData = data.oxygenSaturationData?.BloodOxygenSaturationRecords?.Items ?? [];
-	let temperatureData = data.temperatureData?.BodyTemperatureRecords?.Items ?? [];
-	let pulseData = data.pulseRateData?.PulseRecords?.Items ?? [];
+	let heightData = data.heightData?.BodyHeightRecords?.Items;
+	let weightData = data.weightData?.BodyWeightRecords?.Items;
+	let bloodPressureData = data.pressureData?.BloodPressureRecords?.Items;
+	let glucoseData = data.glucoseData?.BloodGlucoseRecords?.Items;
+	let oxygenSaturationData = data.oxygenSaturationData?.BloodOxygenSaturationRecords?.Items;
+	let temperatureData = data.temperatureData?.BodyTemperatureRecords?.Items;
+	let pulseData = data.pulseRateData?.PulseRecords?.Items;
+
+	function formatData(data: any, valueKey: any) {
+		return data.map((item) => ({
+			value: item[valueKey],
+			date: formatDateMonth(item.RecordDate),
+			unit: item.Unit
+		}));
+	}
+
+	function formatBloodPressureData(data: any, valueKey1: any, valueKey2: any) {
+		return data.map((item) => ({
+			value: item[valueKey1],
+			value1: item[valueKey2],
+			date: formatDateMonth(item.RecordDate),
+			unit: item.Unit
+		}));
+	}
 
 	const formattedHeightData = formatData(heightData, 'BodyHeight');
+	console.log('formattedHeightData', formattedHeightData);
 	const formattedWeightData = formatData(weightData, 'BodyWeight');
 	const formattedBloodPressureData = formatBloodPressureData(
 		bloodPressureData,
 		'Systolic',
 		'Diastolic'
 	);
-	console.log('BloodPressureData', formattedBloodPressureData);
 	const formattedGlucoseData = formatData(glucoseData, 'BloodGlucose');
 	const formattedOxygenSaturationData = formatData(oxygenSaturationData, 'BloodOxygenSaturation');
 	const formattedTemperatureData = formatData(temperatureData, 'BodyTemperature');
 	const formattedPulseData = formatData(pulseData, 'Pulse');
 
-	const sampleHeightData = handleVitals(formattedHeightData, 'Height');
-	const sampleWeightData = handleVitals(formattedWeightData, 'Weight');
-	const sampleBloodPressureData = handleVitals(formattedBloodPressureData, 'Blood Pressure');
-	const sampleGlucoseData = handleVitals(formattedGlucoseData, 'Glucose');
-	const sampleOxygenSaturationData = handleVitals(
-		formattedOxygenSaturationData,
-		'Oxygen Saturation'
-	);
-	const sampleTemperatureData = handleVitals(formattedTemperatureData, 'Temperature');
-	const samplePulseData = handleVitals(formattedPulseData, 'Pulse');
+	console.log('heightData', formattedBloodPressureData);
 
 	let activeVital: string = 'Height';
 	const vitals = [
@@ -59,19 +62,19 @@
 	$: currentData = (() => {
 		switch (activeVital) {
 			case 'Height':
-				return sampleHeightData;
+				return formattedHeightData;
 			case 'Weight':
-				return sampleWeightData;
+				return formattedWeightData;
 			case 'Blood Pressure':
-				return sampleBloodPressureData;
+				return formattedBloodPressureData;
 			case 'Glucose':
-				return sampleGlucoseData;
+				return formattedGlucoseData;
 			case 'Oxygen Saturation':
-				return sampleOxygenSaturationData;
+				return formattedOxygenSaturationData;
 			case 'Temperature':
-				return sampleTemperatureData;
+				return formattedTemperatureData;
 			case 'Pulse':
-				return samplePulseData;
+				return formattedPulseData;
 			default:
 				return [];
 		}

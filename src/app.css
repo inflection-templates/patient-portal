@@ -1,8 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/Lato-Regular.ttf') format('ttf');
+}
+
+* {
+	font-family: 'Lato', sans-serif;
+}
 
 .section {
 	@apply min-h-screen bg-gray-100 flex items-center justify-center px-8 relative;
@@ -12,32 +22,35 @@
 }
 
 .btn {
-	@apply w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg shadow font-lato transition duration-200;
+	@apply w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg shadow transition duration-200;
 }
 
 .googlebtn {
-	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-gray-900 font-lato rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 transition;
+	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-gray-900 rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 transition;
 }
+
 .select {
-	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg px-1 py-2 font-lato;
+	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg px-1 py-2;
 }
 
 .input {
 	@apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg w-full px-3 py-2;
 }
+
 .inputotp {
 	@apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg w-full px-3 py-2 text-center;
 }
+
 .label {
-	@apply block mb-2 mt-2 text-sm font-medium text-gray-900 font-lato;
+	@apply block mb-2 mt-2 text-sm font-medium text-gray-900;
 }
 
 .para {
-	@apply text-sm font-light text-gray-600 text-center font-lato;
+	@apply text-sm font-light text-gray-600 text-center;
 }
 
 .heading {
-	@apply text-xl font-bold text-gray-900  font-lato;
+	@apply text-xl font-bold text-gray-900;
 }
 
 .logo {
@@ -45,10 +58,11 @@
 }
 
 .anchor {
-	@apply font-medium font-lato text-gray-900 hover:underline;
+	@apply font-medium text-gray-900 hover:underline;
 }
+
 .navbar {
-	@apply bg-gray-200 border border-gray-300 text-gray-900 text-sm  px-2 py-2 font-lato;
+	@apply bg-gray-200 border border-gray-300 text-gray-900 text-sm px-2 py-2;
 }
 
 .navbar {
@@ -96,7 +110,7 @@
 }
 
 .sidebar {
-	@apply w-16 sm:w-56 min-h-screen bg-gray-200 border-gray-200 font-lato text-gray-900 px-4 sm:px-8 py-4;
+	@apply w-16 sm:w-56 min-h-screen bg-gray-200 border-gray-200 text-gray-900 px-4 sm:px-8 py-4;
 }
 
 .sidebar-list {
@@ -124,42 +138,30 @@
 }
 
 .btn1 {
-	@apply bg-gray-100 px-4 py-2 text-gray-900  rounded-md shadow hover:bg-gray-200;
+	@apply bg-gray-100 px-4 py-2 text-gray-900 rounded-md shadow hover:bg-gray-200;
 }
 .btn1.active {
-	@apply bg-sky-200 font-lato;
+	@apply bg-sky-200;
 }
 
-.table1 {
-    @apply w-full border border-gray-200 rounded-lg;
-  }
- .th1 {
-    @apply text-center text-lg font-semibold  border border-gray-200 dark:border-gray-200;
-  }
-.td1 {
-    @apply text-center text-sm  border border-gray-200 dark:border-gray-200;
-  }
-.tr1 {
-    @apply w-full border border-gray-200 dark:border-gray-200;
-  } 
 .taskbutton1 {
-	@apply space-x-8 sm:space-x-2  text-sm  sm:text-base my-3 mx-2 sm:mx-8 font-lato flex flex-row text-center;
+	@apply space-x-8 sm:space-x-2  text-sm sm:text-base my-3 mx-2 sm:mx-8 flex flex-row text-center;
 }
 
 .taskbutton2 {
-	@apply space-y-2 sm:space-y-0 sm:space-x-2 mx-2 sm:mx-8 sm:text-base font-lato flex flex-col md:flex-row text-sm;
+	@apply space-y-2 sm:space-y-0 sm:space-x-2 mx-2 sm:mx-8 sm:text-base flex flex-col md:flex-row text-sm;
 }
 
 .tabs {
-	@apply w-full border rounded-lg  font-lato;
+	@apply w-full border rounded-lg;
 }
 
 .thead {
-	@apply sticky top-0 text-sm sm:text-base text-gray-900 font-lato bg-gray-300;
+	@apply sticky top-0 text-sm sm:text-base text-gray-900 bg-gray-300;
 }
 
 .tabledata {
-	@apply text-center text-sm  border border-gray-200 dark:border-gray-600 font-lato hover:bg-gray-100;
+	@apply text-center text-sm border border-gray-200 dark:border-gray-600 hover:bg-gray-100;
 }
 
 .tbody {
@@ -169,15 +171,10 @@
 .chart {
 	@apply h-80 w-full relative;
 }
+
 .canvas {
 	@apply absolute inset-0 w-full h-full;
 }
-.text-center {
-	text-align: center;
-  }
-.p-4 {
-	padding: 1rem;
-  }
 
 thead,
 tbody tr {
