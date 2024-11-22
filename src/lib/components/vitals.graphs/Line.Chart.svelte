@@ -110,10 +110,10 @@
     });
   </script>
   
-  <div class="h-full w-full p-2">
+  <div class="chart">
     {#if data && data.length > 0}
-      <canvas bind:this={barChart}></canvas>
+        <canvas bind:this={barChart} class="canvas"></canvas>
     {:else}
-      <p>No data available.</p>
+        <p>No data available.</p>
     {/if}
-  </div>
+</div>
