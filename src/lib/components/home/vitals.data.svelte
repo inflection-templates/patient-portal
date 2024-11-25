@@ -5,14 +5,13 @@
 	export let title: string;
   </script>
   
-  {#if data.length > 0}
 	{#if title == 'Blood Pressure'}
 	  <div class="tabs">
 		<div class="overflow-y-auto h-96">
 		  <table>
 			<thead class="thead">
 			  <tr>
-				<th class="p-2">Sr no</th>
+				<th class="p-2"></th>
 				<th class="p-2">Date</th>
 				<th class="p-2">Systolic ({data[0].unit})</th>
 				<th class="p-2">Diastolic ({data[0].unit})</th>
@@ -21,7 +20,7 @@
 			<tbody class="tbody">
 			  {#each data as item, index}
 				<tr class="tabledata">
-				  <td class="p-2">{index + 1}</td>
+				  <td class="">{index + 1}</td>
 				  <td class="p-2">{formatDateMonth(item.date)}</td>
 				  <td class="p-2">{item.value}</td>
 				  <td class="p-2">{item.value1}</td>
@@ -37,7 +36,7 @@
 		  <table>
 			<thead class="thead">
 			  <tr>
-				<th class="p-2">Sr no</th>
+				<th class=""></th>
 				<th class="p-2">Date</th>
 				<th class="p-2">{title} ({data[0].unit})</th>
 			  </tr>
@@ -45,7 +44,7 @@
 			<tbody class="bg-white">
 			  {#each data as item, index}
 				<tr class="tabledata">
-				  <td class="p-2">{index + 1}</td>
+				  <td class="">{index + 1}</td>
 				  <td class="p-2">{formatDateMonth(item.date)}</td>
 				  <td class="p-2">{item.value}</td>
 				</tr>
@@ -55,9 +54,5 @@
 		</div>
 	  </div>
 	{/if}
-  {:else}
-	<div class="p-4 text-center">
-	  <p>No data available for {title}.</p>
-	</div>
-  {/if}
+
   

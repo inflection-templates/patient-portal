@@ -81,13 +81,16 @@
 					}
 				},
 				plugins: {
-					// legend: {
-					// 	display: true,
-					// 	position: 'top',
-					// 	align: 'center'
-					// },
+					legend: {
+						display: false,
+						labels: {
+							color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080',
+							boxWidth: 10,
+							boxHeight: 10
+						}
+					},
 					title: {
-						display: true,
+						display: false,
 						text: title,
 						position: 'top',
 						align: 'start',

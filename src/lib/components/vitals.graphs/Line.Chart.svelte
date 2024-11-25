@@ -46,7 +46,6 @@
                 },
                 title: {
                   display: true,
-                  
                   text: 'Date',
                   color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080'
                 }
@@ -78,7 +77,7 @@
             },
             plugins: {
               legend: {
-                display: true,
+                display: false,
                 labels: {
                   color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080',
                   boxWidth: 10,
