@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 
 export const toasts = writable([]);
 
-export const addToast = (toast) => {
+export const addToast = (toast: { message?: string; type?: "info" | "error" | "success"; dismissible?: boolean; timeout: any; }) => {
   const id = Math.floor(Math.random() * 10000);
   const defaults = {
     id,
