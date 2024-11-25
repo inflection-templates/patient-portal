@@ -11,8 +11,6 @@
 		<div class="border">
 			{#if data.length > 0}
 				<VitalsGraph {data} {title} />
-			{:else}
-				<p class="text-center p-4">No data available for {title}.</p>
 			{/if}
 		</div>
 	</div>

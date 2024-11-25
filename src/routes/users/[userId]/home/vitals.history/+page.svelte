@@ -115,4 +115,9 @@
 		{/each}
 	</div>
 </div>
+{#if currentData.length != 0}
 <VitalsMain data={currentData} title={activeVital} />
+{:else}	
+<p class="text-center p-40">No data available for {activeVital}.</p>
+{/if}
+

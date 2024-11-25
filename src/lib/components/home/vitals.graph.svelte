@@ -19,7 +19,7 @@
 	}
 </script>
 
-{#if date.length > 0}
+{#if data}
 	<div>
 		{#if title == 'Height'}
 			<LineChart data={value} labels={date} {title} />
@@ -36,9 +36,5 @@
 		{:else if title == 'Pulse'}
 			<LineChart data={value} labels={date} {title} />
 		{/if}
-	</div>
-{:else}
-	<div class="">
-		<p class="">Data Not Available</p>
 	</div>
 {/if}

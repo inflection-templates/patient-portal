@@ -91,13 +91,23 @@
             },
             plugins: {
               legend: {
-                display: true, // Show legend for multiple lines
-                labels: {
-                  color: document.documentElement.classList.contains('dark') ? '#808080' : '#808080',
-                  boxWidth: 10,
-                  boxHeight: 10
-                }
+              display: true,
+              labels: {
+                boxWidth: 15,
+                boxHeight: 10,
+                generateLabels: (chart) => {
+                  return chart.data.datasets.map((dataset, index) => ({
+                    text: dataset.label,
+                    fillStyle: dataset.borderColor,
+                    strokeStyle: dataset.borderColor,
+                    lineWidth: 1,
+                    borderRadius: 3,
+                  }));
+                },
+                useBorderRadius: true,
+                color: '#808080',
               },
+            },
               title: {
                 display: false,
                 text: title,
@@ -114,7 +124,7 @@
                     type: 'line',
                     yMin: systolicReference,
                     yMax: systolicReference,
-                    borderColor: '808080', // Red color for reference line
+                    borderColor: '808080', 
                     borderWidth: 0.5,
                     borderDash: [5, 5],
                     label: {
@@ -128,7 +138,7 @@
                     type: 'line',
                     yMin: diastolicReference,
                     yMax: diastolicReference,
-                    borderColor: '808080', // Blue color for reference line
+                    borderColor: '808080',
                     borderWidth: 0.5,
                     borderDash: [5, 5],
                     label: {
