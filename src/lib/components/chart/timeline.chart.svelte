@@ -32,7 +32,7 @@
     });
 </script>
 
-<div class="w-full max-w-4xl mx-auto p-4 bg-white rounded-lg shadow">
+<div class="w-full mx-auto p-4 bg-white rounded-lg shadow">
     <div style="height: 400px;">
         <canvas bind:this={timeSeriesCanvas}></canvas>
     </div>

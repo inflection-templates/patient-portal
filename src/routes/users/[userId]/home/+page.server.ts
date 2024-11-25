@@ -4,15 +4,22 @@ import type { PageServerLoad } from './$types';
 import { getUserTasks } from '$routes/api/services/user.task';
 import { format } from 'date-fns';
 import type { ProcessedChartData } from '$lib/utils.ts/chart.config';
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
+// Interface definitions
 interface UserTask {
     Status: string;
     FinishedAt: string;
     Category: string;
 }
-
-function processChartData(items: UserTask[]): ProcessedChartData {
+interface TableRow {
+    date: string;
+    category: string;
+    count: number;
+}
+interface ProcessedData {
+    chartData: ProcessedChartData;
+    tableData: TableRow[];
+}
+function processData(items: UserTask[]): ProcessedData {
     const completedItems = items.filter(item => item.Status === 'Completed');
     const categoryCountsByDate = completedItems.reduce((acc, item) => {
         const date = new Date(item.FinishedAt);
@@ -34,9 +41,7 @@ function processChartData(items: UserTask[]): ProcessedChartData {
 
     const sortedDates = Object.keys(categoryCountsByDate)
         .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
-
     const categories = Array.from(new Set(completedItems.map(item => item.Category)));
-
     const datasets = categories.map(category => {
         const data = sortedDates
             .map(date => ({
@@ -44,16 +49,34 @@ function processChartData(items: UserTask[]): ProcessedChartData {
                 y: categoryCountsByDate[date][category] || 0
             }))
             .filter(point => point.y > 0);
-
         return {
             label: category,
             data
         };
     });
-
-    return { datasets };
+    const tableData: TableRow[] = [];
+    Object.entries(categoryCountsByDate).forEach(([date, categories]) => {
+        Object.entries(categories).forEach(([category, count]) => {
+            tableData.push({
+                date: format(new Date(date), 'MMM dd, yyyy'), // Format date for display
+                category,
+                count
+            });
+        });
+    });
+    
+    tableData.sort((a, b) => {
+        const dateComparison = new Date(b.date).getTime() - new Date(a.date).getTime();
+        if (dateComparison === 0) {
+            return a.category.localeCompare(b.category);
+        }
+        return dateComparison;
+    });
+    return {
+        chartData: { datasets },
+        tableData
+    };
 }
-
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
     const sessionId = event.cookies.get('sessionId') as string;
     
@@ -66,24 +89,20 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
     }
     
     response = await getUserTasks(sessionId, searchParams);
-
     if (response.Status === 'failure' || response.HttpCode !== 200) {
         throw error(response.HttpCode, response.Message || 'An error occurred');
     }
-
     const userTasks = response.Data.UserTasks;
-    console.log(userTasks);
-
     if (userTasks.TotalCount > itemsPerPage) {
         itemsPerPage = userTasks.TotalCount;
         response = await getUserTasks(sessionId, searchParams);
     }
-
-    const chartData = processChartData(userTasks.Items);
-
+    const { chartData, tableData } = processData(userTasks.Items);
+    
     return {
         userTasks,
         sessionId,
-        chartData
+        chartData,
+        tableData
     };
 };
