@@ -15,7 +15,7 @@
 			type: $flash.type || 'info',
 			message: $flash.message,
 			dismissible: true,
-			timeout: 9000
+			timeout: 3000
 		});
 		flash.set(undefined);
 	});

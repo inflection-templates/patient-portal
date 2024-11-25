@@ -21,8 +21,9 @@
 	};
 
 	const onDelete = async () => {
+		console.log('onDelete');
 		const response = await fetch(`/api/server/user/delete`, {
-			method: 'POST',
+			method: 'DELETE',
 			headers: { 'content-type': 'application/json' }
 		});
 		const resp = await response.text();

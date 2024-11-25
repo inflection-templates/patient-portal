@@ -1,50 +1,59 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Icon from '@iconify/svelte';
+	import ConfirmModal from '../modal/confirm.modal.svelte';
 
 	///////////////////////////////////////////////////////////////////////////////
 
 	export let logout;
-	export let userId : string | undefined;
-	export let deleteAccount;
-	export let userName : string | undefined;
-	export let imageUrl : string | undefined;	
+	export let userId: string | undefined;
+	export let deleteAccount: () => void;
+	export let userName: string | undefined;
+	export let imageUrl: string | undefined;
+	let showConfirmDelete_ = false;
+	$: showModal = showConfirmDelete_;
+
+	const deleteMessage_ =
+		'Are you sure you want to delete your account? ' +
+		'This action is irreversible, and all associated data will be permanently removed.';
+
+	$: deleteMessage = deleteMessage_;
 
 	let showUserMenu = false;
+	let userMenuItems = [
+		{
+			name: 'User Profile',
+			icon: 'material-symbols:person-outline',
+			href: `/users/${userId}/my-profile`
+		},
+		{
+			name: 'Sign Out',
+			action: logout,
+			icon: 'material-symbols:lock-outline',
+			type: 'button'
+		}
+		// {
+		// name   : 'Delete Account',
+		// action : deleteAccount,
+		// icon   : 'material-symbols:logout' ,
+		// type    : 'button'
+		// }
+	];
 
-	// const userMenuItems = [
-	// 	{ label: 'User Profile', href: '/user-profile' },
-	// 	{ label: 'Help', href: '/help' },
-	// 	{ label: 'Sign Out',type: 'button', href: '/signout' },
-	// 	{ label: 'Delete Account', type: 'button', class: 'delete-account' }
-	// ];
-
-
-	async function myProfile() {
-
-		await goto(`/users/${userId}/my-profile`);
+	function openModal() {
+		showModal = true;
 	}
 
-	let userMenuItems = [
-		{ 
-		name   : 'User Profile', 
-		icon   : 'material-symbols:person-outline' ,
-		href   : `/users/${userId}/my-profile`
-		},
-		{ 
-		name	 : 'Sign Out', 
-		action : logout, 
-		icon	 : 'material-symbols:lock-outline',
-		type    : 'button' 
-		},
-		{ 
-		name   : 'Delete Account', 
-		action : deleteAccount, 
-		icon   : 'material-symbols:logout' ,
-		type    : 'button'
+	function handleDeleteConfirm() {
+		if (deleteAccount) {
+			deleteAccount();
 		}
-  ];
+		showModal = false;
+	}
 
+	function handleDeleteCancel() {
+		showModal = false;
+	}
 </script>
 
 <header class="navbar">
@@ -77,8 +86,17 @@
 							</a>
 						{/if}
 					{/each}
+					<button class="user-menu-item" on:click={openModal}> Delete Account </button>
 				</div>
 			{/if}
 		</div>
 	</div>
+
+	<ConfirmModal
+		show={showModal}
+		title="Delete Account"
+		message={deleteMessage}
+		close={handleDeleteCancel}
+		confirm={handleDeleteConfirm}
+	/>
 </header>
