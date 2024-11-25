@@ -1,4 +1,5 @@
 import { BACKEND_API_URL } from '$env/static/private';
+import { CacheService } from '$lib/server/cache/cache.service';
 import { post_, get_, delete_ } from './common';
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -20,7 +21,6 @@ export const loginWithOtp = async (otp: string, phone: string, loginRoleId: numb
 		Otp: otp,
 		LoginRoleId: loginRoleId ?? 2
 	};
-	console.log("body-------------",body);
 	return await post_(url, body);
 };
 
@@ -31,12 +31,22 @@ export const getPatientById = async (sessionId: string, patientId: string) => {
 
 export const logout = async (sessionId: string) => {
 	const url = BACKEND_API_URL + `/users/logout`;
-	return await post_(url, {}, true, sessionId);
+	const result = await post_(url, {}, true, sessionId);
+	const findAndClearKeys = [
+        `req-getUserRoles`
+    ];
+    await CacheService.findAndClear(findAndClearKeys);
+	return result;
 };
 
 export const deletePatient = async (sessionId: string, patientId: string) => {
 	const url = BACKEND_API_URL + `/patients/${patientId}`;
-	return await delete_(url, true, sessionId);
+	const result = await delete_(url, true, sessionId);
+	const findAndClearKeys = [
+        `req-getUserRoles`
+    ];
+    await CacheService.findAndClear(findAndClearKeys);
+	return result;
 };
 
 

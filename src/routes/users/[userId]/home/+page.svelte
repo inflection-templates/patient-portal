@@ -22,14 +22,14 @@
 
 <div class="taskbutton1">
 	<button
-		class={`btn1 ${activeButton === 'taskHistory' ? 'active' : ''}`}
+		class={`history ${activeButton === 'taskHistory' ? 'active' : ''}`}
 		on:click={() => setActive('taskHistory')}
 	>
 		Task History
 	</button>
 
 	<a
-		class={`btn1 ${activeButton === 'vitalsHistory' ? 'active' : ''}`}
+		class={`history ${activeButton === 'vitalsHistory' ? 'active' : ''}`}
 		href={`/users/${userId}/home/vitals.history`}
 		on:click={() => setActive('vitalsHistory')}
 	>

@@ -1,15 +1,15 @@
 <script>
-  import { createEventDispatcher } from "svelte";
   import { fade } from "svelte/transition";
   import SuccessIcon from "../icons/success.icon.svelte";
   import ErrorIcon from "../icons/error.icon.svelte";
   import InfoIcon from "../icons/info.icon.svelte";
   import CloseIcon from "../icons/close.icon.svelte";
 
-  const dispatch = createEventDispatcher();
+  //////////////////////////////////////////////////////////////////////////////
 
   export let type = "error";
   export let dismissible = true;
+  export let dismiss;
 </script>
 
 <article class="{type} bg-gray-700"  role="alert" transition:fade>
@@ -26,7 +26,7 @@
   </div>
 
   {#if dismissible}
-    <button class="close" on:click={() => dispatch("dismiss")}>
+    <button class="close" on:click={dismiss}>
       <CloseIcon width="0.8em" />
     </button>
   {/if}

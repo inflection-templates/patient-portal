@@ -86,9 +86,9 @@
 </script>
 
 <div>
-	<div class="taskbutton1">
+	<div class="tasks">
 		<a
-			class={`btn1 ${activeButton === 'taskHistory' ? 'active' : ''}`}
+			class={`history ${activeButton === 'taskHistory' ? 'active' : ''}`}
 			href={`/users/${userId}/home/`}
 			on:click={() => setActive('taskHistory')}
 		>
@@ -96,17 +96,17 @@
 		</a>
 
 		<button
-			class={`btn1 ${activeButton === 'vitalsHistory' ? 'active' : ''}`}
+			class={`history ${activeButton === 'vitalsHistory' ? 'active' : ''}`}
 			on:click={() => setActive('vitalsHistory')}
 		>
 			Vitals History
 		</button>
 	</div>
 
-	<div class="taskbutton2">
+	<div class="activetasks">
 		{#each vitals as vital}
 			<button
-				class="btn1"
+				class="history"
 				on:click={() => setActiveVitals(vital)}
 				class:active={activeVital === vital}
 			>

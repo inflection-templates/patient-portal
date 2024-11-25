@@ -1,22 +1,22 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { sidebarMenu, type TabDefinition } from './navigation.tabs';
 
-	const sidebarItems = [
-		{ label: 'Home', icon: 'mdi:home', href: '/home' },
-		{ label: 'Careplan', icon: 'mdi:clipboard-text', href: '/careplan' },
-		{ label: 'Notifications', icon: 'mdi:bell', href: '/notifications' }
-	];
+	export let userId: string | undefined = undefined
+
+	const sidebarTabs: TabDefinition[] = sidebarMenu(userId);
+
 </script>
 
 <div class="flex">
-	<!-- Sidebar -->
+
 	<div class="sidebar">
 		<ul class="sidebar-list">
-			{#each sidebarItems as item}
+			{#each sidebarTabs as tab}
 				<li>
-					<a href={item.href} class="sidebar-item">
-						<Icon icon={item.icon} class="iconsize" />
-						<span class="sidebar-text">{item.label}</span>
+					<a href={tab.path} class="sidebar-item">
+						<Icon icon={tab.icon} class="iconsize" />
+						<span class="sidebar-text">{tab.name}</span>
 					</a>
 				</li>
 			{/each}
