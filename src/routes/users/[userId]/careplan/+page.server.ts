@@ -14,14 +14,14 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
     }
     
     response = await getUserTasks(sessionId, searchParams);
-    console.log(response);
+    // console.log(response);
 
     if (response.Status === 'failure' || response.HttpCode !== 200) {
         throw error(response.HttpCode, response.Message || 'An error occurred');
     }
 
     const userTasks = response.Data.UserTasks;
-    console.log(userTasks);
+    // console.log(userTasks);
 
     // if (userTasks.TotalCount > itemsPerPage) {
     //     itemsPerPage = userTasks.TotalCount;

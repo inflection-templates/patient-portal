@@ -37,7 +37,7 @@
 
 <div class="flex min-h-screen">
 	<Sidebar {userId} />
-	<div class="flex-1 p-4">
+	<div class="flex-1 p-4 overflow-x-hidden">
 		<slot />
 	</div>
 </div>
