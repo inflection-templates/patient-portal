@@ -1,6 +1,6 @@
 <script>
-	import Navbar from '$lib/components/home/navbar.svelte';
-	import Sidebar from '$lib/components/home/sidebar.svelte';
+	import Navbar from '$lib/components/home/Navbar.svelte';
+	import Sidebar from '$lib/components/home/Sidebar.svelte';
 	import { page } from '$app/stores';
 
 	//////////////////////////////////////////////////////////////////////
