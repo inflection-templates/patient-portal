@@ -84,3 +84,54 @@ export function handleVitals(vitalData: any[], vitalType: string) {
     return sampledData;
   }
   
+
+  export function getDayWiseData(tasks:any) {
+    let dayWiseData:any = {};
+    tasks.forEach((task) => {
+      const scheduledStartTime = new Date(task.ScheduledStartTime);
+      const day = scheduledStartTime.toISOString().split('T')[0];
+      if (!dayWiseData[day]) {
+        dayWiseData[day] = { scheduled: 0, completed: 0 };
+      }
+      dayWiseData[day].scheduled++;
+      if (task.Status === 'Completed') {
+        dayWiseData[day].completed++;
+      }
+    });
+  
+    let formattedDayWiseData:any = {};
+    let dayCounter = 1;
+    Object.keys(dayWiseData).sort((a, b) => new Date(a) - new Date(b)).forEach((day) => {
+      formattedDayWiseData[`Day ${dayCounter}`] = dayWiseData[day];
+      dayCounter++;
+    });
+  
+    return formattedDayWiseData;
+  }
+  
+  export function getWeekWiseData(tasks) {
+    let weekWiseData:any = {};
+    tasks.forEach((task) => {
+      const scheduledStartTime = new Date(task.ScheduledStartTime);
+      const week = getWeekNumber(scheduledStartTime);
+      if (!weekWiseData[week]) {
+        weekWiseData[week] = { scheduled: 0, completed: 0 };
+      }
+      weekWiseData[week].scheduled++;
+      if (task.Status === 'Completed') {
+        weekWiseData[week].completed++;
+      }
+    });
+  
+    let formattedWeekWiseData:any = {};
+    Object.keys(weekWiseData).forEach((week) => {
+      formattedWeekWiseData[`Week ${week}`] = weekWiseData[week];
+    });
+  
+    return formattedWeekWiseData;
+  }
+  
+  function getWeekNumber(date) {
+    const oneJan = new Date(date.getFullYear(), 0, 1);
+    return Math.ceil(((date - oneJan) / 86400000 + oneJan.getDay() + 1) / 7);
+  }

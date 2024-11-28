@@ -3,49 +3,41 @@
 	import CareplanGraph from '$lib/components/careplan/careplan.graph.svelte';
 	import type { any } from 'zod';
 	import type { PageServerData } from './$types';
-    import chalk from "chalk"
+	import chalk from 'chalk';
+	import { getDayWiseData, getWeekWiseData } from '$lib/utils.ts/functions';
 
-    export let data: PageServerData;
-    let tasks = data.userTasks.Items;
-    // console.log(chalk.redBright('Tasks'), tasks);
+	export let data: PageServerData;
+	let tasks = data.userTasks.Items;
+	// console.log(chalk.green('tasks'), tasks);
 
-// Initialize objects to store scheduled and completed tasks
-let scheduledTasks :any = {};
-let completedTasks :any = {};
+	let dayWiseData = getDayWiseData(tasks);
+	let weekWiseData = getWeekWiseData(tasks);
 
-// Loop through tasks and count scheduled and completed tasks for each day
-tasks.forEach(task => {
-  let date = new Date(task.ScheduledStartTime).toLocaleDateString(); // Extract date from ScheduledStartTime
+	console.log(dayWiseData);
+	console.log(weekWiseData);
 
-  // Count scheduled tasks
-  if (scheduledTasks[date]) {
-    scheduledTasks[date]++;
-  } else {
-    scheduledTasks[date] = 1;
-  }
+	function separateData(data) {
+		let labels = Object.keys(data);
+		let scheduled = labels.map((label) => data[label].scheduled);
+		let completed = labels.map((label) => data[label].completed);
 
-  // Count completed tasks
-  if (task.Status === 'Completed') {
-    if (completedTasks[date]) {
-      completedTasks[date]++;
-    } else {
-      completedTasks[date] = 1;
-    }
-  }
-});
+		return { labels, scheduled, completed };
+	}
 
-console.log('Scheduled Tasks:', scheduledTasks);
-console.log('Completed Tasks:', completedTasks);
+	let dayWiseSeparatedData = separateData(dayWiseData);
+	let weekWiseSeparatedData = separateData(weekWiseData);
+
 </script>
 
 <div class="flex flex-row w-full p-4 sm:mx-8">
 	<div class="w-[50%] h-fit">
 		<div class="">
-			<CareplanData {tasks}/>
+			<CareplanData  labels={weekWiseSeparatedData.labels} data1={weekWiseSeparatedData.scheduled} data2={weekWiseSeparatedData.completed} />
 		</div>
 	</div>
 	<div class="w-[50%] h-fit relative">
-    <div class="py-10 px-3">
-      <CareplanGraph {scheduledTasks} {completedTasks}/>
-    </div></div>
+		<div class="py-10 px-3">
+			<CareplanGraph labels={dayWiseSeparatedData.labels} data1={dayWiseSeparatedData.scheduled} data2={dayWiseSeparatedData.completed}  />
+		</div>
+	</div>
 </div>

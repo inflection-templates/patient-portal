@@ -5,15 +5,15 @@
 	/////////////////////////////////////////////////////////////////////////////
 
 	export let labels: string[] = [];
-	export let firstDataSource: number[] = [];
-	export let secondDataSource: number[] = [];
+	export let data1: number[] = [];
+	export let data2: number[] = [];
 	export let title: string;
 
 	let barChart:any;
 	let ctx;
 
-	let xLabel = 'Month';
-	let yLabel = 'User Count';
+	let xLabel = 'Date';
+	let yLabel = 'Tasks Status';
 	onMount(() => {
 		ctx = barChart.getContext('2d');
 		barChart = new Chart(ctx, {
@@ -22,22 +22,22 @@
 				labels: labels,
 				datasets: [
 					{
-						data: firstDataSource,
+						data: data1,
 						backgroundColor: '#68d33d',
 						borderColor: '#5EC009',
 						borderWidth: 1,
-						label: 'Patient Registration Moth',
+						label: 'Scheduled Task',
 						borderRadius: {
 							topLeft: 4,
 							topRight: 4
 						}
 					},
 					{
-						data: secondDataSource,
+						data: data2,
 						backgroundColor: '#f86565',
 						borderColor: '#5EC1E9',
 						borderWidth: 1,
-						label: 'Patient Deregistration Month',
+						label: 'Completed Task',
 						borderRadius: {
 							topLeft: 4,
 							topRight: 4
