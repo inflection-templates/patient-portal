@@ -5,7 +5,7 @@ on:
     branches: [develop]
 
 env:
-  S3_CONFIG_BUCKET: your-bucket-name
+  S3_CONFIG_BUCKET: patient-portal-configs
 
 jobs:
   deploy:
