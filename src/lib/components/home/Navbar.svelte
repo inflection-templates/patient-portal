@@ -1,14 +1,9 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 	import ConfirmModal from '../modal/confirm.modal.svelte';
-
-	///////////////////////////////////////////////////////////////////////////////
-
 	export let logout;
 	export let userId: string | undefined;
 	export let deleteAccount: () => void;
-	export let userName: string | undefined;
 	export let imageUrl: string | undefined;
 	let showConfirmDelete_ = false;
 	$: showModal = showConfirmDelete_;
@@ -20,46 +15,19 @@
 	$: deleteMessage = deleteMessage_;
 
 	let showUserMenu = false;
-
 	let showThemeMenu = false;
-	const user = 'Mayur Bankar';
+	const userName = 'Mayur Bankar';
 	const themeModes = ['Light', 'Dark'];
 	const themeOptions = ['Blue', 'Mint', 'Yellow', 'Teal', 'Bronze'];
 	let selectedMode = 'Light';
 	let selectedOption = '';
 
-	const userMenus = [
-		{
-			name: 'User Profile',
-			icon: 'material-symbols:person-outline',
-			href: `/users/${userId}/my-profile`,
-			type: 'button'
-		},
-		{
-			name: 'Sign Out',
-			icon: 'material-symbols:lock-outline',
-			href: `/home`,
-			type: 'button'
-		},
-		{ name: 'Themes', icon: '', href: ``, type: 'button' },
-		{ name: 'Help', icon: '', href: '/help', type: 'button' }
-		// { name: 'Delete Account', icon: '', href: '', type: 'button' }
+	const userMenuItems = [
+		{ label: 'User Profile', href: '/user-profile' },
+		{ label: 'Themes' },
+		{ label: 'Help', href: '/help' },
+		{ label: 'Sign Out', href: '/signout' }
 	];
-
-	function openModal() {
-		showModal = true;
-	}
-
-	function handleDeleteConfirm() {
-		if (deleteAccount) {
-			deleteAccount();
-		}
-		showModal = false;
-	}
-
-	function handleDeleteCancel() {
-		showModal = false;
-	}
 
 	const handleModeChange = (theme: string) => {
 		selectedMode = theme;
@@ -78,6 +46,21 @@
 
 		document.documentElement.setAttribute('data-theme-option', option);
 	};
+	function openModal() {
+		showModal = true;
+	}
+
+	function handleDeleteConfirm() {
+		if (deleteAccount) {
+			deleteAccount();
+		}
+		showModal = false;
+	}
+
+	function handleDeleteCancel() {
+		showModal = false;
+	}
+
 	const closeThemeMenu = () => {
 		showThemeMenu = false;
 	};
@@ -104,26 +87,22 @@
 			{#if showUserMenu}
 				<div class="user-menu">
 					<div class="user-name">
-						{user}
+						{userName}
 					</div>
 					<hr class="user-menu-divider" />
 
-					{#each userMenus as item}
-						{#if item.type === 'button'}
-							<button class="user-menu-item">
-								<span>{item.name}</span>
-							</button>
-						{:else if item.name === 'Themes'}
+					{#each userMenuItems as item}
+						{#if item.label === 'Themes'}
 							<button class="user-menu-item" on:click={() => (showThemeMenu = !showThemeMenu)}>
-								<span>{item.name}</span>
+								<span>{item.label}</span>
 							</button>
-						{:else if item.type === 'button'}
-							<button class="user-menu-item" on:click={deleteAccount}>
-								<span>{item.name}</span>
+						{:else if item.label === 'button'}
+							<button class="user-menu-item" on:click={openModal}>
+								<span>{item.label}</span>
 							</button>
 						{:else}
 							<a href={item.href} class="user-menu-item">
-								<span>{item.name}</span>
+								<span>{item.label}</span>
 							</a>
 						{/if}
 					{/each}
