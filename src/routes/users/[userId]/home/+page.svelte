@@ -3,23 +3,29 @@
 	import { page } from '$app/stores';
 	import Timeline from '$lib/components/chart/timeline.chart.svelte';
 	import type { PageServerData } from './$types';
+
+	///////////////////////////////////////////////////////////////////////////
+
 	export let data: PageServerData;
-	const { userTasks, chartData, tableData } = data;
+
+	const { userTasks, chartData } = data;
+
 	const userId = $page.params.userId;
+
 	let activeButton: string = 'taskHistory';
 	function setActive(button: string) {
 		activeButton = button;
 	}
+	const activevital = ['height', 'weight'];
 </script>
 
-<div>
-	<div class="tasks">
-		<button
-			class={`history ${activeButton === 'taskHistory' ? 'active' : ''}`}
-			on:click={() => setActive('taskHistory')}
-		>
-			Task History
-		</button>
+<div class="tasks">
+	<button
+		class={`history ${activeButton === 'taskHistory' ? 'active' : ''}`}
+		on:click={() => setActive('taskHistory')}
+	>
+		Task History
+	</button>
 
 		<a
 			class={`history ${activeButton === 'vitalsHistory' ? 'active' : ''}`}
@@ -30,16 +36,13 @@
 		</a>
 	</div>
 
-	<div class="mx-2 sm:mx-8">
-		<div class="my-4">
-			<div class="border">
-				{#if userTasks?.Items?.length > 0}
-					<Timeline {chartData} />
-				{:else}
-					<p class="text-center p-4">No Data Available</p>
-				{/if}
-			</div>
+<div class="usertasks">
+	<h1 >User Tasks</h1>
+	{#if userTasks?.Items?.length > 0}
+		<div>
+			<Timeline {chartData} />
 		</div>
-		<UserHistoryTable data={tableData} />
-	</div>
+	{:else}
+		<div>Data Not Available</div>
+	{/if}
 </div>

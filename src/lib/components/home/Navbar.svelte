@@ -20,24 +20,19 @@
 	$: deleteMessage = deleteMessage_;
 
 	let showUserMenu = false;
-	let userMenuItems = [
-		{
-			name: 'User Profile',
-			icon: 'material-symbols:person-outline',
-			href: `/users/${userId}/my-profile`
-		},
-		{
-			name: 'Sign Out',
-			action: logout,
-			icon: 'material-symbols:lock-outline',
-			type: 'button'
-		}
-		// {
-		// name   : 'Delete Account',
-		// action : deleteAccount,
-		// icon   : 'material-symbols:logout' ,
-		// type    : 'button'
-		// }
+	let showThemeMenu = false;
+	const userName = 'Mayur Bankar';
+	const themeModes = ['Light', 'Dark'];
+	const themeOptions = ['Blue', 'Mint', 'Yellow', 'Teal', 'Bronze'];
+	let selectedMode = 'Light';
+	let selectedOption = '';
+
+	const userMenuItems = [
+		{ label: 'User Profile', href: '/user-profile' },
+		{ label: 'Themes' },
+		{ label: 'Help', href: '/help' },
+		{ label: 'Sign Out', href: '/signout' },
+		{ label: 'Delete Account', type: 'button', class: 'delete-account' }
 	];
 
 	function openModal() {
@@ -48,12 +43,28 @@
 		if (deleteAccount) {
 			deleteAccount();
 		}
-		showModal = false;
-	}
+	};
 
-	function handleDeleteCancel() {
-		showModal = false;
-	}
+	const handleModeChange = (theme: string) => {
+		selectedMode = theme;
+		document.documentElement.setAttribute('data-theme', theme.toLowerCase());
+		applyThemeOption();
+	};
+
+	const handleOptionChange = (option: string) => {
+		selectedOption = option;
+		applyThemeOption();
+	};
+
+	const applyThemeOption = () => {
+		const theme = selectedMode.toLowerCase();
+		const option = selectedOption.toLowerCase();
+
+		document.documentElement.setAttribute('data-theme-option', option);
+	};
+	const closeThemeMenu = () => {
+		showThemeMenu = false;
+	};
 </script>
 
 <header class="navbar">
@@ -63,8 +74,14 @@
 			<h1 class="heading">Patient Portal</h1>
 		</div>
 
-		<div class="relative ml-auto">
-			<button class="user-profile-btn" on:click={() => (showUserMenu = !showUserMenu)}>
+		<div class="relative ml-auto flex items-center">
+			<button
+				class="user-profile-btn"
+				on:click={() => {
+					showUserMenu = !showUserMenu;
+					if (showUserMenu) showThemeMenu = false;
+				}}
+			>
 				<Icon icon="ant-design:user-outlined" class="iconsize" />
 			</button>
 
@@ -76,9 +93,13 @@
 					<hr class="user-menu-divider" />
 
 					{#each userMenuItems as item}
-						{#if item.type === 'button'}
-							<button class="user-menu-item" on:click={item.action}>
-								<span>{item.name}</span>
+						{#if item.label === 'Themes'}
+							<button class="user-menu-item" on:click={() => (showThemeMenu = !showThemeMenu)}>
+								<span>{item.label}</span>
+							</button>
+						{:else if item.type === 'button'}
+							<button class="user-menu-item {item.class}" on:click={handleDeleteAccount}>
+								<span>{item.label}</span>
 							</button>
 						{:else}
 							<a href={item.href} class="user-menu-item">
@@ -87,6 +108,31 @@
 						{/if}
 					{/each}
 					<button class="user-menu-item" on:click={openModal}> Delete Account </button>
+				</div>
+			{/if}
+
+			{#if showThemeMenu}
+				<div class="theme-menu">
+					<button class="themes-close-button" on:click={closeThemeMenu}>
+						<Icon icon="ant-design:close-outlined" class="text-xl" />
+					</button>
+					<div class="theme-modes">
+						{#each themeModes as theme}
+							<button class="theme-option" on:click={() => handleModeChange(theme)}>
+								{theme}
+							</button>
+						{/each}
+					</div>
+
+					<hr class=" theme-divider" />
+
+					<div class="theme-options">
+						{#each themeOptions as option}
+							<button class="theme-option" on:click={() => handleOptionChange(option)}>
+								{option}
+							</button>
+						{/each}
+					</div>
 				</div>
 			{/if}
 		</div>
