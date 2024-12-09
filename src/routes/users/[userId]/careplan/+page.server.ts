@@ -54,8 +54,6 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 
     const dayWiseSeparatedData = separateData(dayWiseData);
 	const weekWiseSeparatedData = separateData(weekWiseData);
-    console.log('111111111111',dayWiseSeparatedData);
-    console.log('11111111111111111',weekWiseSeparatedData);
 
     const { startDate, endDate } = getStartAndEndDates(careplanTasks);
 

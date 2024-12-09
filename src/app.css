@@ -139,3 +139,39 @@ tbody tr {
 	width: 100%;
 	table-layout: fixed;
 }
+
+.legend-scheduled {
+	@apply bg-green-500;
+  }
+  
+  .legend-completed {
+	@apply bg-red-500;
+  }
+  
+  .bg-table-header {
+	@apply bg-gray-50;
+  }
+  
+  .text-header {
+	@apply text-gray-800;
+  }
+  
+  .text-label {
+	@apply text-gray-700;
+  }
+  
+  .text-value {
+	@apply text-gray-900;
+  }
+  
+  .border-divider {
+	@apply border-gray-200;
+  }
+  
+  .bg-no-data {
+	@apply bg-gray-50;
+  }
+  
+  .text-no-data {
+	@apply text-gray-500;
+  }

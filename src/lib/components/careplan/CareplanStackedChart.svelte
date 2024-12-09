@@ -6,60 +6,66 @@
 
     interface CareplanTask {
         Task: string;
-        Category: string;
         Status: string;
+        ScheduledStartTime: string;
+        CreatedAt: string;
     }
 
     export let tasks: CareplanTask[] = [];
+    export let view: 'day' | 'week' = 'day';
 
     let canvas: HTMLCanvasElement;
     let chart: Chart;
 
-    function processTasksData(tasks: CareplanTask[]) {
-        // Group tasks by category
-        const categoryGroups = tasks.reduce((acc, task) => {
-            if (!acc[task.Category]) {
-                acc[task.Category] = {
-                    total: 0,
-                    completed: 0,
-                    pending: 0,
-                    delayed: 0
-                };
-            }
-            acc[task.Category].total++;
-            
-            switch (task.Status) {
-                case 'Completed':
-                    acc[task.Category].completed++;
-                    break;
-                case 'Pending':
-                    acc[task.Category].pending++;
-                    break;
-                case 'Delayed':
-                    acc[task.Category].delayed++;
-                    break;
-            }
-            return acc;
-        }, {});
+    function getDateLabel(date: Date, viewType: 'day' | 'week'): string {
+        if (viewType === 'week') {
+            const weekNumber = Math.ceil((date.getTime() - new Date(tasks[0].CreatedAt).getTime()) / (7 * 24 * 60 * 60 * 1000));
+            return `Week ${weekNumber}`;
+        }
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
 
-        const categories = Object.keys(categoryGroups);
+    function processTasksData(tasks: CareplanTask[], viewType: 'day' | 'week') {
+        const timeGroups = new Map();
         
+        tasks.forEach(task => {
+            const taskDate = new Date(task.ScheduledStartTime);
+            const label = getDateLabel(taskDate, viewType);
+
+            if (!timeGroups.has(label)) {
+                timeGroups.set(label, {
+                    completed: 0,
+                    pending: 0
+                });
+            }
+
+            const group = timeGroups.get(label);
+            if (task.Status === 'Completed') {
+                group.completed++;
+            } else {
+                group.pending++;
+            }
+        });
+
+        // Sort labels chronologically
+        const sortedLabels = Array.from(timeGroups.keys()).sort((a, b) => {
+            if (viewType === 'week') {
+                return parseInt(a.split(' ')[1]) - parseInt(b.split(' ')[1]);
+            }
+            return new Date(a).getTime() - new Date(b).getTime();
+        });
+
         return {
-            labels: categories,
+            labels: sortedLabels,
             datasets: [
                 {
                     label: 'Completed',
-                    data: categories.map(cat => categoryGroups[cat].completed),
+                    data: sortedLabels.map(label => timeGroups.get(label).completed),
                     backgroundColor: '#22C55E', // Green
                 },
                 {
                     label: 'Pending',
-                    data: categories.map(cat => categoryGroups[cat].pending),
-                    backgroundColor: '#3B82F6', // Blue
-                },
-                {
-                    label: 'Delayed',
-                    data: categories.map(cat => categoryGroups[cat].delayed),
+                    data: sortedLabels.map(label => timeGroups.get(label).pending),
                     backgroundColor: '#EF4444', // Red
                 }
             ]
@@ -74,7 +80,7 @@
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        const chartData = processTasksData(tasks);
+        const chartData = processTasksData(tasks, view);
 
         chart = new Chart(ctx, {
             type: 'bar',
@@ -87,37 +93,39 @@
                         stacked: true,
                         title: {
                             display: true,
-                            text: 'Categories',
-                            font: {
-                                size: 14
-                            }
+                            text: view === 'week' ? 'Weeks' : 'Days',
+                            font: { size: 14 }
+                        },
+                        grid: {
+                            display: false
                         }
                     },
                     y: {
                         stacked: true,
+                        beginAtZero: true,
                         title: {
                             display: true,
                             text: 'Number of Tasks',
-                            font: {
-                                size: 14
-                            }
+                            font: { size: 14 }
+                        },
+                        grid: {
+                            color: '#E5E7EB'
                         }
                     }
                 },
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Task Status Distribution by Category',
+                        text: `Task Status by ${view === 'week' ? 'Week' : 'Day'}`,
                         font: {
                             size: 16,
                             weight: 'bold'
                         },
-                        padding: {
-                            bottom: 20
-                        }
+                        padding: { bottom: 20 }
                     },
                     legend: {
                         position: 'top',
+                        align: 'center',
                         labels: {
                             padding: 20,
                             usePointStyle: true,
@@ -152,6 +160,12 @@
 
     $: if (canvas && tasks) {
         createChart();
+    }
+
+    $: if (view) {
+        if (canvas && tasks) {
+            createChart();
+        }
     }
 
     onMount(() => {
