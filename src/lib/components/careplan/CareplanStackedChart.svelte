@@ -1,17 +1,70 @@
-<!-- src/lib/components/careplan/CareplanStackedChart.svelte -->
 <script lang="ts">
     import { Chart, registerables } from 'chart.js';
     import { onMount } from 'svelte';
 
     Chart.register(...registerables);
 
-    export let data: {
-        standingCosts: any[];
-        runningCosts: any[];
-    };
+    interface CareplanTask {
+        Task: string;
+        Category: string;
+        Status: string;
+    }
+
+    export let tasks: CareplanTask[] = [];
 
     let canvas: HTMLCanvasElement;
     let chart: Chart;
+
+    function processTasksData(tasks: CareplanTask[]) {
+        // Group tasks by category
+        const categoryGroups = tasks.reduce((acc, task) => {
+            if (!acc[task.Category]) {
+                acc[task.Category] = {
+                    total: 0,
+                    completed: 0,
+                    pending: 0,
+                    delayed: 0
+                };
+            }
+            acc[task.Category].total++;
+            
+            switch (task.Status) {
+                case 'Completed':
+                    acc[task.Category].completed++;
+                    break;
+                case 'Pending':
+                    acc[task.Category].pending++;
+                    break;
+                case 'Delayed':
+                    acc[task.Category].delayed++;
+                    break;
+            }
+            return acc;
+        }, {});
+
+        const categories = Object.keys(categoryGroups);
+        
+        return {
+            labels: categories,
+            datasets: [
+                {
+                    label: 'Completed',
+                    data: categories.map(cat => categoryGroups[cat].completed),
+                    backgroundColor: '#22C55E', // Green
+                },
+                {
+                    label: 'Pending',
+                    data: categories.map(cat => categoryGroups[cat].pending),
+                    backgroundColor: '#3B82F6', // Blue
+                },
+                {
+                    label: 'Delayed',
+                    data: categories.map(cat => categoryGroups[cat].delayed),
+                    backgroundColor: '#EF4444', // Red
+                }
+            ]
+        };
+    }
 
     function createChart() {
         if (chart) {
@@ -21,71 +74,7 @@
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        const chartData = {
-            labels: ['Standing costs', 'Running costs'],
-            datasets: [
-                {
-                    label: 'Washing and cleaning',
-                    data: [0, 2],
-                    backgroundColor: '#06B6D4',
-                },
-                {
-                    label: 'Traffic tickets',
-                    data: [0, 1],
-                    backgroundColor: '#8B5CF6',
-                },
-                {
-                    label: 'Tolls',
-                    data: [0, 1.5],
-                    backgroundColor: '#1E40AF',
-                },
-                {
-                    label: 'Parking',
-                    data: [5, 2],
-                    backgroundColor: '#EF4444',
-                },
-                {
-                    label: 'Car tax',
-                    data: [5.5, 2.5],
-                    backgroundColor: '#22C55E',
-                },
-                {
-                    label: 'Repairs and improvements',
-                    data: [0, 2],
-                    backgroundColor: '#F97316',
-                },
-                {
-                    label: 'Maintenance',
-                    data: [0, 2],
-                    backgroundColor: '#A3E635',
-                },
-                {
-                    label: 'Inspection',
-                    data: [0, 2],
-                    backgroundColor: '#7C3AED',
-                },
-                {
-                    label: 'Loan interest',
-                    data: [0, 2],
-                    backgroundColor: '#059669',
-                },
-                {
-                    label: 'Depreciation of the vehicle',
-                    data: [0, 2.5],
-                    backgroundColor: '#15803D',
-                },
-                {
-                    label: 'Fuel',
-                    data: [0, 2],
-                    backgroundColor: '#DC2626',
-                },
-                {
-                    label: 'Insurance and Breakdown cover',
-                    data: [4.5, 2.5],
-                    backgroundColor: '#3B82F6',
-                }
-            ]
-        };
+        const chartData = processTasksData(tasks);
 
         chart = new Chart(ctx, {
             type: 'bar',
@@ -96,35 +85,77 @@
                 scales: {
                     x: {
                         stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Categories',
+                            font: {
+                                size: 14
+                            }
+                        }
                     },
                     y: {
                         stacked: true,
-                        beginAtZero: true,
-                        max: 25
+                        title: {
+                            display: true,
+                            text: 'Number of Tasks',
+                            font: {
+                                size: 14
+                            }
+                        }
                     }
                 },
                 plugins: {
+                    title: {
+                        display: true,
+                        text: 'Task Status Distribution by Category',
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        },
+                        padding: {
+                            bottom: 20
+                        }
+                    },
                     legend: {
-                        position: 'right',
+                        position: 'top',
                         labels: {
-                            boxWidth: 10
+                            padding: 20,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
                         }
                     },
                     tooltip: {
-                        mode: 'index',
-                        intersect: false
+                        callbacks: {
+                            label: (context) => {
+                                const label = context.dataset.label || '';
+                                const value = context.parsed.y;
+                                const total = context.chart.data.datasets.reduce(
+                                    (sum, dataset) => sum + dataset.data[context.dataIndex],
+                                    0
+                                );
+                                const percentage = ((value / total) * 100).toFixed(1);
+                                return `${label}: ${value} (${percentage}%)`;
+                            },
+                            footer: (tooltipItems) => {
+                                const total = tooltipItems.reduce(
+                                    (sum, item) => sum + item.parsed.y,
+                                    0
+                                );
+                                return `Total: ${total} tasks`;
+                            }
+                        }
                     }
                 }
             }
         });
     }
 
-    $: if (canvas && data) {
+    $: if (canvas && tasks) {
         createChart();
     }
 
     onMount(() => {
-        if (canvas && data) {
+        if (canvas && tasks) {
             createChart();
         }
 

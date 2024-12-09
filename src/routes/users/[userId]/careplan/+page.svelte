@@ -1,10 +1,11 @@
 <script lang="ts">
-	import CareplanStackedChart from './../../../../lib/components/careplan/CareplanStackedChart.svelte';
+	// import CareplanStackedChart from './../../../../lib/components/careplan/CareplanStackedChart.svelte';
     import CareplanGraph from '$lib/components/careplan/careplan.graph.svelte';
-    // import CareplanStackedChart from '$lib/components/careplan/CareplanStackedChart.svelte';
+    import CareplanStackedChart from '$lib/components/careplan/CareplanStackedChart.svelte';
     import type { PageServerData } from './$types';
 
     export let data: PageServerData;
+    console.log('========================================>', data);
     let dayWiseSeparatedData = data.dayWiseSeparatedData;
     let weekWiseSeparatedData = data.weekWiseSeparatedData;
     let careplanTasks = data.careplanTasks || [];
@@ -173,7 +174,7 @@
                                     />
                                 {/if}
                             {:else}
-                                <CareplanStackedChart data={chartData} />
+                                <CareplanStackedChart tasks={careplanTasks} />
                             {/if}
                         </div>
                     {:else}
