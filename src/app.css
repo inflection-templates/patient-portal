@@ -133,6 +133,12 @@
 .canvas {
 	@apply absolute inset-0 w-full h-full;
 }
+.userinput{
+	@apply bg-gray-50 rounded-md border border-gray-300 p-3 text-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-gray-500;
+}
+.userlabel{
+	@apply block text-base mb-1;
+}
 thead,
 tbody tr {
 	display: table;

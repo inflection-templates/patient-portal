@@ -1,6 +1,6 @@
 import { BACKEND_API_URL } from '$env/static/private';
 import { CacheService } from '$lib/server/cache/cache.service';
-import { post_, get_, delete_ } from './common';
+import { post_, get_, delete_, put_ } from './common';
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ export const loginWithOtp = async (otp: string, phone: string, loginRoleId: numb
 	return await post_(url, body);
 };
 
-export const getPatientById = async (sessionId: string, patientId: string) => {
+export const getPatientById = async (sessionId: string | undefined, patientId: string | undefined) => {
 	const url = BACKEND_API_URL + `/patients/${patientId}`;
 	return await get_(url, true, sessionId);
 };
@@ -47,6 +47,52 @@ export const deletePatient = async (sessionId: string, patientId: string) => {
     ];
     await CacheService.findAndClear(findAndClearKeys);
 	return result;
+};
+
+export const updatePatientById = async (
+	sessionId: string,
+	patientId: string,
+	firstName:string,
+	LastName:string,
+	Gender:string,
+	BirthDate:string,
+	MaritalStatus:string,
+	email:string,
+	phone:string,
+	race:string,
+	Ethnicity:string,
+	StrokeSurvivorOrCaregiver:string,
+	LivingAlone:string,
+	AddressLine:string,
+	city:string,
+	District:string,
+	State:string,
+	country:string,
+	postalcode:string
+	
+	) => {
+		const body ={
+			FirstName :firstName ? firstName : null,
+			LastName : LastName ? LastName : null,
+			Gender : Gender ? Gender : null,
+			BirthDate : BirthDate ? BirthDate : null,
+			MaritalStatus : MaritalStatus ? MaritalStatus : null,
+			Email : email ? email :null,
+			Phone : phone ? phone : null,
+			Race : race ? race : null,
+			Ethnicity : Ethnicity ? Ethnicity : null,
+			StrokeSurvivorOrCaregiver : StrokeSurvivorOrCaregiver ? StrokeSurvivorOrCaregiver :null,
+			LivingAlone : LivingAlone ? LivingAlone : null,
+			AddressLine : AddressLine ? AddressLine : null,
+			city : city ? city : null,
+			District : District ? District : null,
+			State : State ? State : null,
+			Country : country ? country : null,
+			PostalCode : postalcode ? postalcode : null
+
+		}
+	const url = BACKEND_API_URL + `/patients/${patientId}`;
+	return await put_(url, body, true, sessionId);
 };
 
 
