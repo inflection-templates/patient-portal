@@ -36,16 +36,16 @@
     const taskStatusCounts = getTaskCounts(careplanTasks);
 </script>
 
-<div class="w-full p-4">
-    <div class="bg-white border border-divider rounded-lg shadow-sm">
-        <div class="border-b border-divider px-6 py-4">
-            <div class="flex justify-between items-center">
-                <h2 class="text-xl font-semibold text-header">Careplan History</h2>
+<div class="careplan-container">
+    <div class="careplan-card">
+        <div class="careplan-header">
+            <div class="careplan-header-content">
+                <h2 class="careplan-title">Careplan History</h2>
                 {#if hasData}
-                <div class="flex items-center gap-2">
+                <div class="careplan-view-selector">
                     <span class="text-sm text-label">View:</span>
                     <select
-                        class="border rounded px-3 py-1.5 text-sm bg-white"
+                        class="careplan-select"
                         bind:value={selectedView}
                     >
                         <option value="day">Day Wise</option>
@@ -57,50 +57,50 @@
         </div>
 
         {#if hasData}
-        <div class="p-6">
-            <div class="grid grid-cols-3 gap-4 mb-6">
-                <div class="bg-gray-50 rounded-lg p-4">
-                    <div class="text-sm text-gray-600">Total Tasks</div>
-                    <div class="text-2xl font-semibold mt-1">{taskStatusCounts.total || 0}</div>
+        <div class="careplan-content">
+            <div class="careplan-stats-grid">
+                <div class="careplan-stat-card bg-stat-total">
+                    <div class="careplan-stat-label text-stat-total">Total Tasks</div>
+                    <div class="careplan-stat-value">{taskStatusCounts.total || 0}</div>
                 </div>
-                <div class="bg-green-50 rounded-lg p-4">
-                    <div class="text-sm text-green-600">Completed</div>
-                    <div class="text-2xl font-semibold mt-1">{taskStatusCounts.completed || 0}</div>
+                <div class="careplan-stat-card bg-stat-completed">
+                    <div class="careplan-stat-label text-stat-completed">Completed</div>
+                    <div class="careplan-stat-value">{taskStatusCounts.completed || 0}</div>
                 </div>
-                <div class="bg-red-50 rounded-lg p-4">
-                    <div class="text-sm text-red-600">Delayed</div>
-                    <div class="text-2xl font-semibold mt-1">{taskStatusCounts.delayed || 0}</div>
+                <div class="careplan-stat-card bg-stat-delayed">
+                    <div class="careplan-stat-label text-stat-delayed">Delayed</div>
+                    <div class="careplan-stat-value">{taskStatusCounts.delayed || 0}</div>
                 </div>
             </div>
 
-            <div class="flex gap-6">
-                <div class="flex-1">
-                    <div class="h-[400px] w-full">
+            <div class="careplan-chart-container">
+                <div class="careplan-chart">
+                    <div class="careplan-chart-wrapper">
                         <CareplanStackedChart 
                             tasks={careplanTasks}
                             view={selectedView}
                         />
                     </div>
                 </div>
-                <div class="w-80">
-                    <div class="bg-gray-50 rounded-lg p-4 mt-16">
-                        <table class="w-full">
-                            <tbody class="divide-y divide-gray-200">
+                <div class="careplan-info-sidebar">
+                    <div class="careplan-info-card">
+                        <table class="careplan-table">
+                            <tbody class="careplan-table-body">
                                 <tr>
-                                    <td class="py-3 text-sm font-medium text-gray-600">Careplan</td>
-                                    <td class="py-3 text-sm text-gray-900">{careplanName || '-'}</td>
+                                    <td class="careplan-table-cell careplan-table-label">Careplan</td>
+                                    <td class="careplan-table-cell careplan-table-value">{careplanName || '-'}</td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 text-sm font-medium text-gray-600">Code</td>
-                                    <td class="py-3 text-sm text-gray-900">{careplanCode || '-'}</td>
+                                    <td class="careplan-table-cell careplan-table-label">Code</td>
+                                    <td class="careplan-table-cell careplan-table-value">{careplanCode || '-'}</td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 text-sm font-medium text-gray-600">Start Date</td>
-                                    <td class="py-3 text-sm text-gray-900">{data.startDate || '-'}</td>
+                                    <td class="careplan-table-cell careplan-table-label">Start Date</td>
+                                    <td class="careplan-table-cell careplan-table-value">{data.startDate || '-'}</td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 text-sm font-medium text-gray-600">End Date</td>
-                                    <td class="py-3 text-sm text-gray-900">{data.endDate || '-'}</td>
+                                    <td class="careplan-table-cell careplan-table-label">End Date</td>
+                                    <td class="careplan-table-cell careplan-table-value">{data.endDate || '-'}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -109,10 +109,10 @@
             </div>
         </div>
         {:else}
-        <div class="p-6">
-            <div class="flex items-center justify-center h-64 bg-gray-50 rounded-lg">
+        <div class="careplan-content">
+            <div class="careplan-empty-state">
                 <div class="text-center">
-                    <p class="text-gray-500 text-lg">Careplan data not available</p>
+                    <p class="careplan-empty-text">Careplan data not available</p>
                 </div>
             </div>
         </div>

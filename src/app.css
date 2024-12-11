@@ -335,41 +335,6 @@ tbody tr {
 	table-layout: fixed;
 }
 
-.legend-scheduled {
-	@apply bg-green-500;
-  }
-  
-  .legend-completed {
-	@apply bg-red-500;
-  }
-  
-  .bg-table-header {
-	@apply bg-gray-50;
-  }
-  
-  .text-header {
-	@apply text-gray-800;
-  }
-  
-  .text-label {
-	@apply text-gray-700;
-  }
-  
-  .text-value {
-	@apply text-gray-900;
-  }
-  
-  .border-divider {
-	@apply border-gray-200;
-  }
-  
-  .bg-no-data {
-	@apply bg-gray-50;
-  }
-  
-  .text-no-data {
-	@apply text-gray-500;
-  }
 .theme-toggle-btn,
 .user-profile-btn {
 	cursor: pointer;
@@ -450,4 +415,126 @@ tbody tr {
 
 .current-page {
 	@apply text-info;
+}
+
+.careplan-container {
+	@apply w-full p-4;
+}
+
+.careplan-card {
+	@apply bg-white border rounded-lg shadow-sm;
+}
+
+.careplan-header {
+	@apply border-b px-6 py-4;
+}
+
+.careplan-header-content {
+	@apply flex justify-between items-center;
+}
+
+.careplan-title {
+	@apply text-xl font-semibold;
+}
+
+.careplan-view-selector {
+	@apply flex items-center gap-2;
+}
+
+.careplan-select {
+	@apply border rounded px-3 py-1.5 text-sm bg-white;
+}
+
+.careplan-stats-grid {
+	@apply grid grid-cols-3 gap-4 mb-6;
+}
+
+.careplan-stat-card {
+	@apply rounded-lg p-4;
+}
+
+.careplan-stat-label {
+	@apply text-sm;
+}
+
+.careplan-stat-value {
+	@apply text-2xl font-semibold mt-1;
+}
+
+.careplan-content {
+	@apply p-6;
+}
+
+.careplan-chart-container {
+	@apply flex gap-6;
+}
+
+.careplan-chart {
+	@apply flex-1;
+}
+
+.careplan-chart-wrapper {
+	@apply h-[400px] w-full;
+}
+
+.careplan-info-sidebar {
+	@apply w-80;
+}
+
+.careplan-info-card {
+	@apply bg-gray-50 rounded-lg p-4 mt-16;
+}
+
+.careplan-table {
+	@apply w-full;
+}
+
+.careplan-table-body {
+	@apply divide-y divide-gray-200;
+}
+
+.careplan-table-cell {
+	@apply py-3 text-sm;
+}
+
+.careplan-table-label {
+	@apply font-medium text-gray-600;
+}
+
+.careplan-table-value {
+	@apply text-gray-900;
+}
+
+.careplan-empty-state {
+	@apply flex items-center justify-center h-64 bg-gray-50 rounded-lg;
+}
+
+.careplan-empty-text {
+	@apply text-gray-500 text-lg;
+}
+
+/* Status-specific background colors */
+.bg-stat-total {
+	@apply bg-gray-50;
+}
+
+.bg-stat-completed {
+	@apply bg-green-50;
+}
+
+.bg-stat-delayed {
+	@apply bg-red-50;
+}
+
+/* Status-specific text colors */
+.text-stat-total {
+	@apply text-gray-600;
+}
+
+.text-stat-completed {
+	@apply text-green-600;
+}
+
+.text-stat-delayed {
+	@apply text-red-600;
 }
