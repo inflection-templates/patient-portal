@@ -1,10 +1,10 @@
 <script lang="ts">
-    import CareplanStackedChart from '$lib/components/careplan/CareplanStackedChart.svelte';
+    import CareplanStackedChart from '$lib/components/careplan/careplan.stacked.chart.svelte';
     import type { PageServerData } from './$types';
 
     export let data: PageServerData;
     let careplanTasks = data.careplanTasks || [];
-    let selectedView = 'day';
+    let selectedView: 'day' | 'week' = 'day';
     let careplanData = careplanTasks[0];
     let careplanCode = careplanData?.Action?.PlanCode ?? '';
     let careplanName = careplanData?.Action?.PlanName ?? '';
@@ -15,7 +15,6 @@
         const taskCounts = {
             total: 0,
             completed: 0,
-            pending: 0,
             delayed: 0,
         };
 
@@ -27,9 +26,6 @@
                 case "Completed":
                     taskCounts.completed++;
                     break;
-                case "Pending":
-                    taskCounts.pending++;
-                    break;
                 case "Delayed":
                     taskCounts.delayed++;
                     break;
@@ -40,92 +36,83 @@
     const taskStatusCounts = getTaskCounts(careplanTasks);
 </script>
 
-<!-- Main Container -->
 <div class="w-full p-4">
     <div class="bg-white border border-divider rounded-lg shadow-sm">
-        <!-- Header -->
-        <div class="border-b border-divider px-6 py-3">
-            <h2 class="text-xl font-semibold text-header">Careplan History</h2>
+        <div class="border-b border-divider px-6 py-4">
+            <div class="flex justify-between items-center">
+                <h2 class="text-xl font-semibold text-header">Careplan History</h2>
+                {#if hasData}
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-label">View:</span>
+                    <select
+                        class="border rounded px-3 py-1.5 text-sm bg-white"
+                        bind:value={selectedView}
+                    >
+                        <option value="day">Day Wise</option>
+                        <option value="week">Week Wise</option>
+                    </select>
+                </div>
+                {/if}
+            </div>
         </div>
 
         {#if hasData}
-        <!-- Content -->
         <div class="p-6">
-            <div class="flex flex-col md:flex-row w-full">
-                <!-- Left side - Task Information Table -->
-                <div class="md:w-1/2 md:border-r border-divider md:pr-6">
-                    <div class="overflow-hidden">
-                        <table class="min-w-full">
-                            <tbody class="divide-y">
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-sm text-gray-600">Total Tasks</div>
+                    <div class="text-2xl font-semibold mt-1">{taskStatusCounts.total || 0}</div>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4">
+                    <div class="text-sm text-green-600">Completed</div>
+                    <div class="text-2xl font-semibold mt-1">{taskStatusCounts.completed || 0}</div>
+                </div>
+                <div class="bg-red-50 rounded-lg p-4">
+                    <div class="text-sm text-red-600">Delayed</div>
+                    <div class="text-2xl font-semibold mt-1">{taskStatusCounts.delayed || 0}</div>
+                </div>
+            </div>
+
+            <div class="flex gap-6">
+                <div class="flex-1">
+                    <div class="h-[400px] w-full">
+                        <CareplanStackedChart 
+                            tasks={careplanTasks}
+                            view={selectedView}
+                        />
+                    </div>
+                </div>
+                <div class="w-80">
+                    <div class="bg-gray-50 rounded-lg p-4 mt-16">
+                        <table class="w-full">
+                            <tbody class="divide-y divide-gray-200">
                                 <tr>
-                                    <td class="py-2.5 text-label font-medium">Careplan</td>
-                                    <td class="py-2.5 text-value">{careplanName || '-'}</td>
+                                    <td class="py-3 text-sm font-medium text-gray-600">Careplan</td>
+                                    <td class="py-3 text-sm text-gray-900">{careplanName || '-'}</td>
                                 </tr>
                                 <tr>
-                                    <td class="py-2.5 text-label font-medium">Code</td>
-                                    <td class="py-2.5 text-value">{careplanCode || '-'}</td>
+                                    <td class="py-3 text-sm font-medium text-gray-600">Code</td>
+                                    <td class="py-3 text-sm text-gray-900">{careplanCode || '-'}</td>
                                 </tr>
                                 <tr>
-                                    <td class="py-2.5 text-label font-medium">Total Tasks</td>
-                                    <td class="py-2.5 text-value">{taskStatusCounts.total || 0}</td>
+                                    <td class="py-3 text-sm font-medium text-gray-600">Start Date</td>
+                                    <td class="py-3 text-sm text-gray-900">{data.startDate || '-'}</td>
                                 </tr>
                                 <tr>
-                                    <td class="py-2.5 text-label font-medium">Completed Tasks</td>
-                                    <td class="py-2.5 text-value">{taskStatusCounts.completed || 0}</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2.5 text-label font-medium">Pending Tasks</td>
-                                    <td class="py-2.5 text-value">{taskStatusCounts.pending || 0}</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2.5 text-label font-medium">Delayed Tasks</td>
-                                    <td class="py-2.5 text-value">{taskStatusCounts.delayed || 0}</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2.5 text-label font-medium">Start Date</td>
-                                    <td class="py-2.5 text-value">{data.startDate || '-'}</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2.5 text-label font-medium">End Date</td>
-                                    <td class="py-2.5 text-value">{data.endDate || '-'}</td>
+                                    <td class="py-3 text-sm font-medium text-gray-600">End Date</td>
+                                    <td class="py-3 text-sm text-gray-900">{data.endDate || '-'}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
-                <!-- Right side - Graph -->
-                <div class="md:w-1/2 md:pl-6 mt-6 md:mt-0">
-                    <!-- View Selectors -->
-                    <div class="flex justify-end mb-4">
-                        <div class="flex items-center gap-2">
-                            <span class="text-sm text-label">View:</span>
-                            <select
-                                class="border rounded px-3 py-1 text-sm"
-                                bind:value={selectedView}
-                            >
-                                <option value="day">Day Wise</option>
-                                <option value="week">Week Wise</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Chart -->
-                    <div class="h-[400px] w-full">
-                        <CareplanStackedChart 
-                            tasks={careplanTasks} 
-                            view={selectedView}
-                        />
-                    </div>
-                </div>
             </div>
         </div>
         {:else}
-        <!-- No Data Message -->
         <div class="p-6">
-            <div class="flex items-center justify-center h-64 bg-no-data rounded-lg">
+            <div class="flex items-center justify-center h-64 bg-gray-50 rounded-lg">
                 <div class="text-center">
-                    <p class="text-no-data text-lg">No careplan data available</p>
+                    <p class="text-gray-500 text-lg">Careplan data not available</p>
                 </div>
             </div>
         </div>

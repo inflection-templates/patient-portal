@@ -65,7 +65,6 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
         weekWiseSeparatedData, 
         startDate,
         endDate,
-        // enrollments
     };
 };
 
