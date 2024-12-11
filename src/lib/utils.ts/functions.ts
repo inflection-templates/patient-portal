@@ -84,6 +84,12 @@ export function handleVitals(vitalData: any[], vitalType: string) {
     return sampledData;
   }
   
+  export function getInitials(name: any) {
+		return name
+			.split(' ') 
+			.map((word) => word[0].toUpperCase()) 
+			.join(''); 
+	}
 
   // export function getDayWiseData(tasks:any) {
   //   let dayWiseData:any = {};

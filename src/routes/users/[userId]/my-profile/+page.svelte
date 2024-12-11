@@ -1,27 +1,57 @@
 <script lang="ts">
 	import type { any } from 'zod';
 	import type { PageServerData } from './$types';
+	import { getInitials } from '$lib/utils.ts/functions';
 
 	export let data: PageServerData;
-	// console.log("*****data*****",JSON.stringify(data.healthProfile));
+	console.log('data', JSON.stringify(data));
 
-	const userObject = data.healthProfile?.Patient?.User ?? {};
-	const addressObject = data.healthProfile?.Patient?.User?.Person?.Addresses ?? {};
-	const personObject = data.healthProfile?.Patient?.User?.Person ?? {};
-	const healthObject = data.healthProfile?.Patient?.HealthProfile ?? {};
-	// console.log("*****addressObject*****",JSON.stringify(addressObject));
-	// console.log("*****addrescity*****",JSON.stringify(addressObject[0].City));
-	// console.log("*****healthObject*****",JSON.stringify(healthObject));
+	const addressObject = data.healthProfile.Patient.User.Person.Addresses;
 
-	function getInitials(name: any) {
-		return name
-			.split(' ') // Split the name into parts
-			.map((word) => word[0].toUpperCase()) // Take the first letter of each part and convert it to uppercase
-			.join(''); // Combine the initials
-	}
+	console.log('addressObject', JSON.stringify(addressObject));
+
+	const personObject = data.healthProfile.Patient.User.Person;
+	const healthObject = data.healthProfile.Patient.HealthProfile;
 
 	const displayName = personObject.DisplayName;
 	const initials = getInitials(displayName);
+
+	let firstname = personObject.FirstName || '';
+	let lastname = personObject.LastName || '';
+	let email = personObject.Email || '';
+	let phone = personObject.Phone || '';
+	let gender = personObject.Gender || '';
+	let maritalStatus = healthObject.MaritalStatus || '';
+	let dateOfBirth = personObject.DateOfBirth || '';
+	let race = healthObject.Race || '';
+	let ethnicity = healthObject.Ethnicity || '';
+	let strokeSurvivorOrCaregiver = healthObject.StrokeSurvivorOrCaregiver || '';
+	let workedPriorToStroke =
+		healthObject.WorkedPriorToStroke === true
+			? 'true'
+			: healthObject.WorkedPriorToStroke === false
+				? 'false'
+				: '';
+	let livingAlone =
+				healthObject.LivingAlone === true
+			? 'true'
+			: healthObject.LivingAlone === false
+				? 'false'
+				: '';
+	let addresLine: string;
+	let city: string;
+	let state: string;
+	let country: string;
+	let postalCode: string;
+
+	$: if (addressObject.length > 0) {
+		addresLine = addressObject[0].AddressLine || '';
+		city = addressObject[0].City || '';
+		state = addressObject[0].State || '';
+		country = addressObject[0].Country || '';
+		postalCode = addressObject[0].PostalCode || '';
+	}
+	console.log('zapuk zupuk', workedPriorToStroke);
 </script>
 
 <form action="?/updateprofile" method="POST">
@@ -43,7 +73,7 @@
 						>
 							{initials}
 						</div>
-						<span class=" text-lg font-semibold ml-4">{personObject.DisplayName}</span>
+						<span class=" text-lg font-semibold ml-4">{personObject.DisplayName || 'Unknown'}</span>
 					</div>
 
 					<div class="mb-4">
@@ -53,8 +83,8 @@
 							name="FirstName"
 							id="FirstName"
 							placeholder="First Name"
-							class=" input"
-							bind:value={personObject.FirstName}
+							class="input"
+							bind:value={firstname}
 						/>
 					</div>
 					<div class="mb-4 bg-white">
@@ -65,17 +95,12 @@
 							name="LastName"
 							placeholder="Last Name"
 							class="w-full input"
-							bind:value={personObject.LastName}
+							bind:value={lastname}
 						/>
 					</div>
 					<div class="mb-4">
 						<label class="userlabel" for="Gender">Sex</label>
-						<select
-							id="Gender"
-							class="input "
-							name="Gender"
-							bind:value={personObject.Gender}
-						>
+						<select id="Gender" class="input" name="Gender" bind:value={gender}>
 							<option value="" disabled selected>Select an option</option>
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
@@ -89,9 +114,10 @@
 						<input
 							type="date"
 							id="BirthDate"
-							placeholder="MM/DD/YYYY"
+							placeholder="MM-DD-YYYY"
 							name="BirthDate"
 							class=" input"
+							bind:value={dateOfBirth}
 						/>
 					</div>
 					<div class="mb-4">
@@ -100,7 +126,7 @@
 							id="MaritalStatus"
 							name="MaritalStatus"
 							class="w-full input"
-							bind:value={healthObject.MaritalStatus}
+							bind:value={maritalStatus}
 						>
 							<option value="" disabled selected>Select an option</option>
 							<option value="Married">Married</option>
@@ -118,7 +144,7 @@
 							placeholder="Phone"
 							name="Phone"
 							class="input"
-							bind:value={personObject.Phone}
+							bind:value={phone}
 						/>
 					</div>
 
@@ -130,18 +156,20 @@
 							placeholder="Email"
 							name="Email"
 							class="input"
-							bind:value={personObject.Email}
+							bind:value={email}
 						/>
 					</div>
 				</div>
-
+			</div>
+			<hr class="border-t border-gray-300 my-4" />
+			<div class="grid grid-cols-4 gap-8">
 				<div class="">
 					<h2 class="text-lg font-semibold mb-2">Demographic Information</h2>
 				</div>
 				<div class="col-span-3 bg-white">
 					<div class="mb-4">
 						<label class="userlabel" for="Race">What is your race?</label>
-						<select id="Race" name="Race" class="input" bind:value={healthObject.Race}>
+						<select id="Race" name="Race" class="input" bind:value={race}>
 							<option value="" disabled selected>Prefer not to say</option>
 							<option value="American Indian/Alaskan Native">American Indian/Alaskan Native</option>
 							<option value="Asian">Asian</option>
@@ -154,19 +182,16 @@
 					</div>
 					<div class="mb-4">
 						<label class="userlabel" for="Ethnicity">What is your ethnicity?</label>
-						<select
-							id="Ethnicity"
-							name="Ethnicity"
-							class="input"
-							bind:value={healthObject.Ethnicity}
-						>
+						<select id="Ethnicity" name="Ethnicity" class="input" bind:value={ethnicity}>
 							<option value="" disabled selected>Prefer not to say</option>
 							<option value="Hispanic/Latino">Hispanic/Latino</option>
 							<option value="Not Hispanic/Latino">Not Hispanic/Latino</option>
 						</select>
 					</div>
 				</div>
-
+			</div>
+			<hr class="border-t border-gray-300 my-4" />
+			<div class="grid grid-cols-4 gap-8">
 				<div class="">
 					<h2 class="text-lg font-semibold mb-2">Health And Stroke History</h2>
 				</div>
@@ -179,7 +204,7 @@
 							id="StrokeSurvivorOrCaregiver"
 							name="StrokeSurvivorOrCaregiver"
 							class="input"
-							bind:value={healthObject.StrokeSurvivorOrCaregiver}
+							bind:value={strokeSurvivorOrCaregiver}
 						>
 							<option value="" disabled selected>Prefer not to say</option>
 							<option value="Survivor">Survivor</option>
@@ -194,32 +219,30 @@
 							id="WorkedPriorToStroke"
 							name="WorkedPriorToStroke"
 							class="input"
-							bind:value={healthObject.WorkedPriorToStroke}
+							bind:value={workedPriorToStroke}
 						>
-							<option value="" disabled selected>Prefer not to say</option>
-							<option value={true}>Yes</option>
-							<option value={false}>No</option>
+							<!-- <option value="" disabled selected>Prefer not to say</option> -->
+							<option value="true">Yes</option>
+							<option value="false">No</option>
 						</select>
 					</div>
-					
-					  
+
 					<div class="mb-4">
 						<label class="userlabel" for="live-alone">Do you live alone?</label>
-						<select
-							id="LivingAlone"
-							name="LivingAlone"
-							class=" input"
-							bind:value={healthObject.LivingAlone}
-						>
-							<option value="" disabled selected>Prefer not to say</option>
-							<option value={true}>Yes</option>
-							<option value={false}>No</option>
+						<select id="LivingAlone" name="LivingAlone" class="input" bind:value={livingAlone}>
+							<!-- <option value="" disabled selected>Prefer not to say</option> -->
+							<option value="true">Yes</option>
+							<option value="false">No</option>
 						</select>
 					</div>
 				</div>
+			</div>
+			<hr class="border-t border-gray-300 my-4" />
+			<div class="grid grid-cols-4 gap-8">
 				<div class="">
 					<h2 class="text-lg font-semibold mb-2">Address Information</h2>
 				</div>
+
 				<div class="col-span-3 bg-white">
 					<div class="mb-4">
 						<label class="userlabel" for="AddressLine">Address</label>
@@ -227,9 +250,9 @@
 							type="text"
 							name="AddressLine"
 							id="address"
-							placeholder=""
+							placeholder="address"
 							class="input"
-							bind:value={addressObject[0].AddressLine}
+							bind:value={addresLine}
 						/>
 					</div>
 					<div class="mb-4">
@@ -238,9 +261,9 @@
 							type="text"
 							id="city"
 							name="City"
-							placeholder=""
+							placeholder="city"
 							class="input"
-							bind:value={addressObject[0].City}
+							bind:value={city}
 						/>
 					</div>
 					<div class="mb-4">
@@ -249,9 +272,9 @@
 							type="text"
 							id="state"
 							name="State"
-							placeholder=""
+							placeholder="state"
 							class="input"
-							bind:value={addressObject[0].State}
+							bind:value={state}
 						/>
 					</div>
 					<div class="mb-4">
@@ -260,9 +283,9 @@
 							type="text"
 							id="country"
 							name="Country"
-							placeholder=""
+							placeholder="country"
 							class="input"
-							bind:value={addressObject[0].Country}
+							bind:value={country}
 						/>
 					</div>
 					<div class="mb-4">
@@ -271,9 +294,9 @@
 							type="text"
 							id="postalcode"
 							name="PostalCode"
-							placeholder=""
+							placeholder="postalcode"
 							class="input"
-							bind:value={addressObject[0].PostalCode}
+							bind:value={postalCode}
 						/>
 					</div>
 				</div>
@@ -289,3 +312,5 @@
 		</div>
 	</div>
 </form>
+
+<!-- addressObject [{"id":"257ebf63-8082-4693-a7b4-f7f2fd8c39bf","TenantId":null,"Type":"Work","AddressLine":"","City":"Pune","District":null,"State":null,"Location":null,"Country":"","PostalCode":null,"Longitude":null,"Lattitude":null}] -->
