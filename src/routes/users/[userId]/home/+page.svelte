@@ -15,17 +15,6 @@
 	}
 </script>
 
-<div>
-	<div class="tasks">
-		<button
-			class={`history ${activeButton === 'taskHistory' ? 'active' : ''}`}
-			on:click={() => setActive('taskHistory')}
-		>
-			Task History
-		</button>
-	</div>
-</div>
-
 <div class="tasks">
 	<button
 		class={`history ${activeButton === 'taskHistory' ? 'active' : ''}`}
@@ -54,14 +43,4 @@
 		</div>
 	</div>
 	<UserHistoryTable data={tableData} />
-</div>
-<div class="usertasks">
-	<h1>User Tasks</h1>
-	{#if userTasks?.Items?.length > 0}
-		<div>
-			<Timeline {chartData} />
-		</div>
-	{:else}
-		<div>Data Not Available</div>
-	{/if}
 </div>

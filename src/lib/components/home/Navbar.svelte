@@ -18,7 +18,13 @@
 	let showThemeMenu = false;
 	const userName = 'Mayur Bankar';
 	const themeModes = ['Light', 'Dark'];
-	const themeOptions = ['Blue', 'Mint', 'Yellow', 'Teal', 'Bronze'];
+	const themeOptions = [
+		{ name: 'Blue', color: '#0096ff' },
+		{ name: 'Mint', color: '#4ec55a' },
+		{ name: 'Yellow', color: '#ffc000' },
+		{ name: 'Teal', color: '#329999' },
+		{ name: 'Bronze', color: '#CD7F32' }
+	];
 	let selectedMode = 'Light';
 	let selectedOption = '';
 
@@ -113,24 +119,40 @@
 			{#if showThemeMenu}
 				<div class="theme-menu">
 					<button class="themes-close-button" on:click={closeThemeMenu}>
-						<Icon icon="ant-design:close-outlined" class="text-xl" />
+						<Icon icon="ant-design:close-outlined" class="h-5 w-5" />
 					</button>
-					<div class="theme-modes">
-						{#each themeModes as theme}
-							<button class="theme-option" on:click={() => handleModeChange(theme)}>
-								{theme}
-							</button>
-						{/each}
+
+					<div>
+						<p class="para">Appearance</p>
+						<div class="flex items-center space-x-4">
+							{#each themeModes as theme}
+								<button
+									class="theme-modes"
+									class:selected={selectedMode === theme}
+									on:click={() => handleModeChange(theme)}
+								>
+									{theme}
+								</button>
+							{/each}
+						</div>
 					</div>
 
-					<hr class=" theme-divider" />
+					<hr class="theme-divider" />
 
-					<div class="theme-options">
-						{#each themeOptions as option}
-							<button class="theme-option" on:click={() => handleOptionChange(option)}>
-								{option}
-							</button>
-						{/each}
+					<div>
+						<p class="para">Themes</p>
+						<div class="grid grid-cols-3 gap-2 sm:gap-4">
+							{#each themeOptions as { name, color }}
+								<button
+									class="theme-option"
+									class:selected={selectedOption === name}
+									style="background-color: {color}"
+									on:click={() => handleOptionChange(name)}
+								>
+									{name}
+								</button>
+							{/each}
+						</div>
 					</div>
 				</div>
 			{/if}

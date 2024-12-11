@@ -3,8 +3,9 @@
 
 	export let data: any[] = [];
 	export let title: string;
+
 	let currentPage = 1;
-	const pageSize = 8;
+	let pageSize = 8;
 	let sortOrder = 'ascending';
 	let sortedData = [...data];
 	$: sortedData = [...data].sort((a, b) => {
@@ -37,115 +38,83 @@
 	function sortByDate() {
 		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
 	}
+
+	function updatePageSize(event: Event) {
+		const value = parseInt((event.target as HTMLSelectElement).value, 10);
+		pageSize = value;
+		currentPage = 1; // Reset to first page
+	}
 </script>
 
-{#if title == 'Blood Pressure'}
-	<div class="tabs">
-		<div class="overflow-y-auto h-96">
-			<table>
+{#if data.length > 0}
+	<div class="table-container">
+		<div class="table-wrapper">
+			<table class="w-full border-collapse text-sm">
 				<thead class="thead">
 					<tr>
-						<th class="p-2"></th>
-						<th class="p-2">Date</th>
-						<th class="p-2">Systolic ({data[0].unit})</th>
-						<th class="p-2">Diastolic ({data[0].unit})</th>
+						<th class="th"></th>
+						<th class="th" on:click={sortByDate} style="cursor: pointer;">
+							Date <span class="sort-icon">{sortOrder === 'ascending' ? '▲' : '▼'}</span>
+						</th>
+						{#if title == 'Blood Pressure'}
+							<th class="th">Systolic ({data[0].unit})</th>
+							<th class="th">Diastolic ({data[0].unit})</th>
+						{:else}
+							<th class="th">{title} ({data[0].unit})</th>
+						{/if}
 					</tr>
 				</thead>
 				<tbody class="tbody">
-					{#each data as item, index}
+					{#each paginatedData as item, index}
 						<tr class="tabledata">
-							<td class="">{index + 1}</td>
-							<td class="p-2">{formatDateMonth(item.date)}</td>
-							<td class="p-2">{item.value}</td>
-							<td class="p-2">{item.value1}</td>
+							<td class="td">{(currentPage - 1) * pageSize + index + 1}</td>
+							<td class="td">{formatDateMonth(item.date)}</td>
+							{#if title == 'Blood Pressure'}
+								<td class="td">{item.value}</td>
+								<td class="td">{item.value1}</td>
+							{:else}
+								<td class="td">{item.value}</td>
+							{/if}
 						</tr>
 					{/each}
 				</tbody>
 			</table>
 		</div>
-	</div>
-{/if}
 
-{#if data.length > 0}
-	{#if title == 'Blood Pressure'}
-		<div class="tabs">
-			<div class="h-58">
-				<table>
-					<thead class="thead">
-						<tr>
-							<th class="th"></th>
-							<th class="th" on:click={sortByDate} style="cursor: pointer;">
-								Date {sortOrder === 'ascending' ? '▲' : '▼'}
-							</th>
-							<th class="th">Systolic ({data[0].unit})</th>
-							<th class="th">Diastolic ({data[0].unit})</th>
-						</tr>
-					</thead>
-					<tbody class="tbody">
-						{#each paginatedData as item, index}
-							<tr class="tabledata">
-								<td class="td">{(currentPage - 1) * pageSize + index + 1}</td>
-								<td class="td">{formatDateMonth(item.date)}</td>
-								<td class="td">{item.value}</td>
-								<td class="td">{item.value1}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
+		<!-- Page Selector and Pagination Controls -->
+		<div class="table-footer">
+			<div class="page-size-container">
+				<select class="page-size-selector" on:change={updatePageSize}>
+					<option class="pages" value="5">5 Records per page</option>
+					<option class="pages" value="10">10 Records per page</option>
+					<option class="pages" value="15">15 Records per page</option>
+				</select>
 			</div>
-		</div>
-	{:else}
-		<div class="tabs">
-			<div class="overflow-y-auto h-96">
-				<table>
-					<thead class="thead">
-						<tr>
-							<th class=""></th>
-							<th class="p-2">Date</th>
-							<th class="p-2">{title} ({data[0].unit})</th>
-						</tr>
-					</thead>
-					<tbody class="bg-white">
-						{#each data as item, index}
-							<tr class="tabledata">
-								<td class="">{index + 1}</td>
-								<td class="p-2">{formatDateMonth(item.date)}</td>
-								<td class="p-2">{item.value}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="tabs">
-			<div class="h-58">
-				<table>
-					<thead class="thead">
-						<tr>
-							<th class="th"></th>
-							<th class="th" on:click={sortByDate} style="cursor: pointer;">
-								Date {sortOrder === 'ascending' ? '▲' : '▼'}
-							</th>
-							<th class="th">{title} ({data[0].unit})</th>
-						</tr>
-					</thead>
-					<tbody class="bg-white">
-						{#each paginatedData as item, index}
-							<tr class="tabledata">
-								<td class="td">{(currentPage - 1) * pageSize + index + 1}</td>
-								<td class="td">{formatDateMonth(item.date)}</td>
-								<td class="td">{item.value}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
-		</div>
-	{/if}
 
-	<div class="pagination-controls">
-		<button class="previous" on:click={prevPage} disabled={currentPage === 1}>Previous</button>
-		<button class="next" on:click={nextPage} disabled={currentPage === totalPages}>Next</button>
+			<div class="pagination-controls">
+				<button
+					class="pagination-button"
+					on:click={() => (currentPage = 1)}
+					disabled={currentPage === 1}
+				>
+					First
+				</button>
+				<button class="pagination-button" on:click={prevPage} disabled={currentPage === 1}>
+					&larr;
+				</button>
+				<span class="current-page">{currentPage}</span>
+				<button class="pagination-button" on:click={nextPage} disabled={currentPage === totalPages}>
+					&rarr;
+				</button>
+				<button
+					class="pagination-button"
+					on:click={() => (currentPage = totalPages)}
+					disabled={currentPage === totalPages}
+				>
+					Last
+				</button>
+			</div>
+		</div>
 	</div>
 {:else}
 	<div class="p-4 text-center">
