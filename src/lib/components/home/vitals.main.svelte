@@ -8,7 +8,7 @@
 
 <div class="mx-2 sm:mx-8">
 	<div class="my-4">
-		<div class="border">
+		<div>
 			{#if data.length > 0}
 				<VitalsGraph {data} {title} />
 			{/if}
