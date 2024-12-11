@@ -22,3 +22,8 @@ export const getUserTasks = async (sessionId: string, searchParams?: any) => {
 	const url = BACKEND_API_URL + `/user-tasks/search${searchString}`;
 	return await get_(url, true, sessionId);
 };
+
+export const getEnrollments = async (sessionId: string, patientUserId: string) => {
+	const url = BACKEND_API_URL + `/care-plans/patients/${patientUserId}/enrollments`;
+	return await get_(url, true, sessionId);
+};
