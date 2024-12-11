@@ -30,14 +30,13 @@
 		console.log(`resp: ${JSON.stringify(resp, null, 2)}`);
 		window.location.href = '/';
 	};
-	
 </script>
 
 <Navbar {userId} logout={onLogout} userName={username} {imageUrl} deleteAccount={onDelete} />
 
 <div class="flex min-h-screen">
 	<Sidebar {userId} />
-	<div class="flex-1 p-4">
+	<div class="main-content">
 		<slot />
 	</div>
 </div>

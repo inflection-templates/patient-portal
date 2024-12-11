@@ -95,6 +95,8 @@
               labels: {
                 boxWidth: 15,
                 boxHeight: 10,
+                usePointStyle: true,
+                pointStyle: 'circle',
                 generateLabels: (chart) => {
                   return chart.data.datasets.map((dataset, index) => ({
                     text: dataset.label,
