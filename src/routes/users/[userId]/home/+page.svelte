@@ -33,8 +33,8 @@
 </div>
 
 <div class="mx-2 sm:mx-8">
-	<div class="my-4">
-		<div class="border">
+	<div class=" mb-5">
+		<div>
 			{#if userTasks?.Items?.length > 0}
 				<Timeline {chartData} />
 			{:else}
