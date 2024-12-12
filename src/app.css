@@ -319,6 +319,9 @@
 .userlabel{
 	@apply block text-base mb-1;
 }
+.error-text{
+	@apply text-red-500 text-sm mt-1;
+}
 thead,
 tbody tr {
 	display: table;

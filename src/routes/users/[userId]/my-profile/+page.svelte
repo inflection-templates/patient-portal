@@ -32,7 +32,6 @@
 	let imageUrl = personObject.ProfileImageURL ?? undefined;
 	let imageResourceId = personObject.ImageResourceId ?? undefined;
 	let dateOfBirth = formatBirthdate(personObject.BirthDate) || '';
-	console.log(dateOfBirth)
 	let formattedDateOfBirth = dateOfBirth.split('-').reverse().join('-');
 	let race = healthObject.Race || '';
 	let ethnicity = healthObject.Ethnicity || '';
@@ -66,61 +65,60 @@
 	}
 
 	let profileImage;
-  let errorMessage = {
-        Text: 'Max file upload size 150 KB',
-        Colour: 'border-b-surface-700'
-    }
-  const MAX_FILE_SIZE = 1024 * 150;
-  const onFileSelected = async (e) => {
-    let file = e.target.files[0];
-    const fileSize = file.size;
-    if (fileSize > MAX_FILE_SIZE) {
-      errorMessage.Text = "File should be less than 150 KB";
-      errorMessage.Colour = 'text-error-500';
-      profileImage.value = null;
-      return;
-    }
+	let errorMessage = {
+		Text: 'Max file upload size 150 KB',
+		Colour: 'border-b-surface-700'
+	};
+	const MAX_FILE_SIZE = 1024 * 150;
+	const onFileSelected = async (e) => {
+		let file = e.target.files[0];
+		const fileSize = file.size;
+		if (fileSize > MAX_FILE_SIZE) {
+			errorMessage.Text = 'File should be less than 150 KB';
+			errorMessage.Colour = 'text-error-500';
+			profileImage.value = null;
+			return;
+		}
 
-    errorMessage.Text = 'Please wait, file upload is in progress';
-    errorMessage.Colour = 'text-error-500';
+		errorMessage.Text = 'Please wait, file upload is in progress';
+		errorMessage.Colour = 'text-error-500';
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('filename', file.name);
+		const formData = new FormData();
+		formData.append('file', file);
+		formData.append('filename', file.name);
 
-    try {
-      const res = await fetch(`/api/server/file-resources/upload`, {
-        method: 'POST',
-        body: formData
-      });
+		try {
+			const res = await fetch(`/api/server/file-resources/upload`, {
+				method: 'POST',
+				body: formData
+			});
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(errorText);
-      }
-      const response = await res.json();
-      if (response.Status === 'success' && response.HttpCode === 201) {
-        errorMessage.Text = "File uploaded successfully";
-        errorMessage.Colour = 'text-success-500';
+			if (!res.ok) {
+				const errorText = await res.text();
+				throw new Error(errorText);
+			}
+			const response = await res.json();
+			if (response.Status === 'success' && response.HttpCode === 201) {
+				errorMessage.Text = 'File uploaded successfully';
+				errorMessage.Colour = 'text-success-500';
 				const imageResourceId_ = response.Data.FileResources[0].id;
 				console.log('ImageResource', imageResourceId_);
 				if (imageResourceId_) {
 					imageResourceId = imageResourceId_;
 					return true;
 				}
-				console.log("imageResourceId" , imageResourceId);
-      
-      } else {
-        errorMessage.Text = response.Message;
-        errorMessage.Colour = 'text-error-500';
-      }
-    } catch (error) {
-      console.error('Error uploading file:', error);
-      errorMessage.Text = 'Error uploading file: ' + error.message;
-      errorMessage.Colour = 'text-error-500';
-    }
-	}
-	
+				console.log('imageResourceId', imageResourceId);
+			} else {
+				errorMessage.Text = response.Message;
+				errorMessage.Colour = 'text-error-500';
+			}
+		} catch (error) {
+			console.error('Error uploading file:', error);
+			errorMessage.Text = 'Error uploading file: ' + error.message;
+			errorMessage.Colour = 'text-error-500';
+		}
+	};
+
 	let emailval = '';
 </script>
 
@@ -137,16 +135,55 @@
 					</p>
 				</div>
 				<div class="col-span-3">
-					<div class="flex items-center mb-6">
-						<div
-							class="bg-gray-400 w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold"
-						>
-							{initials}
+					<div class="flex items-center mb-4">
+						<div class="profile-container ">
+							{#if imageUrl === undefined}
+								<label for="fileinput" class="cursor-pointer">
+									<div
+										class="bg-gray-400 w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold"
+									>
+										{initials}
+									</div>
+								</label>
+								<input
+									id="fileinput"
+									name="fileinput"
+									type="file"
+									class="hidden"
+									placeholder="Image"
+									on:change={async (e) => await onFileSelected(e)}
+								/>
+								{#if errorMessage}
+									<p class={`${errorMessage.Colour}`}>{errorMessage.Text}</p>
+								{/if}
+							{:else}
+								<label for="fileinput" class="cursor-pointer">
+									<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
+								</label>
+								<input
+									id="fileinput"
+									name="fileinput"
+									type="file"
+									class="hidden"
+									bind:this={profileImage}
+									placeholder="Image"
+									on:change={async (e) => await onFileSelected(e)}
+								/>
+								<span class=" text-lg font-semibold ">{personObject.DisplayName || 'Unknown'}</span>
+								{#if errorMessage}
+									<p class={`${errorMessage.Colour}text-gray-500 text-xs opacity-40 mt-1`}>
+										{errorMessage.Text}
+									</p>
+								{/if}
+							{/if}
+							<input type="hidden" name="imageResourceId" value={imageResourceId} />
+							{#if form?.errors?.imageResourceId}
+								<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
+							{/if}
 						</div>
-						<span class=" text-lg font-semibold ml-4">{personObject.DisplayName || 'Unknown'}</span>
 					</div>
 
-					<div class="mb-4">
+					<div class="mb-4 ">
 						<label class="label" for="FirstName">First Name</label>
 						<input
 							type="text"
@@ -243,35 +280,6 @@
 							<p class="error-text">Please enter a valid email address.</p>
 						{/if}
 					</div>
-					{#if imageUrl === undefined}
-						<input
-							name="fileinput"
-							type="file"
-							class="true input w-full"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
-						{#if errorMessage}
-							<p class={`${errorMessage.Colour}`}>{errorMessage.Text}</p>
-						{/if}
-					{:else}
-						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
-						<input
-							name="fileinput"
-							type="file"
-							class="true input w-full"
-							bind:this={profileImage}
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
-						{#if errorMessage}
-							<p class={`${errorMessage.Colour}`}>{errorMessage.Text}</p>
-						{/if}
-					{/if}
-					<input type="hidden" name="imageResourceId" value={imageResourceId} />
-					{#if form?.errors?.imageResourceId}
-						<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
-					{/if}
 				</div>
 			</div>
 			<hr class="border-t border-gray-300 my-4" />
@@ -415,7 +423,8 @@
 
 			<div class="flex justify-end mt-8">
 				<button
-					class="bg-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500" type="submit"
+					class="bg-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+					type="submit"
 				>
 					Save changes
 				</button>
@@ -423,11 +432,3 @@
 		</div>
 	</div>
 </form>
-
-<style>
-	.error-text {
-		color: red;
-		font-size: 0.875rem;
-		margin-top: 0.25rem;
-	}
-</style>

@@ -5,6 +5,7 @@
 	export let userId: string | undefined;
 	export let deleteAccount: () => void;
 	export let imageUrl: string | undefined;
+	export let userName: string | undefined;
 	let showConfirmDelete_ = false;
 	$: showModal = showConfirmDelete_;
 
@@ -16,7 +17,6 @@
 
 	let showUserMenu = false;
 	let showThemeMenu = false;
-	const userName = 'Mayur Bankar';
 	const themeModes = ['Light', 'Dark'];
 	const themeOptions = ['Blue', 'Mint', 'Yellow', 'Teal', 'Bronze'];
 	let selectedMode = 'Light';
