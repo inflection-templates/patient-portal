@@ -33,14 +33,14 @@
 		<h1 class="heading">Patient Portal</h1>
 	</div>
 
-	<div class="absolute top-4 right-4 flex items-center">
+	<!-- <div class="absolute top-4 right-4 flex items-center">
 		<a href="/signup">
 			<button class=" py-2 px-3 btn"> Sign Up </button>
 		</a>
-	</div>
+	</div> -->
 
 	<div class="card">
-		<div class="p-6 space-y-4 sm:p-8">
+		<div class="p-8">
 			<form method="post" action="?/loginWithOtp" class="space-y-6" use:enhance>
 				<div>
 					<label for="otp" class="label"> Enter OTP </label>
@@ -65,10 +65,10 @@
 
 				<button type="submit" class="btn"> Submit </button>
 
-				<p class="para">
+				<!-- <p class="para">
 					Don’t have an account?
 					<a href="/signup" class="anchor"> Sign up </a>
-				</p>
+				</p> -->
 			</form>
 		</div>
 	</div>
