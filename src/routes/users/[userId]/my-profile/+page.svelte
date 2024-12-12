@@ -136,7 +136,7 @@
 				</div>
 				<div class="col-span-3">
 					<div class="flex items-center mb-4">
-						<div class="profile-container ">
+						<div class="profile-container">
 							{#if imageUrl === undefined}
 								<label for="fileinput" class="cursor-pointer">
 									<div
@@ -153,9 +153,7 @@
 									placeholder="Image"
 									on:change={async (e) => await onFileSelected(e)}
 								/>
-								{#if errorMessage}
-									<p class={`${errorMessage.Colour}`}>{errorMessage.Text}</p>
-								{/if}
+								<span class=" text-lg font-semibold">{personObject.DisplayName || 'Unknown'}</span>
 							{:else}
 								<label for="fileinput" class="cursor-pointer">
 									<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
@@ -169,12 +167,9 @@
 									placeholder="Image"
 									on:change={async (e) => await onFileSelected(e)}
 								/>
-								<span class=" text-lg font-semibold ">{personObject.DisplayName || 'Unknown'}</span>
-								{#if errorMessage}
-									<p class={`${errorMessage.Colour}text-gray-500 text-xs opacity-40 mt-1`}>
-										{errorMessage.Text}
-									</p>
-								{/if}
+								<span class=" text-lg font-semibold bg-red-500"
+									>{personObject.DisplayName || 'Unknown'}</span
+								>
 							{/if}
 							<input type="hidden" name="imageResourceId" value={imageResourceId} />
 							{#if form?.errors?.imageResourceId}
@@ -183,11 +178,11 @@
 						</div>
 					</div>
 
-					<div class="mb-4 ">
+					<div class="mb-4">
 						<label class="label" for="FirstName">First Name</label>
 						<input
 							type="text"
-							name="FirstName"
+							name="firstName"
 							id="firstName"
 							placeholder="First Name"
 							class="input"
@@ -352,71 +347,6 @@
 							<option value="true">Yes</option>
 							<option value="false">No</option>
 						</select>
-					</div>
-				</div>
-			</div>
-			<hr class="border-t border-gray-300 my-4" />
-			<div class="grid grid-cols-4 gap-8">
-				<div class="">
-					<h2 class="text-lg font-semibold mb-2">Address Information</h2>
-				</div>
-
-				<div class="col-span-3 bg-white">
-					<input type="hidden" name="addressId" bind:value={addressid} id="addressId" />
-					<div class="mb-4">
-						<label class="label" for="AddressLine">Address</label>
-						<input
-							type="text"
-							name="addressLine"
-							id="address"
-							placeholder="address"
-							class="input"
-							bind:value={addresLine}
-						/>
-					</div>
-					<div class="mb-4">
-						<label class="label" for="City">City</label>
-						<input
-							type="text"
-							id="city"
-							name="city"
-							placeholder="city"
-							class="input"
-							bind:value={city}
-						/>
-					</div>
-					<div class="mb-4">
-						<label class="label" for="State">State</label>
-						<input
-							type="text"
-							id="state"
-							name="state"
-							placeholder="state"
-							class="input"
-							bind:value={state}
-						/>
-					</div>
-					<div class="mb-4">
-						<label class="label" for="password">Country</label>
-						<input
-							type="text"
-							id="country"
-							name="country"
-							placeholder="country"
-							class="input"
-							bind:value={country}
-						/>
-					</div>
-					<div class="mb-4">
-						<label class="label" for="password">Postal Code</label>
-						<input
-							type="text"
-							id="postalcode"
-							name="postalCode"
-							placeholder="postalcode"
-							class="input"
-							bind:value={postalCode}
-						/>
 					</div>
 				</div>
 			</div>

@@ -5,7 +5,7 @@ import { string } from 'zod';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import { countryCode } from '$lib/components/country.code.svelte';
-import { updateAddress } from '$routes/api/services/address';
+
 
 const itemsPerPage = 100;
 export const load: PageServerLoad = async (event: RequestEvent) => {
@@ -70,16 +70,12 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 		const formData = Object.fromEntries(data);
-		console.log('############################in the update profile action');
+
 		type updateProfileSchema = z.infer<typeof updateUserProfile>;
 		let result: updateProfileSchema = {};
 
 		try {
-			console.log('******before processing', formData.email);
-
 			result = updateUserProfile.parse(formData);
-			console.log("after validation")
-			
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
 			console.log(errors);
@@ -89,17 +85,6 @@ export const actions = {
 				errors
 			};
 		}
-
-		// const addressResponse = await updateAddress(
-		// 	sessionId,
-		// 	result.addressId,
-		// 	result.addressLine,
-		// 	result.city,
-		// 	result.district,
-		// 	result.state,
-		// 	result.country,
-		// 	result.postalCode
-		// )
 
 		const phone = result.countryCode + '-' + result.phone;
 		const response = await updatePatientById(
