@@ -6,20 +6,13 @@ import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import { countryCode } from '$lib/components/country.code.svelte';
 
-
 const itemsPerPage = 100;
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const sessionId = event.cookies.get('sessionId');
 		const userId = event.params.userId;
-
-		// const searchParams = {
-		// 	userId: event.params.userId as string,
-		// 	itemsPerPage: itemsPerPage
-		// }
 		const response = await getPatientById(sessionId, userId);
 		const healthProfile = response.Data;
-		// console.log('response', JSON.stringify(response.Data));
 		return {
 			healthProfile,
 			sessionId

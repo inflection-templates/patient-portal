@@ -13,8 +13,6 @@
 	export let form;
 	export let data: PageServerData;
 
-	console.log('data', JSON.stringify(data));
-
 	const addressObject = data.healthProfile.Patient.User.Person.Addresses;
 
 	const personObject = data.healthProfile.Patient.User.Person;
@@ -167,9 +165,7 @@
 									placeholder="Image"
 									on:change={async (e) => await onFileSelected(e)}
 								/>
-								<span class=" text-lg font-semibold"
-									>{personObject.DisplayName || 'Unknown'}</span
-								>
+								<span class=" text-lg font-semibold">{personObject.DisplayName || 'Unknown'}</span>
 							{/if}
 							<input type="hidden" name="imageResourceId" value={imageResourceId} />
 							{#if form?.errors?.imageResourceId}
