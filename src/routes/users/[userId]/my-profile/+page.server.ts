@@ -4,6 +4,8 @@ import type { PageServerLoad } from './$types';
 import { string } from 'zod';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
+import { countryCode } from '$lib/components/country.code.svelte';
+import { updateAddress } from '$routes/api/services/address';
 
 const itemsPerPage = 100;
 export const load: PageServerLoad = async (event: RequestEvent) => {
@@ -28,34 +30,37 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 const updateUserProfile = zfd.formData({
-	FirstName: z.string().optional(),
-	LastName: z.string().optional(),
-	Gender: z.string().optional(),
-	BirthDate: z.string().optional(),
-	MaritalStatus: z.string().optional(),
-	Email: z.string().email().optional(),
-	Phone: z.string().optional(),
-	Race: z.string().optional(),
-	Ethnicity: z.string().optional(),
-    StrokeSurvivorOrCaregiver: z.string().optional(),
-	WorkedPriorToStroke: z
-        .union([
-            z.boolean(),
-            z.enum(["true", "false"]).transform((val) => val === "false" ? false : true)
-        ])
-        .optional(),
-    LivingAlone: z
-        .union([
-            z.boolean(),
-            z.enum(["true", "false"]).transform((val) => val === "false" ? false : true)
-        ])
-        .optional(),
-	AddressLine: z.string().optional(),
-	City: z.string().optional(),
-	District: z.string().optional(),
-	State: z.string().optional(),
-	Country: z.string().optional(),
-	PostalCode: z.string().optional()
+	firstName: z.string().optional(),
+	lastName: z.string().optional(),
+	gender: z.string().optional(),
+	birthDate: z.string().optional(),
+	maritalStatus: z.string().optional(),
+	email: z.string().optional(),
+	countryCode: z.string().optional(),
+	phone: z.string().optional(),
+	race: z.string().optional(),
+	ethnicity: z.string().optional(),
+	strokeSurvivorOrCaregiver: z.string().optional(),
+	workedPriorToStroke: z
+		.union([
+			z.boolean(),
+			z.enum(['true', 'false']).transform((val) => (val === 'false' ? false : true))
+		])
+		.optional(),
+	livingAlone: z
+		.union([
+			z.boolean(),
+			z.enum(['true', 'false']).transform((val) => (val === 'false' ? false : true))
+		])
+		.optional(),
+	addressId: z.string().optional(),
+	addressLine: z.string().optional(),
+	city: z.string().optional(),
+	district: z.string().optional(),
+	state: z.string().optional(),
+	country: z.string().optional(),
+	postalCode: z.string().optional(),
+	imageResourceId: z.string().optional()
 });
 
 export const actions = {
@@ -70,9 +75,11 @@ export const actions = {
 		let result: updateProfileSchema = {};
 
 		try {
-            console.log("formdata before result",formData);
+			console.log('******before processing', formData.email);
+
 			result = updateUserProfile.parse(formData);
-			console.log(result.LivingAlone, 'result in try');
+			console.log("after validation")
+			
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
 			console.log(errors);
@@ -82,27 +89,41 @@ export const actions = {
 				errors
 			};
 		}
+
+		// const addressResponse = await updateAddress(
+		// 	sessionId,
+		// 	result.addressId,
+		// 	result.addressLine,
+		// 	result.city,
+		// 	result.district,
+		// 	result.state,
+		// 	result.country,
+		// 	result.postalCode
+		// )
+
+		const phone = result.countryCode + '-' + result.phone;
 		const response = await updatePatientById(
 			sessionId,
 			userId,
-			result.FirstName,
-			result.LastName,
-			result.Gender,
-			result.BirthDate,
-			result.MaritalStatus,
-			result.Email,
-			result.Phone,
-			result.Race,
-			result.Ethnicity,
-			result.StrokeSurvivorOrCaregiver,
-            result.WorkedPriorToStroke,
-			result.LivingAlone,
-			result.AddressLine,
-			result.City,
-			result.District,
-			result.State,
-			result.Country,
-			result.PostalCode
+			result.firstName,
+			result.lastName,
+			result.gender,
+			result.birthDate,
+			result.maritalStatus,
+			result.email,
+			phone,
+			result.race,
+			result.ethnicity,
+			result.strokeSurvivorOrCaregiver,
+			result.workedPriorToStroke,
+			result.livingAlone,
+			result.addressLine,
+			result.city,
+			result.district,
+			result.state,
+			result.country,
+			result.postalCode,
+			result.imageResourceId
 		);
 	}
 };

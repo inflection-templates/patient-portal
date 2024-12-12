@@ -49,8 +49,8 @@ export const deletePatient = async (sessionId: string, patientId: string) => {
 };
 
 export const updatePatientById = async (
-	sessionId: string,
-	patientId: string,
+	sessionId: string | undefined,
+	patientId: string | undefined,
 	firstName: string,
 	LastName: string,
 	Gender: string,
@@ -68,9 +68,10 @@ export const updatePatientById = async (
 	District: string,
 	State: string,
 	country: string,
-	postalcode: string
+	postalcode: string,
+	imageresourceid: string
 ) => {
-	console.log('in the user update living alone', LivingAlone);
+	console.log('in the user update living alone');
 	const body = {
 		FirstName: firstName ? firstName : null,
 		LastName: LastName ? LastName : null,
@@ -93,7 +94,8 @@ export const updatePatientById = async (
 		District: District ? District : null,
 		State: State ? State : null,
 		Country: country ? country : null,
-		PostalCode: postalcode ? postalcode : null
+		PostalCode: postalcode ? postalcode : null,
+		ImageResourceId: imageresourceid ? imageresourceid : null
 	};
 	console.log('in the user update', body);
 	const url = BACKEND_API_URL + `/patients/${patientId}`;

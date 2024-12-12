@@ -66,7 +66,7 @@ export function handleVitals(vitalData: any[], vitalType: string) {
 }
 
 
- export function sampleDataByDate(data) {
+ export function sampleDataByDate(data:any) {
     const groupedData = {};
     data.forEach((record) => {
       if (!groupedData[record.date]) {
@@ -90,6 +90,50 @@ export function handleVitals(vitalData: any[], vitalType: string) {
 			.map((word) => word[0].toUpperCase()) 
 			.join(''); 
 	}
+  export function separatePhoneNumber(phoneNumber: string | null) {
+    if (!phoneNumber) {
+      return { countryCode: null, mobileNumber: null }; // Handle null value
+    }
+
+    const regex = /^\+(\d+)-(\d+)$/; // Regex to match +country_code-mobile_number
+    const match = phoneNumber.match(regex);
+
+    if (match) {
+      const countryCode = `+${match[1]}`; // Include the '+' sign with country code
+      const mobileNumber = match[2]; // Extract mobile number
+      return { countryCode, mobileNumber };
+    } else {
+      return { countryCode: null, mobileNumber: null }; // Return null if format is incorrect
+    }
+  }
+
+  export	function isValidEmail(emailval) {
+		const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		return regex.test(emailval);
+	}
+  export function formatBirthdate(isoDateString) {
+    
+    if (!isoDateString) {
+      return 'No birthdate provided'; 
+    }
+
+    // Create a Date object from the ISO date string
+    const date = new Date(isoDateString);
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      return 'Invalid date format'; // Return a message for invalid date
+    }
+
+    // Extract day, month, and year
+    const day = String(date.getUTCDate()).padStart(2, '0'); // Get day and pad with zero if needed
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Get month (0-indexed) and pad with zero
+    const year = date.getUTCFullYear(); // Get full year
+
+    // Return formatted date in DD-MM-YYYY format
+    return `${day}-${month}-${year}`;
+  }
+  
 
   // export function getDayWiseData(tasks:any) {
   //   let dayWiseData:any = {};

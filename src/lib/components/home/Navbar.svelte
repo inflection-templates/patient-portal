@@ -23,7 +23,7 @@
 	let selectedOption = '';
 
 	const userMenuItems = [
-		{ label: 'User Profile', href: '/user-profile' },
+		{ label: 'User Profile', href: `/users/${userId}/my-profile` },
 		{ label: 'Themes' },
 		{ label: 'Help', href: '/help' },
 		{ label: 'Sign Out', href: '/signout' }
