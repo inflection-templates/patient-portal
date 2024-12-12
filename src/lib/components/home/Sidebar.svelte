@@ -3,23 +3,15 @@
 	import Icon from '@iconify/svelte';
 	import { sidebarMenu, type TabDefinition } from './navigation.tabs';
 
-	export let userId: string | undefined = undefined
+	export let userId: string | undefined = undefined;
 
 	const sidebarTabs: TabDefinition[] = sidebarMenu(userId);
 
-	
-
-	userId= $page.params.userId;
+	userId = $page.params.userId;
 	let homeLink = `/users/${userId}/careplan`;
-	const sidebarItems = [
-		{ label: 'Home', icon: 'mdi:home', href: '/home' },
-		{ label: 'Careplan', icon: 'mdi:clipboard-text', href:homeLink},
-		{ label: 'Notifications', icon: 'mdi:bell', href: '/notifications' }
-	];
 </script>
 
 <div class="flex">
-
 	<div class="sidebar">
 		<ul class="sidebar-list">
 			{#each sidebarTabs as tab}

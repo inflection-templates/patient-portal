@@ -1,22 +1,23 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import ConfirmModal from '../modal/confirm.modal.svelte';
+
 	export let logout;
 	export let userId: string | undefined;
 	export let deleteAccount: () => void;
 	export let imageUrl: string | undefined;
+
+	export let userName: string;
 	let showConfirmDelete_ = false;
 	$: showModal = showConfirmDelete_;
 
 	const deleteMessage_ =
 		'Are you sure you want to delete your account? ' +
 		'This action is irreversible, and all associated data will be permanently removed.';
-
 	$: deleteMessage = deleteMessage_;
 
 	let showUserMenu = false;
 	let showThemeMenu = false;
-	const userName = 'Mayur Bankar';
 	const themeModes = ['Light', 'Dark'];
 	const themeOptions = [
 		{ name: 'Blue', color: '#0096ff' },
@@ -29,10 +30,31 @@
 	let selectedOption = '';
 
 	const userMenuItems = [
-		{ label: 'User Profile', href: '/user-profile' },
-		{ label: 'Themes' },
-		{ label: 'Help', href: '/help' },
-		{ label: 'Sign Out', href: '/signout' }
+		{
+			label: 'User Profile',
+			icon: 'material-symbols:person-outline',
+			href: `/users/${userId}/my-profile`
+		},
+		{
+			label: 'Themes',
+			icon: 'mdi:palette-outline'
+		},
+		// {
+		// 	label: 'Help',
+		// 	icon: 'ic:baseline-help-outline',
+		// 	href: '/help'
+		// },
+		{
+			label: 'Sign Out',
+			icon: 'material-symbols:logout',
+			action: logout,
+			type: 'button'
+		},
+		{
+			label: 'Delete Account',
+			icon: 'ic:baseline-delete-forever',
+			action: openModal
+		}
 	];
 
 	const handleModeChange = (theme: string) => {
@@ -52,6 +74,7 @@
 
 		document.documentElement.setAttribute('data-theme-option', option);
 	};
+
 	function openModal() {
 		showModal = true;
 	}
@@ -70,6 +93,10 @@
 	const closeThemeMenu = () => {
 		showThemeMenu = false;
 	};
+	const userInitials = userName
+		.split(' ')
+		.map((word) => word[0])
+		.join('');
 </script>
 
 <header class="navbar">
@@ -93,26 +120,36 @@
 			{#if showUserMenu}
 				<div class="user-menu">
 					<div class="user-name">
-						{userName}
+						<div class="initial-icon">
+							{userInitials}
+						</div>
+						<span>{userName}</span>
 					</div>
 					<hr class="user-menu-divider" />
 
 					{#each userMenuItems as item}
 						{#if item.label === 'Themes'}
 							<button class="user-menu-item" on:click={() => (showThemeMenu = !showThemeMenu)}>
+								<Icon icon={item.icon} class="menu-icon" />
 								<span>{item.label}</span>
 							</button>
-						{:else if item.label === 'button'}
-							<button class="user-menu-item" on:click={openModal}>
+						{:else if item.label === 'Sign Out'}
+							<button class="user-menu-item" on:click={item.action}>
+								<Icon icon={item.icon} class="menu-icon" />
+								<span>{item.label}</span>
+							</button>
+						{:else if item.label === 'Delete Account'}
+							<button class="user-menu-item" on:click={item.action}>
+								<Icon icon={item.icon} class="menu-icon" />
 								<span>{item.label}</span>
 							</button>
 						{:else}
 							<a href={item.href} class="user-menu-item">
+								<Icon icon={item.icon} class="menu-icon" />
 								<span>{item.label}</span>
 							</a>
 						{/if}
 					{/each}
-					<button class="user-menu-item" on:click={openModal}> Delete Account </button>
 				</div>
 			{/if}
 

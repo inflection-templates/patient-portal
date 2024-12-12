@@ -208,10 +208,14 @@
 	@apply text-gray-800;
 }
 .user-menu {
-	@apply absolute right-0 top-14 w-44 bg-accent rounded-md shadow-lg py-1 text-info z-50;
+	@apply absolute right-0 top-14  w-48 bg-accent rounded-md shadow-lg py-1 text-info z-50;
 }
 .user-name {
-	@apply px-4 py-2 text-lg  text-info;
+	@apply px-3 py-2 text-lg  text-info  flex items-center space-x-2;
+}
+
+.initial-icon {
+	@apply w-10 h-10 rounded-full bg-neutral text-info flex items-center justify-center  uppercase text-sm;
 }
 .user-menu-item {
 	@apply flex items-center w-full px-4 py-2 text-info  hover:bg-neutral;
@@ -225,11 +229,12 @@
 .user-menu-divider {
 	@apply border-accent;
 }
-
-
+.menu-icon {
+	@apply mr-2;
+}
 
 .theme-menu {
-	@apply absolute right-0 top-14 w-60 sm:w-80 bg-accent shadow-lg rounded-md p-4 z-50;
+	@apply absolute right-0 top-14 w-60 sm:w-80 bg-accent shadow-lg rounded-md p-6 z-50;
 }
 
 .theme-divider {
@@ -249,8 +254,6 @@
 .para {
 	@apply mb-2 text-sm text-left text-info;
 }
-
-
 
 .sidebar {
 	@apply w-16 sm:w-56 min-h-screen bg-accent border-accent text-info px-4 sm:px-8 py-4 fixed top-14 left-0;
@@ -295,7 +298,7 @@
 	@apply w-full mx-auto  border rounded-xl;
 }
 .thead {
-	@apply sticky top-0 text-sm sm:text-base  sm:text-info text-info bg-accent;
+	@apply sticky top-0 text-sm sm:text-base  sm:text-info text-info bg-accent  table w-full table-fixed;
 }
 .tabledata {
 	@apply text-center text-sm border border-accent;
@@ -328,43 +331,47 @@
 .canvas {
 	@apply absolute inset-0 w-full h-full border border-accent  rounded-xl p-4;
 }
+
+.userinput{
+	@apply bg-gray-50 rounded-md border border-gray-300 p-3 text-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-gray-500;
+}
+.userlabel{
+	@apply block text-base mb-1;
+}
+.error-text{
+	@apply text-red-500 text-sm mt-1;
+}
 thead,
 tbody tr {
-	display: table;
-	width: 100%;
-	table-layout: fixed;
+	@apply table w-full table-fixed;
 }
 
-.theme-toggle-btn,
 .user-profile-btn {
-	cursor: pointer;
-}
-
-.user-menu-item {
-	transition: background-color 0.2s;
+	@apply cursor-pointer;
 }
 
 .overlay {
 	@apply fixed inset-0 flex  items-center justify-center;
 }
+
 .modal {
-	@apply bg-accent rounded-lg shadow-md w-11/12 max-w-sm p-6;
+	@apply bg-white border-accent rounded-lg shadow-lg w-full sm:w-11/12 md:max-w-md lg:max-w-lg  p-6 mx-4 sm:mx-auto;
 }
 
 .modal-title {
-	@apply text-lg font-semibold text-info;
+	@apply text-lg sm:text-xl font-semibold text-info;
 }
 
 .modal-message {
-	@apply mt-4 text-info;
+	@apply mt-4 text-info text-sm;
 }
 
 .modal-actions {
-	@apply mt-6 flex justify-end gap-4;
+	@apply mt-6 flex flex-col sm:flex-row justify-end gap-4;
 }
 
 .cancel-btn {
-	@apply py-2 px-4 rounded-md border border-gray-400 text-info  cursor-pointer;
+	@apply py-2 px-4 rounded-md border border-gray-400 cursor-pointer text-sm text-info;
 }
 
 .cancel-btn:hover {
@@ -372,11 +379,15 @@ tbody tr {
 }
 
 .confirm-btn {
-	@apply py-2 px-4 rounded-md text-info bg-error cursor-pointer transition-colors duration-200;
+	@apply py-2 px-4 rounded-md text-info bg-error cursor-pointer transition-colors duration-200 text-sm sm:text-base;
 }
 
 .confirm-btn:hover {
 	@apply bg-error;
+}
+
+.overlay {
+	@apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50;
 }
 
 .table-container {

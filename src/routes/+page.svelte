@@ -39,6 +39,7 @@
 						<label for="mobile" class="label">Mobile Number</label>
 						<div class="flex space-x-2">
 							<select class="select" name="countryCode">
+								<option value="+1">+1</option>
 								<option value="+91">+91</option>
 								<option value="+44">+44</option>
 								<option value="+61">+61</option>
