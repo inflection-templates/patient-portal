@@ -1,148 +1,121 @@
 <script lang="ts">
-	import CareplanData from '$lib/components/careplan/careplan.data.svelte';
-	import CareplanGraph from '$lib/components/careplan/careplan.graph.svelte';
-	import type { PageServerData } from './$types';
+    import CareplanStackedChart from '$lib/components/careplan/careplan.stacked.chart.svelte';
+    import type { PageServerData } from './$types';
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
+    export let data: PageServerData;
+    let careplanTasks = data.careplanTasks || [];
+    let selectedView: 'day' | 'week' = 'day';
+    let careplanData = careplanTasks[0];
+    let careplanCode = careplanData?.Action?.PlanCode ?? '';
+    let careplanName = careplanData?.Action?.PlanName ?? '';
 
-	export let data: PageServerData;
-	let dayWiseSeparatedData = data.dayWiseSeparatedData;
-	let weekWiseSeparatedData = data.weekWiseSeparatedData;
-	let careplanTasks = data.careplanTasks;
-	let selectedView = 'day';
-	let careplanData = careplanTasks[0];
-	console.log('careplanData',careplanData);
-	let careplanCode = careplanData?.Action?.PlanCode ?? '';
-	let careplanName = careplanData?.Action?.PlanName ?? '';
+    const hasData = careplanTasks.length > 0;
 
-	function getTaskCounts(tasks) {
-		const taskCounts = {
-			total: 0,
-			completed: 0,
-			pending: 0,
-			delayed: 0,
-		};
-
-		tasks.forEach((task) => {
-			taskCounts.total++;
-
-			switch (task.Status) {
-				case "Completed":
-					taskCounts.completed++;
-					break;
-				case "Pending":
-					taskCounts.pending++;
-					break;
-				case "Delayed":
-					taskCounts.delayed++;
-					break;
-			}
-		});
-
-		return taskCounts;
-	}
-	const taskStatusCounts = getTaskCounts(careplanTasks);
-	let taskStatusArray = Object.entries(taskStatusCounts).map(([key, value]) => {
-        const titles = {
-            total: "Total Tasks",
-            completed: "Completed Tasks",
-            pending: "Pending Tasks",
-            delayed: "Delayed Tasks"
+    function getTaskCounts(tasks: any[]) {
+        const taskCounts = {
+            total: 0,
+            completed: 0,
+            delayed: 0,
         };
 
-        return { title: titles[key] || key, value };
-    });
+        if (!tasks?.length) return taskCounts;
 
+        tasks.forEach((task) => {
+            taskCounts.total++;
+            switch (task.Status) {
+                case "Completed":
+                    taskCounts.completed++;
+                    break;
+                case "Delayed":
+                    taskCounts.delayed++;
+                    break;
+            }
+        });
+        return taskCounts;
+    }
+    const taskStatusCounts = getTaskCounts(careplanTasks);
 </script>
 
-<!-- <div class="flex flex-row w-full p-4 sm:mx-8">
-	<div class="w-[50%] h-fit">
-		<div class="">
-			<CareplanData labels={weekWiseSeparatedData.labels} data1={weekWiseSeparatedData.scheduled} data2={weekWiseSeparatedData.completed} />
-		</div>
-	</div>
-	<div class="w-[50%] h-fit relative">
-		<div class="py-10 px-3">
-			<CareplanGraph labels={dayWiseSeparatedData.labels} data1={dayWiseSeparatedData.scheduled} data2={dayWiseSeparatedData.completed}  />
-		</div>
-	</div>
-</div> -->
-
-<div class="flex flex-row w-full p-4 sm:mx-8">
-	<!-- <div class="w-[50%] h-fit">
-		{#if selectedView === 'week'}
-			<CareplanData 
-				labels={weekWiseSeparatedData.labels} 
-				data1={weekWiseSeparatedData.scheduled} 
-				data2={weekWiseSeparatedData.completed} 
-			/>
-		{:else}
-			<CareplanData 
-				labels={dayWiseSeparatedData.labels} 
-				data1={dayWiseSeparatedData.scheduled} 
-				data2={dayWiseSeparatedData.completed} 
-			/>
-		{/if}
-	</div> -->
-
-
-	
-<div class="flex-col items-center mt-2 ">
-	<div class="flex mx-2 gap-6">
-		<!-- svelte-ignore a11y-label-has-associated-control -->
-		<label class="lable-text font-semibold">Careplan</label>
-		<span class="">{careplanName}</span>
-	</div>
-	<div class="flex mx-2 gap-14">
-		<!-- svelte-ignore a11y-label-has-associated-control -->
-		<label class="lable-text font-semibold">Code </label>
-		<span class="">{careplanCode}</span>
-	</div>
-    {#each taskStatusArray as taskStatus}
-        <div class="flex mx-2 gap-14">
-            <!-- svelte-ignore a11y_label_has_associated_control -->
-            <label class="label-text font-semibold">{taskStatus.title}</label>
-            <span>{taskStatus.value}</span>
+<div class="careplan-container">
+    <div class="careplan-card">
+        <div class="careplan-header">
+            <div class="careplan-header-content">
+                <h2 class="careplan-title">Careplan History</h2>
+                {#if hasData}
+                <div class="careplan-view-selector">
+                    <span class="text-sm text-label">View:</span>
+                    <select
+                        class="careplan-select"
+                        bind:value={selectedView}
+                    >
+                        <option value="day">Day Wise</option>
+                        <option value="week">Week Wise</option>
+                    </select>
+                </div>
+                {/if}
+            </div>
         </div>
-    {/each}
-	<div class="flex mx-2 gap-6">
-		<!-- svelte-ignore a11y-label-has-associated-control -->
-		<label class="lable-text font-semibold">Start Date</label>
-		<span class="">{data.startDate}</span>
-	</div>
-	<div class="flex mx-2 gap-14">
-		<!-- svelte-ignore a11y-label-has-associated-control -->
-		<label class="lable-text font-semibold">End Date</label>
-		<span class="">{data.endDate}</span>
-	</div>
 
+        {#if hasData}
+        <div class="careplan-content">
+            <div class="careplan-stats-grid">
+                <div class="careplan-stat-card bg-stat-total">
+                    <div class="careplan-stat-label text-stat-total">Total Tasks</div>
+                    <div class="careplan-stat-value">{taskStatusCounts.total || 0}</div>
+                </div>
+                <div class="careplan-stat-card bg-stat-completed">
+                    <div class="careplan-stat-label text-stat-completed">Completed</div>
+                    <div class="careplan-stat-value">{taskStatusCounts.completed || 0}</div>
+                </div>
+                <div class="careplan-stat-card bg-stat-delayed">
+                    <div class="careplan-stat-label text-stat-delayed">Delayed</div>
+                    <div class="careplan-stat-value">{taskStatusCounts.delayed || 0}</div>
+                </div>
+            </div>
 
-</div>
-	<div class="flex flex-row items-center  space-x-4 mb-4">
-		<label for="view-selector" class="text-lg">Select View:</label>
-		<select 
-			id="view-selector" 
-			class="px-4 py-2 border rounded"
-			bind:value={selectedView}>
-			<option value="day">Day Wise</option>
-			<option value="week">Week Wise</option>
-		</select>
-	</div>
-
-	<div class="w-[50%] h-fit relative">
-		{#if selectedView === 'week'}
-			<CareplanGraph 
-				labels={weekWiseSeparatedData.labels} 
-				data1={weekWiseSeparatedData.scheduled} 
-				data2={weekWiseSeparatedData.completed} 
-			/>
-		{:else}
-			<CareplanGraph 
-				labels={dayWiseSeparatedData.labels} 
-				data1={dayWiseSeparatedData.scheduled} 
-				data2={dayWiseSeparatedData.completed} 
-			/>
-		{/if}
-	</div>
-
+            <div class="careplan-chart-container">
+                <div class="careplan-chart">
+                    <div class="careplan-chart-wrapper">
+                        <CareplanStackedChart 
+                            tasks={careplanTasks}
+                            view={selectedView}
+                        />
+                    </div>
+                </div>
+                <div class="careplan-info-sidebar">
+                    <div class="careplan-info-card">
+                        <table class="careplan-table">
+                            <tbody class="careplan-table-body">
+                                <tr>
+                                    <td class="careplan-table-cell careplan-table-label">Careplan</td>
+                                    <td class="careplan-table-cell careplan-table-value">{careplanName || '-'}</td>
+                                </tr>
+                                <tr>
+                                    <td class="careplan-table-cell careplan-table-label">Code</td>
+                                    <td class="careplan-table-cell careplan-table-value">{careplanCode || '-'}</td>
+                                </tr>
+                                <tr>
+                                    <td class="careplan-table-cell careplan-table-label">Start Date</td>
+                                    <td class="careplan-table-cell careplan-table-value">{data.startDate || '-'}</td>
+                                </tr>
+                                <tr>
+                                    <td class="careplan-table-cell careplan-table-label">End Date</td>
+                                    <td class="careplan-table-cell careplan-table-value">{data.endDate || '-'}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {:else}
+        <div class="careplan-content">
+            <div class="careplan-empty-state">
+                <div class="text-center">
+                    <p class="careplan-empty-text">Careplan data not available</p>
+                </div>
+            </div>
+        </div>
+        {/if}
+    </div>
 </div>

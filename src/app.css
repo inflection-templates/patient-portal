@@ -9,7 +9,7 @@
 	--info-color: #1a202c;
 	--accent-color: #e5e7eb;
 	--neutral-color: #d3d3d3;
-	--error-color: #ff3131;
+	--error-color: #e02222;
 	--success-color: #50c878;
 	--active-color: #add8e6;
 }
@@ -21,12 +21,11 @@
 	--info-color: #e5e7eb;
 	--accent-color: #2c2c2c;
 	--neutral-color: #4a5c7a;
-	--error-color: #ef4444;
+	--error-color: #e02222;
 	--success-color: #10b981;
 	--active-color: #36454f;
 }
 
-/* Teal theme options */
 [data-theme='light'][data-theme-option='teal'] {
 	--primary-color: #8b5cf6;
 	--secondary-color: #7c3aed;
@@ -34,7 +33,7 @@
 	--info-color: #1a202c;
 	--accent-color: #e5e7eb;
 	--neutral-color: #7fbfbf;
-	--error-color: #f87171;
+	--error-color: #e02222;
 	--success-color: #34d399;
 	--active-color: #7fbfbf;
 }
@@ -45,11 +44,10 @@
 	--info-color: #e5e7eb;
 	--accent-color: #2c2c2c;
 	--neutral-color: #329999;
-	--error-color: #f87171;
+	--error-color: #e02222;
 	--success-color: #218d65;
 	--active-color: #329999;
 }
-/* Blue theme options */
 [data-theme='light'][data-theme-option='blue'] {
 	--primary-color: #3b82f6;
 	--secondary-color: #2563eb;
@@ -57,7 +55,7 @@
 	--info-color: #1a202c;
 	--accent-color: #e5e7eb;
 	--neutral-color: #89cff0;
-	--error-color: #ef4444;
+	--error-color: #e02222;
 	--success-color: #10b981;
 	--active-color: #89cff0;
 }
@@ -68,7 +66,7 @@
 	--info-color: #eff6ff;
 	--accent-color: #2c2c2c;
 	--neutral-color: #0096ff;
-	--error-color: #ef4444;
+	--error-color: #e02222;
 	--success-color: #10b981;
 	--active-color: #0096ff;
 }
@@ -81,7 +79,7 @@
 	--info-color: #1a202c;
 	--accent-color: #e5e7eb;
 	--neutral-color: #adebb3;
-	--error-color: #ef4444;
+	--error-color: #e02222;
 	--success-color: #10b981;
 	--active-color: #adebb3;
 }
@@ -92,7 +90,7 @@
 	--info-color: #eff6ff;
 	--accent-color: #2c2c2c;
 	--neutral-color: #4ec55a;
-	--error-color: #ef4444;
+	--error-color: #e02222;
 	--success-color: #10b981;
 	--active-color: #4ec55a;
 }
@@ -105,7 +103,7 @@
 	--info-color: #1a202c;
 	--accent-color: #e5e7eb;
 	--neutral-color: #ffc000;
-	--error-color: #ef4444;
+	--error-color: #e02222;
 	--success-color: #10b981;
 	--active-color: #ffc000;
 }
@@ -116,7 +114,7 @@
 	--info-color: #eff6ff;
 	--accent-color: #2c2c2c;
 	--neutral-color: #ffc000;
-	--error-color: #ef4444;
+	--error-color: #e02222;
 	--success-color: #10b981;
 	--active-color: #ffc000;
 }
@@ -129,7 +127,7 @@
 	--info-color: #1a202c;
 	--accent-color: #e5e7eb;
 	--neutral-color: #d59352;
-	--error-color: #ef4444;
+	--error-color: #e02222;
 	--success-color: #10b981;
 	--active-color: #d59352;
 }
@@ -140,7 +138,7 @@
 	--info-color: #eff6ff;
 	--accent-color: #2c2c2c;
 	--neutral-color: #d59352;
-	--error-color: #ef4444;
+	--error-color: #e02222;
 	--success-color: #10b981;
 	--active-color: #d59352;
 }
@@ -162,6 +160,9 @@
 }
 .btn {
 	@apply w-full bg-primary hover:bg-secondary text-base font-bold py-2 rounded-lg shadow transition duration-200;
+}
+.eyebtn {
+	@apply absolute right-3 top-1/2 transform -translate-y-1/2;
 }
 .googlebtn {
 	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-info rounded-lg border border-accent bg-base  transition;
@@ -225,26 +226,34 @@
 	@apply border-accent;
 }
 
+
+
 .theme-menu {
-	@apply absolute  top-14 right-0 w-44 bg-accent shadow-lg rounded-md p-4 z-50   text-info;
+	@apply absolute right-0 top-14 w-60 sm:w-80 bg-accent shadow-lg rounded-md p-4 z-50;
 }
 
 .theme-divider {
-	@apply border-t border-info mb-4;
+	@apply my-2  sm:my-4 border border-accent;
 }
 
 .theme-option {
-	@apply w-full px-2 py-2  my-1 text-center text-info rounded-md border border-info hover:bg-neutral;
+	@apply px-3 py-3 sm:p-3 rounded-lg border text-xs sm:text-sm;
 }
 .theme-modes {
-	@apply my-4;
-}
-.themes-close-button {
-	@apply absolute top-2 right-2 text-info  hover:bg-accent;
+	@apply flex-1 flex items-center justify-center p-2 sm:p-4 border border-gray-600 rounded-lg text-xs sm:text-sm;
 }
 
+.themes-close-button {
+	@apply absolute top-2 right-2;
+}
+.para {
+	@apply mb-2 text-sm text-left text-info;
+}
+
+
+
 .sidebar {
-	@apply w-16 sm:w-56 min-h-screen bg-accent border-accent text-info px-4 sm:px-8 py-4;
+	@apply w-16 sm:w-56 min-h-screen bg-accent border-accent text-info px-4 sm:px-8 py-4 fixed top-14 left-0;
 }
 .sidebar-list {
 	@apply space-y-2;
@@ -260,6 +269,9 @@
 }
 .sidebar-text {
 	@apply hidden sm:inline  text-info;
+}
+.main-content {
+	@apply flex-1 p-4 ml-16 sm:ml-56;
 }
 .iconsize {
 	@apply w-5 h-5;
@@ -280,7 +292,7 @@
 	@apply mx-4 sm:mx-10;
 }
 .tabs {
-	@apply w-full mx-auto  border rounded-lg;
+	@apply w-full mx-auto  border rounded-xl;
 }
 .thead {
 	@apply sticky top-0 text-sm sm:text-base  sm:text-info text-info bg-accent;
@@ -292,10 +304,13 @@
 	@apply block overflow-y-auto;
 }
 .th {
-	@apply py-1 text-left;
+	@apply p-2 text-left  font-normal;
 }
 .td {
-	@apply py-1 text-left;
+	@apply p-2 text-left;
+}
+.sort-icon {
+	@apply text-sm align-middle;
 }
 .pagination-controls {
 	@apply space-x-1;
@@ -308,10 +323,10 @@
 	@apply px-4 py-2 text-xs lg:text-sm  text-info rounded-md shadow hover:bg-neutral bg-accent my-2;
 }
 .chart {
-	@apply h-80 w-full relative shadow-lg;
+	@apply h-80 w-full relative;
 }
 .canvas {
-	@apply absolute inset-0 w-full h-full;
+	@apply absolute inset-0 w-full h-full border border-accent  rounded-xl p-4;
 }
 .userinput{
 	@apply bg-gray-50 rounded-md border border-gray-300 p-3 text-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-gray-500;
@@ -328,6 +343,7 @@ tbody tr {
 	width: 100%;
 	table-layout: fixed;
 }
+
 .theme-toggle-btn,
 .user-profile-btn {
 	cursor: pointer;
@@ -335,4 +351,199 @@ tbody tr {
 
 .user-menu-item {
 	transition: background-color 0.2s;
+}
+
+.overlay {
+	@apply fixed inset-0 flex  items-center justify-center;
+}
+.modal {
+	@apply bg-accent rounded-lg shadow-md w-11/12 max-w-sm p-6;
+}
+
+.modal-title {
+	@apply text-lg font-semibold text-info;
+}
+
+.modal-message {
+	@apply mt-4 text-info;
+}
+
+.modal-actions {
+	@apply mt-6 flex justify-end gap-4;
+}
+
+.cancel-btn {
+	@apply py-2 px-4 rounded-md border border-gray-400 text-info  cursor-pointer;
+}
+
+.cancel-btn:hover {
+	@apply bg-accent;
+}
+
+.confirm-btn {
+	@apply py-2 px-4 rounded-md text-info bg-error cursor-pointer transition-colors duration-200;
+}
+
+.confirm-btn:hover {
+	@apply bg-error;
+}
+
+.table-container {
+	@apply w-full;
+}
+
+.table-wrapper {
+	@apply overflow-x-auto;
+}
+
+.table-footer {
+	@apply flex justify-between items-center flex-wrap;
+}
+
+.page-size-container {
+	@apply flex flex-1 justify-start items-center;
+}
+
+.page-size-selector {
+	@apply sm:px-2 py-2 border border-accent rounded-md my-4 text-xs sm:text-sm;
+}
+.pages {
+	@apply hover:bg-accent;
+}
+.pagination-controls {
+	@apply flex flex-1 justify-end items-center text-xs sm:text-sm;
+}
+
+.pagination-button {
+	@apply sm:px-2 cursor-pointer;
+}
+
+.pagination-button:disabled {
+	@apply cursor-not-allowed opacity-50;
+}
+
+.current-page {
+	@apply text-info;
+}
+
+.careplan-container {
+	@apply w-full p-4;
+}
+
+.careplan-card {
+	@apply bg-white border rounded-lg shadow-sm;
+}
+
+.careplan-header {
+	@apply border-b px-6 py-4;
+}
+
+.careplan-header-content {
+	@apply flex justify-between items-center;
+}
+
+.careplan-title {
+	@apply text-xl font-semibold;
+}
+
+.careplan-view-selector {
+	@apply flex items-center gap-2;
+}
+
+.careplan-select {
+	@apply border rounded px-3 py-1.5 text-sm bg-white;
+}
+
+.careplan-stats-grid {
+	@apply grid grid-cols-3 gap-4 mb-6;
+}
+
+.careplan-stat-card {
+	@apply rounded-lg p-4;
+}
+
+.careplan-stat-label {
+	@apply text-sm;
+}
+
+.careplan-stat-value {
+	@apply text-2xl font-semibold mt-1;
+}
+
+.careplan-content {
+	@apply p-6;
+}
+
+.careplan-chart-container {
+	@apply flex gap-6;
+}
+
+.careplan-chart {
+	@apply flex-1;
+}
+
+.careplan-chart-wrapper {
+	@apply h-[400px] w-full;
+}
+
+.careplan-info-sidebar {
+	@apply w-80;
+}
+
+.careplan-info-card {
+	@apply bg-gray-50 rounded-lg p-4 mt-16;
+}
+
+.careplan-table {
+	@apply w-full;
+}
+
+.careplan-table-body {
+	@apply divide-y divide-gray-200;
+}
+
+.careplan-table-cell {
+	@apply py-3 text-sm;
+}
+
+.careplan-table-label {
+	@apply font-medium text-gray-600;
+}
+
+.careplan-table-value {
+	@apply text-gray-900;
+}
+
+.careplan-empty-state {
+	@apply flex items-center justify-center h-64 bg-gray-50 rounded-lg;
+}
+
+.careplan-empty-text {
+	@apply text-gray-500 text-lg;
+}
+
+/* Status-specific background colors */
+.bg-stat-total {
+	@apply bg-gray-50;
+}
+
+.bg-stat-completed {
+	@apply bg-green-50;
+}
+
+.bg-stat-delayed {
+	@apply bg-red-50;
+}
+
+/* Status-specific text colors */
+.text-stat-total {
+	@apply text-gray-600;
+}
+
+.text-stat-completed {
+	@apply text-green-600;
+}
+
+.text-stat-delayed {
+	@apply text-red-600;
 }

@@ -167,7 +167,7 @@
 									placeholder="Image"
 									on:change={async (e) => await onFileSelected(e)}
 								/>
-								<span class=" text-lg font-semibold bg-red-500"
+								<span class=" text-lg font-semibold"
 									>{personObject.DisplayName || 'Unknown'}</span
 								>
 							{/if}
