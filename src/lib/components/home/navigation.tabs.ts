@@ -33,7 +33,7 @@ export const sidebarMenu = (userId : string | undefined) => {
     const menus = [
         home,
         careplan,
-        notifications
+        // notifications
     ];
     return replaceUserId(menus, userId);
 };
