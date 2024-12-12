@@ -108,15 +108,15 @@
 
 		<div class="relative ml-auto flex items-center">
 			<button
-				class="user-profile-btn"
+				class="user-profile-btn flex items-center justify-center"
+				aria-label="Toggle user menu"
 				on:click={() => {
 					showUserMenu = !showUserMenu;
 					if (showUserMenu) showThemeMenu = false;
 				}}
 			>
-				<Icon icon="ant-design:user-outlined" class="iconsize" />
+				<span class="initial-icon">{userInitials}</span>
 			</button>
-
 			{#if showUserMenu}
 				<div class="user-menu">
 					<div class="user-name">

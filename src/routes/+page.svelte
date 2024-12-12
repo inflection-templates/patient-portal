@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { loginMethods } from '../config';
+	// import { loginMethods } from '../config';
 	import Icon from '@iconify/svelte';
 	let showPassword = false;
 	let loginMethod = 'mobile';
@@ -21,9 +21,9 @@
 	</div>
 
 	<div class="card">
-		<div class="p-6 space-y-4 sm:p-8">
+		<div class="p-8">
 			<form method="post" action="?/generateOtp" class="space-y-6">
-				<div>
+				<!-- <div>
 					<div class="flex space-x-4">
 						{#each loginMethods as { value, label }}
 							<label class="label">
@@ -32,7 +32,7 @@
 							</label>
 						{/each}
 					</div>
-				</div>
+				</div> -->
 
 				{#if loginMethod === 'mobile'}
 					<div id="mobile-login">
@@ -91,10 +91,10 @@
 
 				<button type="submit" class="btn w-full">Generate Otp</button>
 
-				<p class="para">
+				<!-- <p class="para">
 					Don’t have an account?
 					<a href="/signup" class="font-medium text-gray-900 hover:underline px-1">Sign up</a>
-				</p>
+				</p> -->
 			</form>
 		</div>
 	</div>
