@@ -16,8 +16,8 @@
     let otpInputs: Array<HTMLInputElement> = [];
 	
 	$: console.log(otp);
-    let duration = 180;
-    let timer = '03:00';
+    let duration = 300;
+    let timer = '05:00';
     let isTimerExpired = false;
     let interval: ReturnType<typeof setInterval>;
     let isResending = false;
@@ -51,7 +51,7 @@
     }
 
     function resetOtpAndTimer() {
-        duration = 180;
+        duration = 300;
         isTimerExpired = false;
         timer = formatTime(duration);
         otp = ['', '', '', '', '', ''];
