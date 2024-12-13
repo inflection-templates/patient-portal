@@ -168,19 +168,19 @@
 	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-info rounded-lg border border-accent bg-base  transition;
 }
 .select {
-	@apply border border-accent text-info text-sm rounded-lg px-1 py-2;
+	@apply border border-accent text-sm rounded-lg px-1 py-2;
 }
 .input {
-	@apply border border-accent text-info sm:text-sm rounded-lg w-full px-3 py-2;
+	@apply border border-accent  sm:text-sm rounded-lg w-full px-3 py-2;
 }
 .inputotp {
 	@apply border border-accent text-info sm:text-sm rounded-lg w-full px-3 py-2 text-center;
 }
 .label {
-	@apply block mb-2 mt-2 text-sm font-medium text-info;
+	@apply block mb-2 mt-2  text-sm font-medium;
 }
 .para {
-	@apply text-sm font-light text-gray-600 text-center;
+	@apply text-sm font-light  text-center;
 }
 .heading {
 	@apply text-xl font-bold text-info;
@@ -251,6 +251,9 @@
 .themes-close-button {
 	@apply absolute top-2 right-2;
 }
+.user-menu-close {
+	@apply absolute top-2 right-2;
+}
 .para {
 	@apply mb-2 text-sm text-left text-info;
 }
@@ -303,7 +306,7 @@
 }
 
 .tabledata {
-	@apply text-center text-sm border border-accent ;
+	@apply text-center text-sm border border-accent;
 }
 .tbody {
 	@apply block overflow-y-auto  rounded-b-lg border-accent border;
@@ -334,13 +337,13 @@
 	@apply absolute inset-0 w-full h-full border border-accent  rounded-xl p-4;
 }
 
-.userinput{
+.userinput {
 	@apply bg-gray-50 rounded-md border border-gray-300 p-3 text-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-gray-500;
 }
-.userlabel{
+.userlabel {
 	@apply block text-base mb-1;
 }
-.error-text{
+.error-text {
 	@apply text-red-500 text-sm mt-1;
 }
 thead,
@@ -435,7 +438,7 @@ tbody tr {
 }
 
 .careplan-card {
-	@apply bg-white border rounded-lg shadow-sm;
+	@apply border rounded-lg shadow-sm;
 }
 
 .careplan-header {
@@ -455,7 +458,7 @@ tbody tr {
 }
 
 .careplan-select {
-	@apply border rounded px-3 py-1.5 text-sm bg-white;
+	@apply border rounded px-3 py-1.5 text-sm;
 }
 
 .careplan-stats-grid {
@@ -495,7 +498,7 @@ tbody tr {
 }
 
 .careplan-info-card {
-	@apply bg-gray-50 rounded-lg p-4 mt-16;
+	@apply rounded-lg p-4 mt-16;
 }
 
 .careplan-table {
@@ -503,7 +506,7 @@ tbody tr {
 }
 
 .careplan-table-body {
-	@apply divide-y divide-gray-200;
+	@apply divide-y divide-neutral;
 }
 
 .careplan-table-cell {
@@ -511,19 +514,19 @@ tbody tr {
 }
 
 .careplan-table-label {
-	@apply font-medium text-gray-600;
+	@apply font-medium text-info;
 }
 
 .careplan-table-value {
-	@apply text-gray-900;
+	@apply text-info;
 }
 
 .careplan-empty-state {
-	@apply flex items-center justify-center h-64 bg-gray-50 rounded-lg;
+	@apply flex items-center justify-center h-64 bg-accent rounded-lg;
 }
 
 .careplan-empty-text {
-	@apply text-gray-500 text-lg;
+	@apply text-info text-lg;
 }
 
 /* Status-specific background colors */
@@ -541,32 +544,46 @@ tbody tr {
 
 /* Status-specific text colors */
 .text-stat-total {
-	@apply text-gray-600;
+	@apply text-info;
 }
 
 .text-stat-completed {
-	@apply text-green-600;
+	@apply text-info;
 }
 
 .text-stat-delayed {
-	@apply text-red-600;
+	@apply text-info;
 }
 
-
-
-
-
-.my-profile{
-	@apply w-full p-8 ;
+.my-profile {
+	@apply w-full mx-2 sm:mx-4;
 }
-.personal-Info{
-	@apply text-lg font-semibold mb-2;
+.personal-Info {
+	@apply text-sm sm:text-lg font-semibold my-2;
 }
 
-.my-settings{
-	@apply text-2xl font-bold mb-6;
+.my-settings {
+	@apply text-sm  sm:text-xl font-semibold;
 }
 
-.profile-icon{
-	@apply bg-accent w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold mb-2;
+.profile-icon {
+	@apply bg-accent  text-info w-16 h-16 rounded-full flex items-center justify-center text-xl  my-4;
+}
+
+.demogrphic-info {
+	@apply text-sm sm:text-lg font-semibold;
+}
+.health-history {
+	@apply text-sm sm:text-lg font-semibold;
+}
+
+.save-changes {
+	@apply bg-accent  text-xs px-4 py-2 md:px-1 md:py-1 lg:px-4 lg:py-2 lg:text-sm  text-info rounded-md shadow hover:bg-neutral;
+}
+.hr-line {
+	@apply border-t border-accent my-4;
+}
+
+.not-available {
+	@apply text-center border border-accent rounded-md p-4;
 }

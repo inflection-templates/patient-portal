@@ -116,8 +116,7 @@
 	</div>
 </div>
 {#if currentData.length != 0}
-<VitalsMain data={currentData} title={activeVital} />
-{:else}	
-<p class="text-center p-40">Data not available for {activeVital}.</p>
+	<VitalsMain data={currentData} title={activeVital} />
+{:else}
+	<p class="not-available my-4 mx-2 sm:mx-8">Data not available for {activeVital}.</p>
 {/if}
-

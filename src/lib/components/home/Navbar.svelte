@@ -119,6 +119,9 @@
 			</button>
 			{#if showUserMenu}
 				<div class="user-menu">
+					<button class="user-menu-close" on:click={() => (showUserMenu = false)}>
+						<Icon icon="ant-design:close-outlined" class="h-5 w-5" />
+					</button>
 					<div class="user-name">
 						<div class="initial-icon">
 							{userInitials}
@@ -164,12 +167,10 @@
 						<div class="flex items-center space-x-4">
 							{#each themeModes as theme}
 								<button
-									class={`px-4 py-2 rounded-lg border-2 ${
+									class={`px-6 py-3 rounded-lg border-2 ${
 										theme === selectedMode ? 'border-neutral' : 'border-transparent'
 									}`}
-									style={`background-color: ${
-										theme === 'Light' ? '#ffffff' : '#1a1a1a'
-									}; color: ${
+									style={`background-color: ${theme === 'Light' ? '#ffffff' : '#1a1a1a'}; color: ${
 										theme === 'Light' ? '#000000' : '#ffffff'
 									};`}
 									on:click={() => handleModeChange(theme)}

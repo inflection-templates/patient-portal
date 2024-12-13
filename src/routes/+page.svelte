@@ -14,11 +14,11 @@
 		<h1 class="heading">Patient Portal</h1>
 	</div>
 
-	<div class="absolute top-4 right-4 flex items-center">
+	<!-- <div class="absolute top-4 right-4 flex items-center">
 		<a href="/signup">
 			<button class="py-2 px-3 btn">Sign Up</button>
 		</a>
-	</div>
+	</div> -->
 
 	<div class="card">
 		<div class="p-8">
