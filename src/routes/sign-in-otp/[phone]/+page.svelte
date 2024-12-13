@@ -1,30 +1,90 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+    import { enhance } from '$app/forms';
 	import Success from '$lib/components/icons/success.icon.svelte';
 	import Toast from '$lib/components/toast/toast.svelte';
-	import type { PageServerData } from './$types';
-
+    import type { PageServerData } from './$types';
+    import { onMount, onDestroy } from 'svelte';
+    
 	////////////////////////////////////////////////////////////////////////////
 
-	export let data: PageServerData;
-	let phone = data.phone;
+    export let data: PageServerData;
+    let phone = data.phone;
 	console.log('Phone: ' + phone);
-	let enteredOtp: string;
+    let enteredOtp: string;
 
-	let otp: string[] = ['', '', '', '', '', ''];
-	let otpInputs: Array<HTMLInputElement> = [];
-
+    let otp: string[] = ['', '', '', '', '', ''];
+    let otpInputs: Array<HTMLInputElement> = [];
+	
 	$: console.log(otp);
-	$: enteredOtp = otp.join('');
+    let duration = 300;
+    let timer = '05:00';
+    let isTimerExpired = false;
+    let interval: ReturnType<typeof setInterval>;
+    let isResending = false;
+    let isSubmitting = false;
+
+    $: enteredOtp = otp.join('');
 	$: console.log('OTP input elements', enteredOtp);
 	$: console.log('Enter OTP input', enteredOtp);
 
-	const handleOtpInput = (index: number) => {
-		otp[index] = otp[index].replace(/\D/g, '');
-		if (index < otpInputs.length - 1 && otp[index].length === 1) {
-			otpInputs[index + 1].focus();
-		}
-	};
+    const handleOtpInput = (index: number) => {
+        otp[index] = otp[index].replace(/\D/g, '');
+        if (index < otpInputs.length - 1 && otp[index].length === 1) {
+            otpInputs[index + 1].focus();
+        }
+    };
+
+    function formatTime(seconds: number): string {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+    }
+
+    function updateTimer() {
+        if (duration > 0) {
+            duration--;
+            timer = formatTime(duration);
+        } else {
+            isTimerExpired = true;
+            clearInterval(interval);
+        }
+    }
+
+    function resetOtpAndTimer() {
+        duration = 300;
+        isTimerExpired = false;
+        timer = formatTime(duration);
+        otp = ['', '', '', '', '', ''];
+        otpInputs[0]?.focus();
+        
+        clearInterval(interval);
+        interval = setInterval(updateTimer, 1000);
+    }
+
+    const handleResendSubmit = () => {
+        if (isResending || isSubmitting) return;
+        
+        isResending = true;
+        isSubmitting = true;
+
+        return async ({ update }: any) => {
+            try {
+                await update();
+                resetOtpAndTimer();
+            } finally {
+                isResending = false;
+                isSubmitting = false;
+            }
+        };
+    };
+
+    onMount(() => {
+        interval = setInterval(updateTimer, 1000);
+    });
+
+    onDestroy(() => {
+        clearInterval(interval);
+    });
 </script>
 
 <section class="section">
@@ -44,24 +104,51 @@
 			<form method="post" action="?/loginWithOtp" class="space-y-6" use:enhance>
 				<div>
 					<label for="otp" class="label"> Enter OTP </label>
-					<div class="flex space-x-2">
-						{#each Array(6) as _, i}
-							<input
-								type="tel"
-								bind:value={otp[i]}
-								on:input={() => handleOtpInput(i)}
-								maxlength="1"
-								pattern="[0-9]"
-								inputmode="numeric"
-								class="inputotp"
-								bind:this={otpInputs[i]}
-								required
-							/>
-						{/each}
-					</div>
-					<input hidden type="text" name="otp" bind:value={enteredOtp} />
-					<input hidden type="text" name="phone" bind:value={phone} />
-				</div>
+                    <div class="flex space-x-2">
+                        {#each Array(6) as _, i}
+                            <input
+                                type="tel"
+                                bind:value={otp[i]}
+                                on:input={() => handleOtpInput(i)}
+                                maxlength="1"
+                                pattern="[0-9]"
+                                inputmode="numeric"
+                                class="inputotp"
+                                bind:this={otpInputs[i]}
+                                required
+                            />
+                        {/each}
+                    </div>
+
+                    {#if !isTimerExpired}
+                        <div class="text-primary-500 mt-2 text-center">OTP expires in {timer}</div>
+                    {:else}
+                        <div class="mt-2 text-center">
+                            <span class="text-gray-600">Didn't receive OTP?</span>
+                            {#if !isSubmitting}
+                                <!-- svelte-ignore node_invalid_placement_ssr -->
+                                <form 
+                                    method="POST" 
+                                    action="?/generateOtp"
+                                    use:enhance={handleResendSubmit}
+                                    class="inline"
+                                >
+                                    <input type="hidden" name="phone" value={phone}>
+                                    <button
+                                        type="submit"
+                                        class="text-primary-500 hover:text-primary-700 ml-1"
+                                        disabled={isResending}
+                                    >
+                                        {isResending ? 'Sending...' : 'Resend OTP'}
+                                    </button>
+                                </form>
+                            {/if}
+                        </div>
+                    {/if}
+
+                    <input hidden type="text" name="otp" bind:value={enteredOtp} />
+                    <input hidden type="text" name="phone" bind:value={phone} />
+                </div>
 
 				<button type="submit" class="btn"> Submit </button>
 
