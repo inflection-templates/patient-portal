@@ -108,15 +108,15 @@
 
 		<div class="relative ml-auto flex items-center">
 			<button
-				class="user-profile-btn"
+				class="user-profile-btn flex items-center justify-center"
+				aria-label="Toggle user menu"
 				on:click={() => {
 					showUserMenu = !showUserMenu;
 					if (showUserMenu) showThemeMenu = false;
 				}}
 			>
-				<Icon icon="ant-design:user-outlined" class="iconsize" />
+				<span class="initial-icon">{userInitials}</span>
 			</button>
-
 			{#if showUserMenu}
 				<div class="user-menu">
 					<div class="user-name">
@@ -164,8 +164,14 @@
 						<div class="flex items-center space-x-4">
 							{#each themeModes as theme}
 								<button
-									class="theme-modes"
-									class:selected={selectedMode === theme}
+									class={`px-4 py-2 rounded-lg border-2 ${
+										theme === selectedMode ? 'border-neutral' : 'border-transparent'
+									}`}
+									style={`background-color: ${
+										theme === 'Light' ? '#ffffff' : '#1a1a1a'
+									}; color: ${
+										theme === 'Light' ? '#000000' : '#ffffff'
+									};`}
 									on:click={() => handleModeChange(theme)}
 								>
 									{theme}

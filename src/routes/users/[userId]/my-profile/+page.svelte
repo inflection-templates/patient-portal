@@ -121,241 +121,236 @@
 </script>
 
 <form action="?/updateprofile" method="post">
-	<div class="min-h-screen flex items-center">
-		<div class="w-full p-8 rounded-lg shadow-md">
-			<h1 class="text-2xl font-bold mb-6">My Settings</h1>
+	<div class="my-profile">
+		<h1 class="my-settings">My Settings</h1>
 
-			<div class="grid grid-cols-4 gap-8">
-				<div class="">
-					<h2 class="text-lg font-semibold mb-2">Personal Information</h2>
-					<p class="text-sm text-gray-400">
-						Your personal information and account security settings.
-					</p>
-				</div>
-				<div class="col-span-3">
-					<div class="flex items-center mb-4">
-						<div class="profile-container">
-							{#if imageUrl === undefined}
-								<label for="fileinput" class="cursor-pointer">
-									<div
-										class="bg-gray-400 w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold"
-									>
-										{initials}
-									</div>
-								</label>
-								<input
-									id="fileinput"
-									name="fileinput"
-									type="file"
-									class="hidden"
-									placeholder="Image"
-									on:change={async (e) => await onFileSelected(e)}
-								/>
-								<span class=" text-lg font-semibold">{personObject.DisplayName || 'Unknown'}</span>
-							{:else}
-								<label for="fileinput" class="cursor-pointer">
-									<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
-								</label>
-								<input
-									id="fileinput"
-									name="fileinput"
-									type="file"
-									class="hidden"
-									bind:this={profileImage}
-									placeholder="Image"
-									on:change={async (e) => await onFileSelected(e)}
-								/>
-								<span class=" text-lg font-semibold">{personObject.DisplayName || 'Unknown'}</span>
-							{/if}
-							<input type="hidden" name="imageResourceId" value={imageResourceId} />
-							{#if form?.errors?.imageResourceId}
-								<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
-							{/if}
-						</div>
-					</div>
-
-					<div class="mb-4">
-						<label class="label" for="FirstName">First Name</label>
-						<input
-							type="text"
-							name="firstName"
-							id="firstName"
-							placeholder="First Name"
-							class="input"
-							bind:value={firstname}
-						/>
-					</div>
-					<div class="mb-4 bg-white">
-						<label class="label" for="LastName">Last Name</label>
-						<input
-							type="text"
-							id="LastName"
-							name="lastName"
-							placeholder="Last Name"
-							class="w-full input"
-							bind:value={lastname}
-						/>
-					</div>
-					<div class="mb-4">
-						<label class="label" for="Gender">Sex</label>
-						<select id="Gender" class="input" name="gender" bind:value={gender}>
-							<option value="" disabled selected>Select an option</option>
-							<option value="Male">Male</option>
-							<option value="Female">Female</option>
-							<option value="Intersex">Intersex</option>
-							<option value="other">other</option>
-							<option value="Unknown">Unknown</option>
-						</select>
-					</div>
-					<div class="mb-4">
-						<label class="label" for="BirthDate">Date Of Birth</label>
-						<input
-							type="date"
-							id="BirthDate"
-							placeholder="MM-DD-YYYY"
-							name="birthDate"
-							class=" input"
-							bind:value={formattedDateOfBirth}
-						/>
-					</div>
-					<div class="mb-4">
-						<label class="label" for="MaritalStatus">Marital Status</label>
-						<select
-							id="MaritalStatus"
-							name="maritalStatus"
-							class="w-full input"
-							bind:value={maritalStatus}
-						>
-							<option value="" disabled selected>Select an option</option>
-							<option value="Married">Married</option>
-							<option value="Single">Single</option>
-							<option value="Divorced">Divorced</option>
-							<option value="Widowed">Widowed</option>
-							<option value="Unknown">Unknown</option>
-						</select>
-					</div>
-					<div class="mb-4">
-						<label class="label" for="Phone">Mobile Number</label>
-						<div class="flex flex-row space-x-2">
-							<select class="select" name="countryCode" bind:value={countryCode}>
-								<option value="+1">+1</option>
-								<option value="+91">+91</option>
-								<option value="+44">+44</option>
-								<option value="+61">+61</option>
-							</select>
+		<div class="grid grid-cols-4 gap-12">
+			<div>
+				<h2 class="personal-Info">Personal Information</h2>
+				<p class="para">Your personal information and account security settings.</p>
+			</div>
+			<div class="col-span-3">
+				<div class="flex items-center mb-4">
+					<div class="profile-container">
+						{#if imageUrl === undefined}
+							<label for="fileinput" class="cursor-pointer">
+								<div
+									class=" profile-icon "
+								>
+									{initials}
+								</div>
+							</label>
 							<input
-								type="tel"
-								id="Phone"
-								placeholder="Phone"
-								name="phone"
-								pattern="[0-9]*"
-								inputmode="numeric"
-								minlength="10"
-								maxlength="10"
-								class="input"
-								bind:value={mobileNumber}
+								id="fileinput"
+								name="fileinput"
+								type="file"
+								class="hidden"
+								placeholder="Image"
+								on:change={async (e) => await onFileSelected(e)}
 							/>
-						</div>
-					</div>
-
-					<div class="mb-4">
-						<label class="label" for="email">Email</label>
-						<input
-							type="email"
-							id="email"
-							placeholder="Email"
-							name="email"
-							class="input"
-							bind:value={email}
-						/>
-						{#if !isValidEmail(email) && email}
-							<p class="error-text">Please enter a valid email address.</p>
+							<span class=" text-lg font-semibold">{personObject.DisplayName || 'Unknown'}</span>
+						{:else}
+							<label for="fileinput" class="cursor-pointer">
+								<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
+							</label>
+							<input
+								id="fileinput"
+								name="fileinput"
+								type="file"
+								class="hidden"
+								bind:this={profileImage}
+								placeholder="Image"
+								on:change={async (e) => await onFileSelected(e)}
+							/>
+							<span class=" text-lg font-semibold">{personObject.DisplayName || 'Unknown'}</span>
+						{/if}
+						<input type="hidden" name="imageResourceId" value={imageResourceId} />
+						{#if form?.errors?.imageResourceId}
+							<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
 						{/if}
 					</div>
 				</div>
-			</div>
-			<hr class="border-t border-gray-300 my-4" />
-			<div class="grid grid-cols-4 gap-8">
-				<div class="">
-					<h2 class="text-lg font-semibold mb-2">Demographic Information</h2>
-				</div>
-				<div class="col-span-3 bg-white">
-					<div class="mb-4">
-						<label class="label" for="Race">What is your race?</label>
-						<select id="Race" name="race" class="input" bind:value={race}>
-							<option value="" disabled selected>Prefer not to say</option>
-							<option value="American Indian/Alaskan Native">American Indian/Alaskan Native</option>
-							<option value="Asian">Asian</option>
-							<option value="Black/African American">Black/African American</option>
-							<option value="Native Hawaiin or Other Pacific Islander"
-								>Native Hawaiin or Other Pacific Islander</option
-							>
-							<option value="White">White</option>
-						</select>
-					</div>
-					<div class="mb-4">
-						<label class="label" for="Ethnicity">What is your ethnicity?</label>
-						<select id="Ethnicity" name="ethnicity" class="input" bind:value={ethnicity}>
-							<option value="" disabled selected>Prefer not to say</option>
-							<option value="Hispanic/Latino">Hispanic/Latino</option>
-							<option value="Not Hispanic/Latino">Not Hispanic/Latino</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<hr class="border-t border-gray-300 my-4" />
-			<div class="grid grid-cols-4 gap-8">
-				<div class="">
-					<h2 class="text-lg font-semibold mb-2">Health And Stroke History</h2>
-				</div>
-				<div class="col-span-3 bg-white">
-					<div class="mb-4">
-						<label class="label" for="StrokeSurvivorOrCaregiver"
-							>Are you stroke survivor or caregiver?</label
-						>
-						<select
-							id="StrokeSurvivorOrCaregiver"
-							name="strokeSurvivorOrCaregiver"
-							class="input"
-							bind:value={strokeSurvivorOrCaregiver}
-						>
-							<option value="" disabled selected>Prefer not to say</option>
-							<option value="Survivor">Survivor</option>
-							<option value="Caregiver">Caregiver</option>
-						</select>
-					</div>
-					<div class="mb-4">
-						<label class="label" for="WorkedPriorToStroke">Did you work prior to your stroke?</label
-						>
-						<select
-							id="WorkedPriorToStroke"
-							name="workedPriorToStroke"
-							class="input"
-							bind:value={workedPriorToStroke}
-						>
-							<option value="true">Yes</option>
-							<option value="false">No</option>
-						</select>
-					</div>
 
-					<div class="mb-4">
-						<label class="label" for="live-alone">Do you live alone?</label>
-						<select id="LivingAlone" name="livingAlone" class="input" bind:value={livingAlone}>
-							<option value="true">Yes</option>
-							<option value="false">No</option>
+				<div class="mb-4">
+					<label class="label" for="FirstName">First Name</label>
+					<input
+						type="text"
+						name="firstName"
+						id="firstName"
+						placeholder="First Name"
+						class="input"
+						bind:value={firstname}
+					/>
+				</div>
+				<div class="mb-4 bg-white">
+					<label class="label" for="LastName">Last Name</label>
+					<input
+						type="text"
+						id="LastName"
+						name="lastName"
+						placeholder="Last Name"
+						class="w-full input"
+						bind:value={lastname}
+					/>
+				</div>
+				<div class="mb-4">
+					<label class="label" for="Gender">Sex</label>
+					<select id="Gender" class="input" name="gender" bind:value={gender}>
+						<option value="" disabled selected>Select an option</option>
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+						<option value="Intersex">Intersex</option>
+						<option value="other">other</option>
+						<option value="Unknown">Unknown</option>
+					</select>
+				</div>
+				<div class="mb-4">
+					<label class="label" for="BirthDate">Date Of Birth</label>
+					<input
+						type="date"
+						id="BirthDate"
+						placeholder="MM-DD-YYYY"
+						name="birthDate"
+						class=" input"
+						bind:value={formattedDateOfBirth}
+					/>
+				</div>
+				<div class="mb-4">
+					<label class="label" for="MaritalStatus">Marital Status</label>
+					<select
+						id="MaritalStatus"
+						name="maritalStatus"
+						class="w-full input"
+						bind:value={maritalStatus}
+					>
+						<option value="" disabled selected>Select an option</option>
+						<option value="Married">Married</option>
+						<option value="Single">Single</option>
+						<option value="Divorced">Divorced</option>
+						<option value="Widowed">Widowed</option>
+						<option value="Unknown">Unknown</option>
+					</select>
+				</div>
+				<div class="mb-4">
+					<label class="label" for="Phone">Mobile Number</label>
+					<div class="flex flex-row space-x-2">
+						<select class="select" name="countryCode" bind:value={countryCode}>
+							<option value="+1">+1</option>
+							<option value="+91">+91</option>
+							<option value="+44">+44</option>
+							<option value="+61">+61</option>
 						</select>
+						<input
+							type="tel"
+							id="Phone"
+							placeholder="Phone"
+							name="phone"
+							pattern="[0-9]*"
+							inputmode="numeric"
+							minlength="10"
+							maxlength="10"
+							class="input"
+							bind:value={mobileNumber}
+						/>
 					</div>
 				</div>
-			</div>
 
-			<div class="flex justify-end mt-8">
-				<button
-					class="bg-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-					type="submit"
-				>
-					Save changes
-				</button>
+				<div class="mb-4">
+					<label class="label" for="email">Email</label>
+					<input
+						type="email"
+						id="email"
+						placeholder="Email"
+						name="email"
+						class="input"
+						bind:value={email}
+					/>
+					{#if !isValidEmail(email) && email}
+						<p class="error-text">Please enter a valid email address.</p>
+					{/if}
+				</div>
 			</div>
+		</div>
+		<hr class="border-t border-gray-300 my-4" />
+		<div class="grid grid-cols-4 gap-8">
+			<div class="">
+				<h2 class="text-lg font-semibold mb-2">Demographic Information</h2>
+			</div>
+			<div class="col-span-3 bg-white">
+				<div class="mb-4">
+					<label class="label" for="Race">What is your race?</label>
+					<select id="Race" name="race" class="input" bind:value={race}>
+						<option value="" disabled selected>Prefer not to say</option>
+						<option value="American Indian/Alaskan Native">American Indian/Alaskan Native</option>
+						<option value="Asian">Asian</option>
+						<option value="Black/African American">Black/African American</option>
+						<option value="Native Hawaiin or Other Pacific Islander"
+							>Native Hawaiin or Other Pacific Islander</option
+						>
+						<option value="White">White</option>
+					</select>
+				</div>
+				<div class="mb-4">
+					<label class="label" for="Ethnicity">What is your ethnicity?</label>
+					<select id="Ethnicity" name="ethnicity" class="input" bind:value={ethnicity}>
+						<option value="" disabled selected>Prefer not to say</option>
+						<option value="Hispanic/Latino">Hispanic/Latino</option>
+						<option value="Not Hispanic/Latino">Not Hispanic/Latino</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<hr class="border-t border-gray-300 my-4" />
+		<div class="grid grid-cols-4 gap-8">
+			<div class="">
+				<h2 class="text-lg font-semibold mb-2">Health And Stroke History</h2>
+			</div>
+			<div class="col-span-3 bg-white">
+				<div class="mb-4">
+					<label class="label" for="StrokeSurvivorOrCaregiver"
+						>Are you stroke survivor or caregiver?</label
+					>
+					<select
+						id="StrokeSurvivorOrCaregiver"
+						name="strokeSurvivorOrCaregiver"
+						class="input"
+						bind:value={strokeSurvivorOrCaregiver}
+					>
+						<option value="" disabled selected>Prefer not to say</option>
+						<option value="Survivor">Survivor</option>
+						<option value="Caregiver">Caregiver</option>
+					</select>
+				</div>
+				<div class="mb-4">
+					<label class="label" for="WorkedPriorToStroke">Did you work prior to your stroke?</label>
+					<select
+						id="WorkedPriorToStroke"
+						name="workedPriorToStroke"
+						class="input"
+						bind:value={workedPriorToStroke}
+					>
+						<option value="true">Yes</option>
+						<option value="false">No</option>
+					</select>
+				</div>
+
+				<div class="mb-4">
+					<label class="label" for="live-alone">Do you live alone?</label>
+					<select id="LivingAlone" name="livingAlone" class="input" bind:value={livingAlone}>
+						<option value="true">Yes</option>
+						<option value="false">No</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="flex justify-end mt-8">
+			<button
+				class="bg-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+				type="submit"
+			>
+				Save changes
+			</button>
 		</div>
 	</div>
 </form>

@@ -297,14 +297,16 @@
 .tabs {
 	@apply w-full mx-auto  border rounded-xl;
 }
+
 .thead {
-	@apply sticky top-0 text-sm sm:text-base  sm:text-info text-info bg-accent  table w-full table-fixed;
+	@apply sticky top-0 text-sm sm:text-base  sm:text-info text-info bg-accent  table w-full table-fixed  rounded-t-lg;
 }
+
 .tabledata {
-	@apply text-center text-sm border border-accent;
+	@apply text-center text-sm border border-accent ;
 }
 .tbody {
-	@apply block overflow-y-auto;
+	@apply block overflow-y-auto  rounded-b-lg border-accent border;
 }
 .th {
 	@apply p-2 text-left  font-normal;
@@ -548,4 +550,23 @@ tbody tr {
 
 .text-stat-delayed {
 	@apply text-red-600;
+}
+
+
+
+
+
+.my-profile{
+	@apply w-full p-8 ;
+}
+.personal-Info{
+	@apply text-lg font-semibold mb-2;
+}
+
+.my-settings{
+	@apply text-2xl font-bold mb-6;
+}
+
+.profile-icon{
+	@apply bg-accent w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold mb-2;
 }
