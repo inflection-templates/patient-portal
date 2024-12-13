@@ -46,7 +46,7 @@
 import { type Actions, type RequestEvent} from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import type { PageServerLoad } from '../../$types.js';
-import { loginWithOtp } from '$routes/api/services/user';
+import { generateOtp, loginWithOtp } from '$routes/api/services/user';
 // import { loginWithOtpSchema } from '$routes/auth/auth.validation.schema';
 // import { validateFormData } from '$lib/utils.ts/validate.form';
 import { errorMessage, successMessage } from '$lib/utils.ts/message.utils';
@@ -133,5 +133,49 @@ export const actions: Actions = {
 		CookieUtils.setCookieHeader(event, 'sessionId', sessionId);
 
 		throw redirect(303, `/users/${userId}/home`, successMessage(`Login successful!`), event);
-	}
+	},
+
+	generateOtp: async (event: RequestEvent) => {
+        const form = await event.request.formData();
+        const phone = form.get('phone') as string;
+
+        if (!phone) {
+            throw redirect(
+                303,
+                event.url.pathname,
+                errorMessage('Phone number is required'),
+                event
+            );
+        }
+
+        try {
+            const allRoles = await getUserRoles();
+            const loginRoleId = findIdByRoleName(allRoles, 'Patient');
+            
+            const response = await generateOtp(phone, loginRoleId, "Login");
+
+            if (response.Status === "failure" || response.HttpCode !== 200) {
+                throw redirect(
+                    303,
+                    event.url.pathname,
+                    errorMessage(response.Message || 'Failed to generate OTP'),
+                    event
+                );
+            }
+
+            return {
+                success: true
+            };
+
+        } catch (error) {
+            console.error('Error in generateOtp:', error);
+            throw redirect(
+                303,
+                event.url.pathname,
+                errorMessage('Failed to generate OTP'),
+                event
+            );
+        }
+    }
+
 };
