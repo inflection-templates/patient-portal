@@ -16,8 +16,8 @@
     let otpInputs: Array<HTMLInputElement> = [];
 	
 	$: console.log(otp);
-    let duration = 300;
-    let timer = '05:00';
+    let duration = 5;
+    let timer = '00:05';
     let isTimerExpired = false;
     let interval: ReturnType<typeof setInterval>;
     let isResending = false;
@@ -121,10 +121,10 @@
                     </div>
 
                     {#if !isTimerExpired}
-                        <div class="text-primary-500 mt-2 text-center">OTP expires in {timer}</div>
+                        <div class="label text-center">OTP Expires in {timer}</div>
                     {:else}
-                        <div class="mt-2 text-center">
-                            <span class="text-gray-600">Didn't receive OTP?</span>
+                        <div class="label text-center">
+                            
                             {#if !isSubmitting}
                                 <!-- svelte-ignore node_invalid_placement_ssr -->
                                 <form 
@@ -139,7 +139,8 @@
                                         class="text-primary-500 hover:text-primary-700 ml-1"
                                         disabled={isResending}
                                     >
-                                        {isResending ? 'Sending...' : 'Resend OTP'}
+									<span class="label">Didn't Receive OTP?
+									{isResending ? 'Sending...' : 'Resend OTP'}</span>
                                     </button>
                                 </form>
                             {/if}
