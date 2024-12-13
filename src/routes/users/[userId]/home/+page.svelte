@@ -38,7 +38,7 @@
 			{#if userTasks?.Items?.length > 0}
 				<Timeline {chartData} />
 			{:else}
-				<p class="text-center p-4">No Data Available</p>
+			<p class="not-available">No Data Available.</p>
 			{/if}
 		</div>
 	</div>

@@ -117,7 +117,5 @@
 		</div>
 	</div>
 {:else}
-	<div class="p-4 text-center">
-		<p>No data available for {title}.</p>
-	</div>
+	<p class="  not-available">No data available for {title}.</p>
 {/if}

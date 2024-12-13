@@ -171,6 +171,6 @@
   {#if data1 && data1.length > 0 && data2 && data2.length > 0}
       <canvas bind:this={barChart} class="canvas"></canvas>
   {:else}
-      <p>No data available.</p>
+      <p> data not available.</p>
   {/if}
 </div>
