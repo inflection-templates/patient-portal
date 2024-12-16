@@ -76,33 +76,14 @@
 				return [];
 		}
 	})();
-	let activeButton: string = 'vitalsHistory';
+
 	function setActiveVitals(vital: string) {
 		activeVital = vital;
 	}
-	function setActive(button: string) {
-		activeButton = button;
-	}
+
 </script>
 
 <div>
-	<div class="tasks">
-		<a
-			class={`history ${activeButton === 'taskHistory' ? 'active' : ''}`}
-			href={`/users/${userId}/home/`}
-			on:click={() => setActive('taskHistory')}
-		>
-			Task History
-		</a>
-
-		<button
-			class={`history ${activeButton === 'vitalsHistory' ? 'active' : ''}`}
-			on:click={() => setActive('vitalsHistory')}
-		>
-			Vitals History
-		</button>
-	</div>
-
 	<div class="activetasks">
 		{#each vitals as vital}
 			<button
