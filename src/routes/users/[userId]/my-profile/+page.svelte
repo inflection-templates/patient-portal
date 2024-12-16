@@ -127,7 +127,7 @@
 		<div class="grid grid-cols-4 gap-8">
 			<div>
 				<h2 class="personal-Info">Personal Information</h2>
-				<p>Your personal information and account security settings.</p>
+				<p class=" text-info">Your personal information and account security settings.</p>
 			</div>
 			<div class="col-span-3 mx-6">
 				<div class="flex items-center">
@@ -160,7 +160,7 @@
 								on:change={async (e) => await onFileSelected(e)}
 							/>
 						{/if}
-						<span class="text-lg">{personObject.DisplayName || 'Unknown'}</span>
+						<span class="text-lg text-info">{personObject.DisplayName || 'Unknown'}</span>
 					</div>
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
 					{#if form?.errors?.imageResourceId}

@@ -48,25 +48,26 @@
             <table class="w-full border-collapse">
                 <thead class="thead">
                     <tr>
-                        <th class="th"></th>
-                        <th class="th" on:click={sortByDate} style="cursor: pointer;">
+                        <th class="th" style="width: 10%;"></th>
+                        <th class="th" on:click={sortByDate} style="cursor: pointer; width: 20%;">
                             Date <span class="sort-icon">{sortOrder === 'ascending' ? '▲' : '▼'}</span>
                         </th>
-                        <th class="th">Category</th>
-                        <th class="th">Count</th>
+                        <th class="th" style="width: 20%;">Category</th>
+                        <th class="th" style="width: 20%;">Count</th>
                     </tr>
                 </thead>
                 <tbody class="tbody">
                     {#each paginatedData as task, index}
                         <tr class="tabledata">
-                            <td class="td">{(currentPage - 1) * pageSize + index + 1}</td>
-                            <td class="td">{formatDateMonth(task.date)}</td>
-                            <td class="td">{task.category}</td>
-                            <td class="td">{task.count}</td>
+                            <td class="td" style="width: 10%;">{(currentPage - 1) * pageSize + index + 1}</td>
+                            <td class="td" style="width: 20%;">{formatDateMonth(task.date)}</td>
+                            <td class="td" style="width: 20%;">{task.category}</td>
+                            <td class="td" style="width: 20%;">{task.count}</td>
                         </tr>
                     {/each}
                 </tbody>
             </table>
+            
         </div>
 
         <div class="table-footer">

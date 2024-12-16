@@ -11,7 +11,7 @@
 <section class="section">
 	<div class="absolute top-4 left-4 flex items-center">
 		<img src="patient.png" alt="Logo" class="logo" />
-		<h1 class="heading">Patient Portal</h1>
+		<!-- <h1 class="heading">Patient Portal</h1> -->
 	</div>
 
 	<!-- <div class="absolute top-4 right-4 flex items-center">
@@ -38,7 +38,7 @@
 					<div id="mobile-login">
 						<label for="mobile" class="label">Mobile Number</label>
 						<div class="flex space-x-2">
-							<select class="select" name="countryCode">
+							<select class="selectcode" name="countryCode">
 								<option value="+1">+1</option>
 								<option value="+91">+91</option>
 								<option value="+44">+44</option>
@@ -50,7 +50,7 @@
 								pattern="[0-9]*"
 								inputmode="numeric"
 								id="mobile"
-								class="input"
+								class="mobileinput"
 								placeholder="Your mobile number"
 							/>
 						</div>
