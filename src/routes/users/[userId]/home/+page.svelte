@@ -9,7 +9,7 @@
 	const { userTasks, chartData, tableData } = data;
 	const userId = $page.params.userId;
 
-	let activeButton: string = 'taskHistory';
+	let activeButton: string = 'basic';
 	function setActive(button: string) {
 		activeButton = button;
 	}
@@ -17,11 +17,19 @@
 
 <div class="tasks">
 	<button
+		class={`history ${activeButton === 'basic' ? 'active' : ''}`}
+		on:click={() => setActive('basic')}
+	>
+		Basic
+	</button>
+
+	<a
 		class={`history ${activeButton === 'taskHistory' ? 'active' : ''}`}
+		href={`/users/${userId}/home/tasks.history`}
 		on:click={() => setActive('taskHistory')}
 	>
 		Task History
-	</button>
+	</a>
 
 	<a
 		class={`history ${activeButton === 'vitalsHistory' ? 'active' : ''}`}
@@ -32,7 +40,7 @@
 	</a>
 </div>
 
-<div class="mx-2 sm:mx-8">
+<!-- <div class="mx-2 sm:mx-8">
 	<div class=" mb-5">
 		<div>
 			{#if userTasks?.Items?.length > 0}
@@ -43,4 +51,4 @@
 		</div>
 	</div>
 	<UserHistoryTable data={tableData} />
-</div>
+</div> -->
