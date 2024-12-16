@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import ConfirmModal from '../modal/confirm.modal.svelte';
+	import { getPublicLogoImageSource } from '../themes/theme.selector';
 
 	export let logout;
 	export let userId: string | undefined;
@@ -54,6 +55,8 @@
 		}
 	];
 
+	const logoImageSource = getPublicLogoImageSource();
+	
 	const handleModeChange = (theme: string) => {
 		selectedMode = theme;
 		document.documentElement.setAttribute('data-theme', theme.toLowerCase());
@@ -107,7 +110,8 @@
 <header class="navbar">
 	<div class="flex items-center justify-between sm:px-4 h-14 w-full">
 		<div class="flex items-center">
-			<img src="/patient.png" alt="Logo" class="logo" />
+			<!-- <img src="/patient.png" alt="Logo" class="logo" /> -->
+			<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100"/>
 		</div>
 
 		<div class="relative ml-auto flex items-center">

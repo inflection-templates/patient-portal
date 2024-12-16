@@ -3,7 +3,7 @@ import { SessionManager } from '../sessions/session.manager';
 import { error } from '@sveltejs/kit';
 import { ServerHelper } from '$lib/server/server.helper';
 import axios from 'axios';
-import { del_, get_ } from './common';
+import { get_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
