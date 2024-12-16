@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
 	import { formatDateMonth } from '../../utils.ts/functions';
 
 	export let data: any[] = [];
@@ -52,28 +53,28 @@
 			<table class="w-full border-collapse text-sm">
 				<thead class="thead">
 					<tr>
-						<th class="th"></th>
-						<th class="th" on:click={sortByDate} style="cursor: pointer;">
+						<th class="th" style="width: 8%;">sr</th>
+						<th class="th" on:click={sortByDate} style="cursor: pointer; width: 20%;">
 							Date <span class="sort-icon">{sortOrder === 'ascending' ? '▲' : '▼'}</span>
 						</th>
 						{#if title == 'Blood Pressure'}
-							<th class="th">Systolic ({data[0].unit})</th>
-							<th class="th">Diastolic ({data[0].unit})</th>
+							<th class="th" style="width: 20%;">Systolic ({data[0].unit})</th>
+							<th class="th" style="width: 20%;">Diastolic ({data[0].unit})</th>
 						{:else}
-							<th class="th">{title} ({data[0].unit})</th>
+							<th class="th" style="width: 20%;">{title} ({data[0].unit})</th>
 						{/if}
 					</tr>
 				</thead>
 				<tbody class="tbody">
 					{#each paginatedData as item, index}
 						<tr class="tabledata">
-							<td class="td">{(currentPage - 1) * pageSize + index + 1}</td>
-							<td class="td">{formatDateMonth(item.date)}</td>
+							<td class="td" style="width: 8%;">{(currentPage - 1) * pageSize + index + 1}</td>
+							<td class="td" style="width: 20%;">{formatDateMonth(item.date)}</td>
 							{#if title == 'Blood Pressure'}
-								<td class="td">{item.value}</td>
-								<td class="td">{item.value1}</td>
+								<td class="td" style="width: 20%;">{item.value}</td>
+								<td class="td" style="width: 20%;">{item.value1}</td>
 							{:else}
-								<td class="td">{item.value}</td>
+								<td class="td" style="width: 20%;">{item.value}</td>
 							{/if}
 						</tr>
 					{/each}
@@ -100,11 +101,11 @@
 					First
 				</button>
 				<button class="pagination-button" on:click={prevPage} disabled={currentPage === 1}>
-					&larr;
+					<Icon icon="mdi:less-than" width="20" height="20" />
 				</button>
 				<span class="current-page">{currentPage}</span>
 				<button class="pagination-button" on:click={nextPage} disabled={currentPage === totalPages}>
-					&rarr;
+					<Icon icon="mdi:greater-than" width="20" height="20" />
 				</button>
 				<button
 					class="pagination-button"

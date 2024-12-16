@@ -20,12 +20,13 @@
 	let showThemeMenu = false;
 	const themeModes = ['Light', 'Dark'];
 	const themeOptions = [
-		{ name: 'Blue', color: '#0096ff' },
-		{ name: 'Mint', color: '#4ec55a' },
-		{ name: 'Yellow', color: '#ffc000' },
-		{ name: 'Teal', color: '#329999' },
-		{ name: 'Bronze', color: '#CD7F32' }
+		{ name: 'Blue', color: 'rgba(0, 150, 255, 0.1)', borderColor: 'rgba(0, 150, 255, 1)' },
+		{ name: 'Mint', color: 'rgba(78, 197, 90, 0.1)', borderColor: 'rgba(78, 197, 90, 1)' },
+		{ name: 'Grey', color: 'rgba(128, 128, 128, 0.1)', borderColor: 'rgba(128, 128, 128, 1)' },
+		{ name: 'Teal', color: 'rgba(50, 153, 153, 0.1)', borderColor: 'rgba(50, 153, 153, 1)' },
+		{ name: 'Gold', color: 'rgba(255, 215, 0, 0.1)', borderColor: 'rgba(255, 215, 0, 1)' }
 	];
+
 	let selectedMode = 'Light';
 	let selectedOption = '';
 
@@ -39,11 +40,7 @@
 			label: 'Themes',
 			icon: 'mdi:palette-outline'
 		},
-		// {
-		// 	label: 'Help',
-		// 	icon: 'ic:baseline-help-outline',
-		// 	href: '/help'
-		// },
+
 		{
 			label: 'Sign Out',
 			icon: 'material-symbols:logout',
@@ -72,7 +69,15 @@
 		const theme = selectedMode.toLowerCase();
 		const option = selectedOption.toLowerCase();
 
+		// Update root attributes
+		document.documentElement.setAttribute('data-theme', theme);
 		document.documentElement.setAttribute('data-theme-option', option);
+
+		// Dynamically update custom CSS properties for border colors
+		const themeOption = themeOptions.find((opt) => opt.name.toLowerCase() === option);
+		if (themeOption) {
+			document.documentElement.style.setProperty('--theme-border-color', themeOption.borderColor);
+		}
 	};
 
 	function openModal() {
@@ -103,7 +108,6 @@
 	<div class="flex items-center justify-between sm:px-4 h-14 w-full">
 		<div class="flex items-center">
 			<img src="/patient.png" alt="Logo" class="logo" />
-			<h1 class="heading">Patient Portal</h1>
 		</div>
 
 		<div class="relative ml-auto flex items-center">
@@ -166,17 +170,19 @@
 						<p class="para">Appearance</p>
 						<div class="flex items-center space-x-4">
 							{#each themeModes as theme}
-								<button
-									class={`px-6 py-3 rounded-lg border-2 ${
-										theme === selectedMode ? 'border-neutral' : 'border-transparent'
-									}`}
-									style={`background-color: ${theme === 'Light' ? '#ffffff' : '#1a1a1a'}; color: ${
-										theme === 'Light' ? '#000000' : '#ffffff'
-									};`}
-									on:click={() => handleModeChange(theme)}
-								>
-									{theme}
-								</button>
+								<div class="flex flex-col">
+									<button
+										class={`px-10 py-5 sm:px-12 sm:py-6 rounded-lg border ${
+											theme === selectedMode ? 'border-[var(--theme-border-color)]' : 'border-transparent'
+										}`}
+										style={`background-color: ${theme === 'Light' ? '#ffffff' : '#1a1a1a'}; color: ${
+											theme === 'Light' ? '#000000' : '#ffffff'
+										};`}
+										on:click={() => handleModeChange(theme)}
+									>
+									</button>
+									<span class="text-xs sm:text-sm mt-2 ml-2 text-info">{theme} </span>
+								</div>
 							{/each}
 						</div>
 					</div>
@@ -185,15 +191,27 @@
 
 					<div>
 						<p class="para">Themes</p>
+
 						<div class="grid grid-cols-3 gap-2 sm:gap-4">
-							{#each themeOptions as { name, color }}
+							{#each themeOptions as { name, color, borderColor }}
 								<button
 									class="theme-option"
 									class:selected={selectedOption === name}
-									style="background-color: {color}"
+									style="background-color: {color}; border: 1px solid {selectedOption === name
+										? borderColor
+										: 'grey'};"
 									on:click={() => handleOptionChange(name)}
 								>
-									{name}
+									<div
+										class="flex-shrink-0 rounded-full flex items-center justify-center border"
+										style="background-color: {borderColor}; width: 1rem; height: 1rem; sm:width: 1.5rem; sm:height: 1.5rem;"
+									>
+										{#if selectedOption === name}
+											<Icon icon="mdi:check" class="w-2 h-2 sm:w-3 sm:h-3 text-info" />
+										{/if}
+									</div>
+
+									<div class="ml-1 sm:ml-2 text-info">{name}</div>
 								</button>
 							{/each}
 						</div>
