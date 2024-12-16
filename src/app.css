@@ -12,13 +12,13 @@
 	--neutral-color: #d3d3d3;
 	--error-color: #e02222;
 	--success-color: #50c878;
-	--active-color: #add8e6;
+	--active-color: #c9ced7;
 }
 
 [data-theme='dark'] {
 	--primary-color: #1c252a;
 	--secondary-color: #293338;
-	--outline-color: #aeb8ce;
+	--outline-color: #64748B;
 	--base-color: #111827;
 	--info-color: #d9dee9;
 	--accent-color: #232c32;
@@ -177,14 +177,14 @@
 	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-info rounded-lg border border-secondary bg-base  transition;
 }
 .select {
-	@apply border bg-secondary text-info  border-secondary text-sm rounded-lg px-1 py-2;
+	@apply border bg-accent text-info   border-outline text-sm rounded-lg px-1 py-1;
 }
 
 .selectcode {
-	@apply border text-info  border-secondary text-sm rounded-lg px-1 py-2;
+	@apply border text-info  border-outline  text-sm rounded-lg px-1 py-2;
 }
 .input {
-	@apply border border-secondary bg-secondary text-info sm:text-sm rounded-lg w-full px-3 py-2;
+	@apply border border-outline bg-accent  text-info sm:text-sm rounded-lg w-full px-3 py-2;
 }
 .mobileinput {
 	@apply border border-secondary  text-info sm:text-sm rounded-lg w-full px-3 py-2;
@@ -193,7 +193,6 @@
 .inputotp {
 	@apply border  border-secondary text-info sm:text-sm rounded-lg w-full px-3 py-2 text-center;
 }
-
 
 .label {
 	@apply block mb-2 mt-2 text-info  text-sm font-medium;
@@ -281,7 +280,7 @@
 	@apply w-16 border-r border-outline sm:w-56 min-h-screen bg-secondary  text-info px-4 sm:px-8 py-4 fixed top-14 left-0;
 }
 .sidebar-list {
-	@apply space-y-2 sm:ml-4  ;
+	@apply space-y-2 sm:ml-4;
 }
 .sidebar-item {
 	@apply flex items-center hover:bg-primary border-outline px-2 py-2 rounded;
@@ -350,7 +349,7 @@
 	@apply px-4 py-2 text-xs lg:text-sm  text-info rounded-md shadow hover:bg-active bg-secondary my-2;
 }
 .chart {
-	@apply h-80 w-full relative;
+	@apply h-80  w-full relative;
 }
 .canvas {
 	@apply absolute inset-0 w-full h-full border border-outline  rounded-xl p-4;
@@ -452,127 +451,41 @@ tbody tr {
 	@apply text-info;
 }
 
+/* Careplan */
+.careplan-history {
+	@apply text-sm lg:text-lg text-info font-semibold;
+}
+
 .careplan-container {
-	@apply w-full p-4;
+	@apply w-full bg-accent px-6;
 }
 
-.careplan-card {
-	@apply  border border-outline rounded-lg shadow-sm;
+.status-card {
+	@apply bg-secondary shadow-md p-4 hover:bg-active rounded-lg border border-outline flex flex-col items-center justify-center;
 }
 
-.careplan-header {
-	@apply border-b border-outline text-info px-6 py-4;
+.title {
+	@apply text-sm text-info;
 }
 
-.careplan-header-content {
-	@apply flex justify-between items-center;
+.counts {
+	@apply text-lg lg:text-xl text-info font-semibold;
 }
 
-.careplan-title {
-	@apply text-lg;
+.careplan-info-table {
+	@apply bg-accent  rounded-lg p-2 lg:p-6 flex lg:w-1/2 justify-start;
 }
-
-.careplan-view-selector {
-	@apply flex items-center gap-2;
-}
-
-.careplan-select {
-	@apply border rounded px-3 py-1.5 text-sm;
-}
-
-.careplan-stats-grid {
-	@apply grid grid-cols-3 gap-4 mb-6;
-}
-
-.careplan-stat-card {
-	@apply rounded-lg p-4;
-}
-
-.careplan-stat-label {
-	@apply text-sm;
-}
-
-.careplan-stat-value {
-	@apply text-2xl font-semibold mt-1;
-}
-
-.careplan-content {
-	@apply p-6;
-}
-
-.careplan-chart-container {
-	@apply flex gap-6;
-}
-
-.careplan-chart {
-	@apply flex-1;
-}
-
-.careplan-chart-wrapper {
-	@apply h-[400px] w-full;
-}
-
-.careplan-info-sidebar {
-	@apply w-80;
-}
-
-.careplan-info-card {
-	@apply rounded-lg p-4 mt-16;
-}
-
 .careplan-table {
-	@apply w-full;
+	@apply w-full lg:w-1/2 text-sm;
 }
 
 .careplan-table-body {
-	@apply divide-y divide-neutral;
+	@apply text-info text-left;
 }
-
-.careplan-table-cell {
-	@apply py-3 text-sm;
+.careplan-table-row {
+	@apply   border-outline border-b;
 }
-
-.careplan-table-label {
-	@apply font-medium text-info;
-}
-
-.careplan-table-value {
-	@apply text-info;
-}
-
-.careplan-empty-state {
-	@apply flex items-center justify-center h-64  rounded-lg;
-}
-
-.careplan-empty-text {
-	@apply text-info text-lg;
-}
-
-/* Status-specific background colors */
-.bg-stat-total {
-	@apply bg-gray-50;
-}
-
-.bg-stat-completed {
-	@apply bg-green-50;
-}
-
-.bg-stat-delayed {
-	@apply bg-red-50;
-}
-
-/* Status-specific text colors */
-.text-stat-total {
-	@apply text-info;
-}
-
-.text-stat-completed {
-	@apply text-info;
-}
-
-.text-stat-delayed {
-	@apply text-info;
-}
+/* Careplan  ends*/
 
 .my-profile {
 	@apply w-full mx-2 sm:mx-4;
@@ -597,7 +510,7 @@ tbody tr {
 }
 
 .save-changes {
-	@apply bg-active  text-xs px-4 py-2 md:px-1 md:py-1 lg:px-4 lg:py-2 lg:text-sm  text-info rounded-md shadow hover:bg-active;
+	@apply bg-active border border-outline text-xs px-4 py-2 md:px-1 md:py-1 lg:px-4 lg:py-2 lg:text-sm  text-info rounded-md shadow hover:bg-active;
 }
 .hr-line {
 	@apply border-t border-secondary my-4;

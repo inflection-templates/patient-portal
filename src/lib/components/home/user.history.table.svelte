@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
     import { formatDateMonth } from '../../utils.ts/functions';
     export let data: any[] = [];
     let currentPage = 1;
@@ -80,36 +81,28 @@
             </div>
 
             <div class="pagination-controls">
-                <button 
-                    class="pagination-button"
-                    on:click={() => (currentPage = 1)}
-                    disabled={currentPage === 1}
-                >
-                    First
-                </button>
-                <button 
-                    class="pagination-button"
-                    on:click={prevPage} 
-                    disabled={currentPage === 1}
-                >
-                    &larr;
-                </button>
-                <span class="current-page">{currentPage}</span>
-                <button 
-                    class="pagination-button"
-                    on:click={nextPage} 
-                    disabled={currentPage === totalPages}
-                >
-                    &rarr;
-                </button>
-                <button 
-                    class="pagination-button"
-                    on:click={() => (currentPage = totalPages)}
-                    disabled={currentPage === totalPages}
-                >
-                    Last
-                </button>
-            </div>
+				<button
+					class="pagination-button"
+					on:click={() => (currentPage = 1)}
+					disabled={currentPage === 1}
+				>
+					First
+				</button>
+				<button class="pagination-button" on:click={prevPage} disabled={currentPage === 1}>
+					<Icon icon="mdi:less-than" width="20" height="20" />
+				</button>
+				<span class="current-page">{currentPage}</span>
+				<button class="pagination-button" on:click={nextPage} disabled={currentPage === totalPages}>
+					<Icon icon="mdi:greater-than" width="20" height="20" />
+				</button>
+				<button
+					class="pagination-button"
+					on:click={() => (currentPage = totalPages)}
+					disabled={currentPage === totalPages}
+				>
+					Last
+				</button>
+			</div>
         </div>
     </div>
 {/if}

@@ -174,18 +174,26 @@
 						<p class="para">Appearance</p>
 						<div class="flex items-center space-x-4">
 							{#each themeModes as theme}
-								<div class="flex flex-col">
+								<div class="flex flex-col items-center">
 									<button
-										class={`px-10 py-5 sm:px-12 sm:py-6 rounded-lg border ${
-											theme === selectedMode ? 'border-[var(--theme-border-color)]' : 'border-transparent'
+										class={`relative px-10 py-5 sm:px-12 sm:py-6 rounded-lg border-2 ${
+											theme === selectedMode
+												? 'border-[var(--theme-border-color)]'
+												: 'border-transparent'
 										}`}
 										style={`background-color: ${theme === 'Light' ? '#ffffff' : '#1a1a1a'}; color: ${
 											theme === 'Light' ? '#000000' : '#ffffff'
 										};`}
 										on:click={() => handleModeChange(theme)}
 									>
+										<!-- Image inside the button -->
+										<img
+											src={theme === 'Light' ? '/light mode.PNG' : '/dark mode.PNG'}
+											alt={`${theme} mode`}
+											class="absolute inset-0 w-full rounded-lg m-auto"
+										/>
 									</button>
-									<span class="text-xs sm:text-sm mt-2 ml-2 text-info">{theme} </span>
+									<span class="text-xs sm:text-sm mt-2 text-info">{theme}</span>
 								</div>
 							{/each}
 						</div>
