@@ -8,7 +8,7 @@
 
 	let taskHistorylink = `/users/${userId}/home/tasks.history`;
 	let vitalsHistorylink = `/users/${userId}/home/vitals.history`;
-	let basicStatsLink = `/users/${userId}/home/`;
+	let basicStatsLink = `/users/${userId}/home`;
 
 	let activeButton: string = 'basic';
 	function setActive(button: string) {

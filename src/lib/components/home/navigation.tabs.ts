@@ -6,7 +6,7 @@ export interface TabDefinition {
 };
 
 const home: TabDefinition = {
-    name: 'Home',
+    name: 'Dashboard',
     path: `/users/userId/home`,
     icon: 'mdi:home',
     default: true,
