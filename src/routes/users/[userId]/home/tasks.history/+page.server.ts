@@ -87,7 +87,7 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
     let response;
     const searchParams = {
         userId: event.params.userId as string,
-        status: 'completed',
+        status: 'Completed',
         itemsPerPage: itemsPerPage 
     }
     
