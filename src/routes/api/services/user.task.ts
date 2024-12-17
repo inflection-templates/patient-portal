@@ -1,4 +1,7 @@
 import { BACKEND_API_URL } from "$env/static/private";
+import { CacheService } from "$lib/server/cache/cache.service";
+import { Helper } from "$lib/utils.ts/helper";
+import { DateStringFormat } from "$lib/utils.ts/time.types";
 import { get_ } from "./common";
 
 /////////////////////////////////////////////////////////////////////////////
@@ -20,7 +23,21 @@ export const getUserTasks = async (sessionId: string, searchParams?: any) => {
 		}
 	}
 	const url = BACKEND_API_URL + `/user-tasks/search${searchString}`;
-	return await get_(url, true, sessionId);
+	const today = Helper.getDateString(new Date(), DateStringFormat.YYYY_MM_DD);
+	const cacheKey = `session-${sessionId}:req-getUserTasks:${today}`;
+	const yesterday = Helper.getYesterdayDate();
+    const yesterdayCacheKey = `session-${sessionId}:req-getUserTasks:${yesterday}`;
+
+    if (await CacheService.has(yesterdayCacheKey)) {
+        await CacheService._cache.delete(yesterdayCacheKey);
+        console.log(`Cleared old key: ${yesterdayCacheKey}`);
+    }
+    if (await CacheService.has(cacheKey)) {
+        return await CacheService.get(cacheKey);
+    }
+	const result = await get_(url, true, sessionId);
+	await CacheService.set(cacheKey, result);
+    return result;
 };
 
 export const getEnrollments = async (sessionId: string, patientUserId: string) => {
