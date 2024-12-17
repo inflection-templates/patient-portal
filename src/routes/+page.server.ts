@@ -34,6 +34,8 @@ export const actions: Actions = {
 
 		const phone = validationResult.countryCode + '-' + validationResult.phone;
 
+		// const phone = validationResult.phone;
+
 		const allRoles = await getUserRoles();
 
 		const loginRoleId = findIdByRoleName(allRoles, 'Patient');

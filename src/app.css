@@ -606,3 +606,122 @@ tbody tr {
 .not-available {
 	@apply text-center text-info border border-outline rounded-md p-4;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme Variables */
+:root {
+	--primary-color: #c9ced7;
+	--secondary-color: #e5e7eb;
+	--outline-color: #aeb8ce;
+	--base-color: #fff;
+	--info-color: #1c252a;
+	--accent-color: #f5f6f8;
+	--neutral-color: #d3d3d3;
+	--error-color: #e02222;
+	--success-color: #50c878;
+	--active-color: #add8e6;
+}
+
+/* Font Settings */
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/Lato-Regular.ttf') format('ttf');
+}
+
+* {
+	font-family: 'Lato', sans-serif;
+}
+
+/* Component Classes */
+.history {
+	@apply bg-secondary border-secondary text-xs px-4 py-2 md:px-1 md:py-1 lg:px-4 lg:py-2 lg:text-sm text-info rounded-md shadow hover:bg-active;
+}
+
+.history.active {
+	@apply bg-active;
+}
+
+.tasks {
+	@apply justify-between sm:justify-start space-x-10 sm:space-x-2 text-sm sm:text-base my-3 mx-2 sm:mx-8 flex flex-row text-center;
+}
+
+.thead {
+	@apply sticky top-0 text-sm sm:text-base sm:text-info text-info bg-secondary table w-full table-fixed rounded-t-lg;
+}
+
+.tabledata {
+	@apply text-center text-sm border border-secondary text-info;
+}
+
+.tbody {
+	@apply block overflow-y-auto rounded-b-lg border-secondary border;
+}
+
+.th {
+	@apply p-2 text-left font-normal;
+}
+
+.td {
+	@apply p-2 text-left;
+}
+
+.not-available {
+	@apply text-center text-info border border-outline rounded-md p-4;
+}
+
+/* Layout Classes */
+.section {
+	@apply min-h-screen bg-secondary flex items-center justify-center px-8 relative;
+}
+
+.card {
+	@apply w-full max-w-md bg-accent rounded-3xl shadow-lg border-secondary;
+}
+
+/* Form Elements */
+.input {
+	@apply border border-secondary bg-secondary text-info sm:text-sm rounded-lg w-full px-3 py-2;
+}
+
+.label {
+	@apply block mb-2 mt-2 text-info text-sm font-medium;
+}
+
+/* Button Styles */
+.btn {
+	@apply w-full bg-blue-500 hover:bg-blue-600 text-base font-bold py-2 rounded-lg shadow transition duration-200;
+}
+
+/* Navigation */
+.navbar {
+	@apply bg-primary border-b border-outline text-sm py-2 flex items-center justify-between px-4 h-14 sticky top-0 z-50;
+}
+
+/* Sidebar */
+.sidebar {
+	@apply w-16 border-r border-outline sm:w-56 min-h-screen bg-secondary text-info px-4 sm:px-8 py-4 fixed top-14 left-0;
+}
+
+/* Main Content */
+.main-content {
+	@apply flex-1 p-4 ml-16 sm:ml-56 bg-accent;
+}
+
+/* Typography */
+.heading {
+	@apply text-xl font-bold text-info;
+}
+
+.para {
+	@apply text-sm font-light text-center;
+}
+
+/* Utilities */
+.iconsize {
+	@apply w-5 h-5;
+}
