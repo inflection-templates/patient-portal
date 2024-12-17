@@ -53,28 +53,28 @@
 			<table class="w-full border-collapse text-sm">
 				<thead class="thead">
 					<tr>
-						<th class="th" style="width: 8%;"></th>
-						<th class="th" on:click={sortByDate} style="cursor: pointer; width: 20%;">
+						<th class="th w-[5%]"></th>
+						<th class="th w-[40%] lg:w-[15%]" on:click={sortByDate}>
 							Date <span class="sort-icon">{sortOrder === 'ascending' ? '▲' : '▼'}</span>
 						</th>
 						{#if title == 'Blood Pressure'}
-							<th class="th" style="width: 20%;">Systolic ({data[0].unit})</th>
-							<th class="th" style="width: 20%;">Diastolic ({data[0].unit})</th>
+							<th class="th w-[40%] lg:w-[15%]">Systolic ({data[0].unit})</th>
+							<th class="th">Diastolic ({data[0].unit})</th>
 						{:else}
-							<th class="th" style="width: 20%;">{title} ({data[0].unit})</th>
+							<th class="th">{title} ({data[0].unit})</th>
 						{/if}
 					</tr>
 				</thead>
 				<tbody class="tbody">
 					{#each paginatedData as item, index}
 						<tr class="tabledata">
-							<td class="td" style="width: 8%;">{(currentPage - 1) * pageSize + index + 1}</td>
-							<td class="td" style="width: 20%;">{formatDateMonth(item.date)}</td>
+							<td class="td w-[5%]">{(currentPage - 1) * pageSize + index + 1}</td>
+							<td class="td w-[40%] lg:w-[15%]">{formatDateMonth(item.date)}</td>
 							{#if title == 'Blood Pressure'}
-								<td class="td" style="width: 20%;">{item.value}</td>
-								<td class="td" style="width: 20%;">{item.value1}</td>
+								<td class="td w-[40%] lg:w-[15%]">{item.value}</td>
+								<td class="td">{item.value1}</td>
 							{:else}
-								<td class="td" style="width: 20%;">{item.value}</td>
+								<td class="td">{item.value}</td>
 							{/if}
 						</tr>
 					{/each}

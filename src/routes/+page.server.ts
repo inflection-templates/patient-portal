@@ -32,7 +32,8 @@ export const actions: Actions = {
 			return fail(400, { validationResult: null, validationErrors: errorMessage('Invalid data') });
 		}
 
-		const phone = validationResult.countryCode + '-' + validationResult.phone;
+		// const phone = validationResult.countryCode + '-' + validationResult.phone;
+		const phone = validationResult.phone;
 
 		const allRoles = await getUserRoles();
 

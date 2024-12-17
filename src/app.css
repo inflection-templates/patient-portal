@@ -18,7 +18,7 @@
 [data-theme='dark'] {
 	--primary-color: #1c252a;
 	--secondary-color: #293338;
-	--outline-color: #64748B;
+	--outline-color: #64748b;
 	--base-color: #111827;
 	--info-color: #d9dee9;
 	--accent-color: #232c32;
@@ -245,7 +245,7 @@
 	@apply text-error;
 }
 .user-menu-divider {
-	@apply border-secondary;
+	@apply border-outline;
 }
 .menu-icon {
 	@apply mr-2;
@@ -262,6 +262,7 @@
 .theme-option {
 	@apply px-8 py-3 sm:px-8 sm:py-3  sm:pl-4  text-xs sm:text-sm relative flex items-center justify-center rounded-lg;
 }
+
 .theme-modes {
 	@apply flex-1 flex items-center justify-center p-2 sm:p-4 border border-gray-600 rounded-lg text-xs sm:text-sm;
 }
@@ -295,22 +296,22 @@
 	@apply hidden sm:inline  text-info;
 }
 .main-content {
-	@apply flex-1 p-4 ml-16 sm:ml-56 bg-accent;
+	@apply flex-1 p-4 ml-16  sm:ml-56 bg-accent;
 }
 .iconsize {
 	@apply w-5 h-5;
 }
 .history {
-	@apply bg-secondary  border-secondary   text-xs px-4 py-2 md:px-1 md:py-1 lg:px-4 lg:py-2 lg:text-sm  text-info rounded-md shadow hover:bg-active;
+	@apply bg-secondary  border text-xs px-4 py-2 md:px-1 md:py-1 lg:px-4 lg:py-2 lg:text-sm  text-info rounded-md shadow hover:bg-active;
 }
 .history.active {
 	@apply bg-active;
 }
 .tasks {
-	@apply justify-between sm:justify-start space-x-10 sm:space-x-2  text-sm sm:text-base my-3 mx-2 sm:mx-8 flex flex-row text-center;
+	@apply justify-between sm:justify-start space-x-6 sm:space-x-2 xl:space-x-3  text-sm sm:text-base my-3 mx-2 sm:mx-8 flex flex-row text-center;
 }
 .activetasks {
-	@apply space-y-2 sm:space-y-0 sm:space-x-2 mx-2 sm:mx-8 sm:text-base flex flex-col md:flex-row text-sm;
+	@apply space-y-2 sm:space-y-0 sm:space-x-2 xl:space-x-3 mx-2 sm:mx-8 sm:text-base flex flex-col md:flex-row text-sm;
 }
 .usertasks {
 	@apply mx-4 sm:mx-10;
@@ -330,10 +331,10 @@
 	@apply block overflow-y-auto  rounded-b-lg border-secondary border;
 }
 .th {
-	@apply p-2 text-left  font-normal;
+	@apply p-2 text-left  text-xs sm:text-sm font-normal pl-4;
 }
 .td {
-	@apply p-2 text-left;
+	@apply p-2 text-left text-xs sm:text-sm  pl-4;
 }
 .sort-icon {
 	@apply text-sm align-middle;
@@ -483,7 +484,7 @@ tbody tr {
 	@apply text-info text-left;
 }
 .careplan-table-row {
-	@apply   border-outline border-b;
+	@apply border-outline border-b;
 }
 /* Careplan  ends*/
 
@@ -517,5 +518,5 @@ tbody tr {
 }
 
 .not-available {
-	@apply text-center text-info border border-outline rounded-md p-4;
+	@apply text-center text-xs md:text-sm text-info border border-outline rounded-md p-4;
 }
