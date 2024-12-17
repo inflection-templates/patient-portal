@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { getPublicFooterLink, getPublicFooterText, getPublicLogoImageSource } from '$lib/components/themes/theme.selector';
+
 	// import { loginMethods } from '../config';
 	import Icon from '@iconify/svelte';
 	let showPassword = false;
@@ -6,11 +8,15 @@
 	function togglePasswordVisibility() {
 		showPassword = !showPassword;
 	}
+
+	const logoImageSource = getPublicLogoImageSource();
+	const footerText = `© ${new Date().getFullYear()} ${getPublicFooterText()}`;
+	const footerLink = getPublicFooterLink();
 </script>
 
-<section class="section">
+<section class="section min-h-screen flex flex-col">
 	<div class="absolute top-4 left-4 flex items-center">
-		<img src="patient.png" alt="Logo" class="logo" />
+		<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100"/>
 		<!-- <h1 class="heading">Patient Portal</h1> -->
 	</div>
 
@@ -98,4 +104,7 @@
 			</form>
 		</div>
 	</div>
+	<footer class="fixed bottom-0 w-full text-center py-4">
+		<a href={footerLink} class="!text-black">{footerText}</a>
+	</footer>
 </section>

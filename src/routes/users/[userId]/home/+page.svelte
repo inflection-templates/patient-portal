@@ -2,12 +2,8 @@
     import type { PageServerData } from './$types';
     export let data: PageServerData;
 
-    const stats = [
-        { title: "Total Tasks", value: "318", percentage: null },
-        { title: "Completed Tasks", value: "318", percentage: "(100%)", isCompleted: true },
-        { title: "Pending Tasks", value: "0", percentage: "(0%)", isPending: true }
-    ];
-
+	///////////////////////////////////////////////////////////////////////////
+	
     const basicInfo = [
         { label: "Patient Name", value: "John Doe" },
         { label: "Date of Birth", value: "01/01/1980" },

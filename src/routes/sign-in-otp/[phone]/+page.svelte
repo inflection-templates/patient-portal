@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Success from '$lib/components/icons/success.icon.svelte';
+	import { getPublicLogoImageSource } from '$lib/components/themes/theme.selector';
 	import Toast from '$lib/components/toast/toast.svelte';
 	import type { PageServerData } from './$types';
 	import { onMount, onDestroy } from 'svelte';
@@ -26,6 +27,8 @@
 	$: enteredOtp = otp.join('');
 	$: console.log('OTP input elements', enteredOtp);
 	$: console.log('Enter OTP input', enteredOtp);
+	
+	const logoImageSource = getPublicLogoImageSource();
 
 	const handleOtpInput = (index: number) => {
 		otp[index] = otp[index].replace(/\D/g, '');
@@ -89,8 +92,9 @@
 
 <section class="section">
 	<div class="absolute top-4 left-4 flex items-center">
-		<img src="/patient.png" alt="Logo" class="logo" />
+		<!-- <img src="/patient.png" alt="Logo" class="logo" /> -->
 		<!-- <h1 class="heading">Patient Portal</h1> -->
+		<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100"/>
 	</div>
 
 	<!-- <div class="absolute top-4 right-4 flex items-center">

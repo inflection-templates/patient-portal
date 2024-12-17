@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import ConfirmModal from '../modal/confirm.modal.svelte';
+	import { getPublicLogoImageSource } from '../themes/theme.selector';
 
 	export let logout;
 	export let userId: string | undefined;
@@ -54,6 +55,8 @@
 		}
 	];
 
+	const logoImageSource = getPublicLogoImageSource();
+	
 	const handleModeChange = (theme: string) => {
 		selectedMode = theme;
 		document.documentElement.setAttribute('data-theme', theme.toLowerCase());
@@ -107,7 +110,8 @@
 <header class="navbar">
 	<div class="flex items-center justify-between sm:px-4 h-14 w-full">
 		<div class="flex items-center">
-			<img src="/patient.png" alt="Logo" class="logo" />
+			<!-- <img src="/patient.png" alt="Logo" class="logo" /> -->
+			<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100"/>
 		</div>
 
 		<div class="relative ml-auto flex items-center">
@@ -170,18 +174,26 @@
 						<p class="para">Appearance</p>
 						<div class="flex items-center space-x-4">
 							{#each themeModes as theme}
-								<div class="flex flex-col">
+								<div class="flex flex-col items-center">
 									<button
-										class={`px-10 py-5 sm:px-12 sm:py-6 rounded-lg border ${
-											theme === selectedMode ? 'border-[var(--theme-border-color)]' : 'border-transparent'
+										class={`relative px-10 py-5 sm:px-12 sm:py-6 rounded-lg border-2 ${
+											theme === selectedMode
+												? 'border-[var(--theme-border-color)]'
+												: 'border-transparent'
 										}`}
 										style={`background-color: ${theme === 'Light' ? '#ffffff' : '#1a1a1a'}; color: ${
 											theme === 'Light' ? '#000000' : '#ffffff'
 										};`}
 										on:click={() => handleModeChange(theme)}
 									>
+										<!-- Image inside the button -->
+										<img
+											src={theme === 'Light' ? '/light mode.PNG' : '/dark mode.PNG'}
+											alt={`${theme} mode`}
+											class="absolute inset-0 w-full rounded-lg m-auto"
+										/>
 									</button>
-									<span class="text-xs sm:text-sm mt-2 ml-2 text-info">{theme} </span>
+									<span class="text-xs sm:text-sm mt-2 text-info">{theme}</span>
 								</div>
 							{/each}
 						</div>

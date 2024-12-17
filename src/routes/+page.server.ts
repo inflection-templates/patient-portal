@@ -10,6 +10,7 @@ import { findIdByRoleName, getUserRoles } from './api/services/types';
 ////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
+	
 	event.depends('app');
 };
 
@@ -33,6 +34,7 @@ export const actions: Actions = {
 		}
 
 		const phone = validationResult.countryCode + '-' + validationResult.phone;
+		// const phone = validationResult.phone;
 
 		// const phone = validationResult.phone;
 
