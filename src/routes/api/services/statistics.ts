@@ -16,9 +16,9 @@ export const getPatientStatistics = async (
 ) => {
 	const url = BACKEND_API_URL + `/patient-statistics/${patientId}/dashboard-summary`;
 	const today = Helper.getDateString(new Date(), DateStringFormat.YYYY_MM_DD);
-	const cacheKey = `session-${sessionId}:req-getDailyStatistics:${today}`;
+	const cacheKey = `session-${sessionId}:req-getPatientStatistics:${today}`;
 	const yesterday = Helper.getYesterdayDate();
-    const yesterdayCacheKey = `session-${sessionId}:req-getDailyStatistics:${yesterday}`;
+    const yesterdayCacheKey = `session-${sessionId}:req-getPatientStatistics:${yesterday}`;
 
     if (await CacheService.has(yesterdayCacheKey)) {
         await CacheService._cache.delete(yesterdayCacheKey);
@@ -32,15 +32,15 @@ export const getPatientStatistics = async (
 	const basicData = basicFilterData(result);
 	const vitalsData = vitalsFilterData(resultData);
 	const userTasksData = userTasksFilterData (resultData.CompletedTasks);
-	const careplanData = careplanFilterData(resultData.CarePlanTasks);
+	// const careplanData = careplanFilterData(resultData.CarePlanTasks);
 
-	console.log("resultData.CompletedTasks",resultData.CompletedTasks);
+	console.log("resultData.CompletedTasks",resultData.CarePlanTasks.length);
 
 	const response = {
 		basicData,
 		vitalsData,
 		userTasksData,
-		careplanData
+		// careplanData
 	};
 
     await CacheService.set(cacheKey, response);

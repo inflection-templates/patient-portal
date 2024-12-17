@@ -5,6 +5,7 @@ import { formatDate } from '$lib/utils.ts/functions';
 export const careplanFilterData = async (careplanData: any) => {
 	const careplanTasks_ = careplanData.reduce((groupedTasks, task) => {
 		const planCode = task?.Action?.PlanCode;
+		console.log('planCode', planCode);
 		if (planCode) {
 			if (!groupedTasks[planCode]) {
 				groupedTasks[planCode] = [];

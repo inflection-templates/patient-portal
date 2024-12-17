@@ -1,6 +1,7 @@
 import type { ServerLoadEvent } from '@sveltejs/kit';
 import { getPatientStatistics } from '$routes/api/services/statistics';
 import type { PageServerLoad } from './$types';
+import { getUserTasks } from '$routes/api/services/user.task';
 
 ///////////////////////////////////////////////////////////////////////////////
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
@@ -11,6 +12,15 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
     const taskCount = response.basicData?.taskCount ?? 0;
     const completedTaskCount = response.basicData?.completedTaskCount ?? 0;
     const pendingTaskCount = response.basicData?.pendingTaskCount ?? 0;
+
+    const itemsPerPage = 500;
+    const searchParams = {
+        userId: userId,
+        ActionType: 'CarePlan',
+        itemsPerPage: itemsPerPage 
+    }
+
+    await getUserTasks(sessionId, searchParams);
 
     return {
         sessionId,

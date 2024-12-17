@@ -62,8 +62,8 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
     // const response = await getPatientStatistics(sessionId, userId);
 
     // const careplanTasks = response.careplanData.careplanTasks;
-    // // const dayWiseSeparatedData = response.careplanData.dayWiseSeparatedData;
-    // // const weekWiseSeparatedData = response.careplanData.weekWiseSeparatedData;
+    // const dayWiseSeparatedData = response.careplanData.dayWiseSeparatedData;
+    // const weekWiseSeparatedData = response.careplanData.weekWiseSeparatedData;
     // const startDate = response.careplanData.startDate;
     // const endDate = response.careplanData.endDate;
 
