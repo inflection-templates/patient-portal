@@ -53,7 +53,7 @@
 			<table class="w-full border-collapse text-sm">
 				<thead class="thead">
 					<tr>
-						<th class="th" style="width: 8%;">sr</th>
+						<th class="th" style="width: 8%;"></th>
 						<th class="th" on:click={sortByDate} style="cursor: pointer; width: 20%;">
 							Date <span class="sort-icon">{sortOrder === 'ascending' ? '▲' : '▼'}</span>
 						</th>
