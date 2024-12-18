@@ -49,7 +49,7 @@
     </div>
 
     <div class="bg-white rounded-lg shadow p-6">
-        <h2 class="text-xl font-semibold mb-4">Home</h2>
+        <h2 class="text-xl font-semibold mb-4">Basic Information</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {#each basicInfo as info}
                 <div>
