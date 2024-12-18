@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { getPublicFooterLink, getPublicFooterText, getPublicLogoImageSource } from '$lib/components/themes/theme.selector';
-
+    import CountryCode from "$lib/components/country.code.svelte";
 	// import { loginMethods } from '../config';
 	import Icon from '@iconify/svelte';
+	import { SYSTEM_ID } from '$lib/constants';
 	let showPassword = false;
 	let loginMethod = 'mobile';
 	function togglePasswordVisibility() {
@@ -12,6 +13,12 @@
 	const logoImageSource = getPublicLogoImageSource();
 	const footerText = `© ${new Date().getFullYear()} ${getPublicFooterText()}`;
 	const footerLink = getPublicFooterLink();
+	let countryCode;
+    $: if (SYSTEM_ID === "AHA") {
+        countryCode = '+1'
+    } else {
+        countryCode = ''
+    }
 </script>
 
 <section class="section min-h-screen flex flex-col">
@@ -44,12 +51,20 @@
 					<div id="mobile-login">
 						<label for="mobile" class="label">Mobile Number</label>
 						<div class="flex space-x-2">
-							<select class="selectcode" name="countryCode">
+							<!-- <select class="selectcode" name="countryCode">
 								<option value="+1">+1</option>
 								<option value="+91">+91</option>
 								<option value="+44">+44</option>
 								<option value="+61">+61</option>
-							</select>
+							</select> -->
+							{#if SYSTEM_ID == "AHA"}
+								<select class="selectcode" required>
+									<option value="+1">+1</option>   
+								</select>
+							{:else}
+								<CountryCode bind:countryCode></CountryCode>
+							{/if} 
+								<input hidden type="text" name='countryCode' bind:value={countryCode}> 
 							<input
 								type="tel"
 								name="phone"
