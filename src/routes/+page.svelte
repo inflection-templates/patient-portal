@@ -3,7 +3,12 @@
     import CountryCode from "$lib/components/country.code.svelte";
 	// import { loginMethods } from '../config';
 	import Icon from '@iconify/svelte';
+	import { SystemTypes } from '$lib/system.types';
 	import { SYSTEM_ID } from '$lib/constants';
+
+	//////////////////////////////////////////////////////////////////////
+	
+	const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
 	let showPassword = false;
 	let loginMethod = 'mobile';
 	function togglePasswordVisibility() {
@@ -14,7 +19,7 @@
 	const footerText = `© ${new Date().getFullYear()} ${getPublicFooterText()}`;
 	const footerLink = getPublicFooterLink();
 	let countryCode;
-    $: if (SYSTEM_ID === "AHA") {
+    $: if (systemType === SystemTypes.AHA) {
         countryCode = '+1'
     } else {
         countryCode = ''
@@ -57,7 +62,7 @@
 								<option value="+44">+44</option>
 								<option value="+61">+61</option>
 							</select> -->
-							{#if SYSTEM_ID == "AHA"}
+							{#if systemType === SystemTypes.AHA}
 								<select class="selectcode" required>
 									<option value="+1">+1</option>   
 								</select>
