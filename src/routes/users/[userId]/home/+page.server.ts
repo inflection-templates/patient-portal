@@ -12,6 +12,7 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
     const taskCount = response.basicData?.taskCount ?? 0;
     const completedTaskCount = response.basicData?.completedTaskCount ?? 0;
     const pendingTaskCount = response.basicData?.pendingTaskCount ?? 0;
+    const userdata=response.basicData.user
 
     const itemsPerPage = 500;
     const searchParams = {
@@ -27,6 +28,7 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
         userProfileData,
         taskCount,
         completedTaskCount,
-        pendingTaskCount
+        pendingTaskCount,
+        userdata
     };
 };

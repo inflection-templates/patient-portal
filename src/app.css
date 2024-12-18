@@ -519,3 +519,11 @@ tbody tr {
 .not-available {
 	@apply text-center text-info border border-outline rounded-md p-4;
 }
+
+.txt-gr-700 {
+	@apply text-gray-700;
+}
+
+.txt-gr-900 {
+	@apply text-gray-900;
+}
