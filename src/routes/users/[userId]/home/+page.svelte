@@ -26,13 +26,18 @@
 
 	const stats=[{title:"Total tasks",data:taskCount},{title:"Completed tasks",data:completedTaskCount},{title:"Pending tasks",data:pendingTaskCount}]
 
-
+	const getValue = (value: any): string => {
+        if (!value || value.trim?.() === '') {
+            return 'Not specified';
+        }
+        return value;
+    };
 
     const basicInfo = [
-        { label: "Name", value: userdata.UserName || 'Not specified'},
-        { label: "Date of Birth", value: 'Not specified' },
-        { label: "Email", value:userdata.Email },
-        { label: "Phone", value: userdata.Phone},
+        { label: "Name", value: getValue(userProfileData?.UserName) },
+        { label: "Date of Birth", value: getValue(userProfileData?.BirthDate) },
+        { label: "Email", value: getValue(userProfileData?.Email) },
+        { label: "Phone", value: getValue(userProfileData?.Phone) },
         { label: "Blood Group", value: 'Not specified' },
         { label: "Health Journey", value: 'Not specified' }
     ];
