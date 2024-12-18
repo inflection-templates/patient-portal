@@ -1,28 +1,17 @@
-<!-- <script lang="ts">
-	import type { PageServerData } from './$types';
-
-	///////////////////////////////////////////////////////////////////////////
-	
-	export let data: PageServerData;
-
-</script> -->
-
-
 <script lang="ts">
+	import { formatBirthdate } from '$lib/utils.ts/functions';
     import type { PageServerData } from './$types';
     export let data: PageServerData;
 
 	///////////////////////////////////////////////////////////////////////////
-	const{
+	
+	const {
 		userProfileData,
         taskCount,
         completedTaskCount,
         pendingTaskCount,
-		userdata
-	}=data;
-	console.log("userProfileData", userProfileData);
-	// console.log("completedTaskCount",completedTaskCount);
-	// console.log("userdata",userdata);
+		healthProfile
+	} = data;
 
 	const stats=[{title:"Total tasks",data:taskCount},{title:"Completed tasks",data:completedTaskCount},{title:"Pending tasks",data:pendingTaskCount}]
 
@@ -35,11 +24,11 @@
 
     const basicInfo = [
         { label: "Name", value: getValue(userProfileData?.UserName) },
-        { label: "Date of Birth", value: getValue(userProfileData?.BirthDate) },
+        { label: "Date of Birth", value: formatBirthdate(getValue(userProfileData?.BirthDate)) },
         { label: "Email", value: getValue(userProfileData?.Email) },
         { label: "Phone", value: getValue(userProfileData?.Phone) },
-        { label: "Blood Group", value: 'Not specified' },
-        { label: "Health Journey", value: 'Not specified' }
+        { label: "Blood Group", value: getValue(healthProfile?.BloodGroup) },
+        // { label: "Health Journey", value: 'Not specified' }
     ];
 </script>
 
@@ -53,13 +42,13 @@
         {/each}
     </div>
 
-    <div class="bg-white rounded-lg shadow p-6">
-        <h2 class="text-xl font-semibold mb-4">Basic Information</h2>
+    <div class="basic-info-card">
+        <h2 class="basic-information">Basic Information</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {#each basicInfo as info}
                 <div>
-                    <p class="txt-gr-700">{info.label}</p>
-                    <p class="mt-1 txt-gr-900">{info.value || 'Not specified'}</p>
+                    <p class="label">{info.label}</p>
+                    <p class="mt-1 label">{info.value || 'Not specified'}</p>
                 </div>
             {/each}
         </div>
