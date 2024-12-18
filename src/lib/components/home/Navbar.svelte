@@ -56,7 +56,7 @@
 	];
 
 	const logoImageSource = getPublicLogoImageSource();
-	
+
 	const handleModeChange = (theme: string) => {
 		selectedMode = theme;
 		document.documentElement.setAttribute('data-theme', theme.toLowerCase());
@@ -111,12 +111,12 @@
 	<div class="flex items-center justify-between sm:px-4 h-14 w-full">
 		<div class="flex items-center">
 			<!-- <img src="/patient.png" alt="Logo" class="logo" /> -->
-			<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100"/>
+			<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100" />
 		</div>
 
 		<div class="relative ml-auto flex items-center">
 			<button
-				class="user-profile-btn flex items-center justify-center"
+				class=" user-profile-btn"
 				aria-label="Toggle user menu"
 				on:click={() => {
 					showUserMenu = !showUserMenu;
@@ -176,7 +176,7 @@
 							{#each themeModes as theme}
 								<div class="flex flex-col items-center">
 									<button
-										class={`relative px-10 py-5 sm:px-12 sm:py-6 rounded-lg border-2 ${
+										class={`relative px-10 py-5 sm:px-8 sm:py-4 rounded-lg border-2 ${
 											theme === selectedMode
 												? 'border-[var(--theme-border-color)]'
 												: 'border-transparent'
@@ -186,17 +186,15 @@
 										};`}
 										on:click={() => handleModeChange(theme)}
 									>
-										<!-- Image inside the button -->
-										<img
-											src={theme === 'Light' ? '/light mode.PNG' : '/dark mode.PNG'}
-											alt={`${theme} mode`}
-											class="absolute inset-0 w-full rounded-lg m-auto"
-										/>
+										<!-- Text inside the button -->
+										<span class="flex items-center justify-center w-full h-full">
+											{theme}
+										</span>
 									</button>
-									<span class="text-xs sm:text-sm mt-2 text-info">{theme}</span>
 								</div>
 							{/each}
 						</div>
+						
 					</div>
 
 					<hr class="theme-divider" />

@@ -99,8 +99,6 @@
 			</div>
 		</div>
 	{:else}
-
-			<p class="not-available">Careplan data not available</p>
-	
+		<p class="not-available">Careplan data not available</p>
 	{/if}
 </div>
