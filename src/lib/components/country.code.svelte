@@ -1,13 +1,13 @@
 <script lang="ts">
-	export let countryCode;
-	function handleCountryCodeChange(event) {
-		countryCode = event.target.value;
-	}
+	// export let countryCode;
+	// function handleCountryCodeChange(event) {
+	// 	countryCode = event.target.value;
+	// }
 </script>
 
-<select class="selectcode" on:change={handleCountryCodeChange} required>
+<select name="countryCode" class="selectcode" required>
 	<option value="+1">+1</option>
-	<option selected value="+91">+91</option>
+	<option value="+91">+91</option>
 	<option value="+44">+44</option>
 	<option value="+93">+93</option>
 	<option value="+358">+358</option>

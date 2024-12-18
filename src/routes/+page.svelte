@@ -21,11 +21,9 @@
 	const footerLink = getPublicFooterLink();
 	let countryCode;
 
-    if (systemType === SystemTypes.AHA) {
-        countryCode = '+1'
-    } else {
-        countryCode = ''
-    }
+    // if (systemType === SystemTypes.AHA) {
+    //     countryCode = '+1'
+    // }
 
 </script>
 
@@ -66,13 +64,13 @@
 								<option value="+61">+61</option>
 							</select> -->
 							{#if systemType === SystemTypes.AHA}
-								<select class="selectcode" required>
+								<select name="countryCode" class="selectcode" required>
 									<option value="+1">+1</option>   
 								</select>
 							{:else}
-								<CountryCode bind:countryCode></CountryCode>
+								<CountryCode/>
 							{/if} 
-								<input hidden type="text" name='countryCode' bind:value={countryCode}> 
+								<!-- <input hidden type="text" name='countryCode' bind:value={countryCode}>  -->
 							<input
 								type="tel"
 								name="phone"
@@ -81,6 +79,7 @@
 								id="mobile"
 								class="mobileinput"
 								placeholder="Your mobile number"
+								required
 							/>
 						</div>
 					</div>
