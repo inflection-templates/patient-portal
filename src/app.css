@@ -3,144 +3,153 @@
 @tailwind utilities;
 
 :root {
-	--primary-color: #3b82f6;
-	--secondary-color: #3182ce;
+	--primary-color: #c9ced7;
+	--secondary-color: #e5e7eb;
+	--outline-color: #aeb8ce;
 	--base-color: #fff;
-	--info-color: #1a202c;
-	--accent-color: #e5e7eb;
+	--info-color: #1c252a;
+	--accent-color: #f5f6f8;
 	--neutral-color: #d3d3d3;
 	--error-color: #e02222;
 	--success-color: #50c878;
-	--active-color: #add8e6;
+	--active-color: #c9ced7;
 }
 
 [data-theme='dark'] {
-	--primary-color: #1f2937;
-	--secondary-color: #4b5563;
+	--primary-color: #1c252a;
+	--secondary-color: #293338;
+	--outline-color: #64748b;
 	--base-color: #111827;
-	--info-color: #e5e7eb;
-	--accent-color: #2c2c2c;
+	--info-color: #d9dee9;
+	--accent-color: #232c32;
 	--neutral-color: #4a5c7a;
 	--error-color: #e02222;
 	--success-color: #10b981;
-	--active-color: #36454f;
+	--active-color: #3a4e5c;
 }
 
 [data-theme='light'][data-theme-option='teal'] {
-	--primary-color: #8b5cf6;
-	--secondary-color: #7c3aed;
+	--primary-color: #d9dee9;
+	--secondary-color: #e5e7eb;
+	/* --outline-color: #aeb8ce; */
 	--base-color: #f5f3ff;
 	--info-color: #1a202c;
-	--accent-color: #e5e7eb;
-	--neutral-color: #7fbfbf;
+	--accent-color: #f5f6f8;
+	/* --neutral-color: #7fbfbf; */
 	--error-color: #e02222;
 	--success-color: #34d399;
-	--active-color: #7fbfbf;
+	--active-color: rgba(50, 153, 153, 0.382);
 }
 [data-theme='dark'][data-theme-option='teal'] {
-	--primary-color: #8b5cf6;
-	--secondary-color: #7c3aed;
+	--primary-color: #1c252a;
+	--secondary-color: #242d33;
+	/* --outline-color: #aeb8ce; */
 	--base-color: #f5f3ff;
 	--info-color: #e5e7eb;
-	--accent-color: #2c2c2c;
-	--neutral-color: #329999;
+	--accent-color: #1f282d;
+	/* --neutral-color: #329999; */
 	--error-color: #e02222;
 	--success-color: #218d65;
-	--active-color: #329999;
+	--active-color: rgba(50, 153, 153, 0.382);
 }
 [data-theme='light'][data-theme-option='blue'] {
-	--primary-color: #3b82f6;
-	--secondary-color: #2563eb;
+	--primary-color: #d9dee9;
+	--secondary-color: #e5e7eb;
+	/* --outline-color: #0096ff; */
 	--base-color: #eff6ff;
 	--info-color: #1a202c;
-	--accent-color: #e5e7eb;
+	--accent-color: #f5f6f8;
 	--neutral-color: #89cff0;
 	--error-color: #e02222;
 	--success-color: #10b981;
-	--active-color: #89cff0;
+	--active-color: rgba(0, 149, 255, 0.244);
 }
 [data-theme='dark'][data-theme-option='blue'] {
-	--primary-color: #3b82f6;
-	--secondary-color: #2563eb;
+	--primary-color: #1c252a;
+	--secondary-color: #242d33;
+	/* --outline-color: #0096ff; */
 	--base-color: #eff6ff;
 	--info-color: #eff6ff;
-	--accent-color: #2c2c2c;
+	--accent-color: #1f282d;
 	--neutral-color: #0096ff;
 	--error-color: #e02222;
 	--success-color: #10b981;
-	--active-color: #0096ff;
+	--active-color: rgba(0, 149, 255, 0.244);
 }
 
-/* Purple theme options */
 [data-theme='light'][data-theme-option='mint'] {
-	--primary-color: #3b82f6;
-	--secondary-color: #2563eb;
+	--primary-color: #d9dee9;
+	--secondary-color: #e5e7eb;
+	/* --outline-color: #adebb3; */
 	--base-color: #eff6ff;
 	--info-color: #1a202c;
-	--accent-color: #e5e7eb;
-	--neutral-color: #adebb3;
+	--secondary-color: #e5e7eb;
+	/* --neutral-color: #adebb3; */
 	--error-color: #e02222;
 	--success-color: #10b981;
-	--active-color: #adebb3;
+	--active-color: rgba(78, 197, 90, 0.342);
 }
 [data-theme='dark'][data-theme-option='mint'] {
-	--primary-color: #3b82f6;
-	--secondary-color: #2563eb;
+	--primary-color: #1c252a;
+	--secondary-color: #242d33;
+	/* --outline-color: #4ec55a; */
 	--base-color: #eff6ff;
 	--info-color: #eff6ff;
-	--accent-color: #2c2c2c;
-	--neutral-color: #4ec55a;
+	--accent-color: #1f282d;
+	/* --neutral-color: #4ec55a; */
 	--error-color: #e02222;
 	--success-color: #10b981;
-	--active-color: #4ec55a;
+	--active-color: rgba(78, 197, 90, 0.342);
 }
 
-/* Bronze theme options */
-[data-theme='light'][data-theme-option='yellow'] {
-	--primary-color: #3b82f6;
-	--secondary-color: #2563eb;
+[data-theme='light'][data-theme-option='grey'] {
+	--primary-color: #d9dee9;
+	--secondary-color: #e5e7eb;
+	/* --outline-color: #aeaa9e; */
 	--base-color: #eff6ff;
 	--info-color: #1a202c;
-	--accent-color: #e5e7eb;
-	--neutral-color: #ffc000;
+	--accent-color: #f5f6f8;
+	/* --neutral-color: #818589; */
 	--error-color: #e02222;
 	--success-color: #10b981;
-	--active-color: #ffc000;
+	--active-color: rgba(128, 128, 128, 0.356);
 }
-[data-theme='dark'][data-theme-option='yellow'] {
-	--primary-color: #3b82f6;
-	--secondary-color: #2563eb;
+[data-theme='dark'][data-theme-option='grey'] {
+	--primary-color: #1c252a;
+	--secondary-color: #242d33;
+	/* --outline-color: #aeaa9e; */
 	--base-color: #eff6ff;
 	--info-color: #eff6ff;
-	--accent-color: #2c2c2c;
-	--neutral-color: #ffc000;
+	--accent-color: #1f282d;
+	/* --neutral-color: #818589; */
 	--error-color: #e02222;
 	--success-color: #10b981;
-	--active-color: #ffc000;
+	--active-color: rgba(128, 128, 128, 0.356);
 }
 
-/* Bronze theme options */
-[data-theme='light'][data-theme-option='bronze'] {
-	--primary-color: #3b82f6;
-	--secondary-color: #2563eb;
+[data-theme='light'][data-theme-option='gold'] {
+	--primary-color: #d9dee9;
+	--secondary-color: #e5e7eb;
+	/* --outline-color:#d1a908; */
 	--base-color: #eff6ff;
 	--info-color: #1a202c;
-	--accent-color: #e5e7eb;
-	--neutral-color: #d59352;
+	--accent-color: #f5f6f8;
+	/* --neutral-color: #ffd700; */
 	--error-color: #e02222;
 	--success-color: #10b981;
-	--active-color: #d59352;
+	--active-color: rgba(255, 217, 0, 0.43);
 }
-[data-theme='dark'][data-theme-option='bronze'] {
-	--primary-color: #3b82f6;
-	--secondary-color: #2563eb;
+[data-theme='dark'][data-theme-option='gold'] {
+	--primary-color: #1c252a;
+	--secondary-color: #242d33;
+	/* --outline-color: #d1a908; */
 	--base-color: #eff6ff;
 	--info-color: #eff6ff;
-	--accent-color: #2c2c2c;
-	--neutral-color: #d59352;
+	--accent-color: #1f282d;
+	/* --neutral-color: #ffd700; */
 	--error-color: #e02222;
 	--success-color: #10b981;
-	--active-color: #d59352;
+	--active-color: rgba(255, 217, 0, 0.359);
 }
 
 @font-face {
@@ -153,34 +162,43 @@
 	font-family: 'Lato', sans-serif;
 }
 .section {
-	@apply min-h-screen bg-accent flex items-center justify-center px-8 relative;
+	@apply min-h-screen bg-secondary flex items-center justify-center px-8 relative;
 }
 .card {
-	@apply w-full max-w-md bg-base  rounded-3xl shadow-lg border-accent;
+	@apply w-full max-w-md  bg-accent  rounded-3xl shadow-lg border-secondary;
 }
 .btn {
-	@apply w-full bg-primary hover:bg-secondary text-base font-bold py-2 rounded-lg shadow transition duration-200;
+	@apply w-full bg-blue-500 hover:bg-blue-600 text-base font-bold py-2 rounded-lg shadow transition duration-200;
 }
 .eyebtn {
 	@apply absolute right-3 top-1/2 transform -translate-y-1/2;
 }
 .googlebtn {
-	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-info rounded-lg border border-accent bg-base  transition;
+	@apply w-full text-sm flex items-center justify-center space-x-2 py-2 px-3 text-info rounded-lg border border-secondary bg-base  transition;
 }
 .select {
-	@apply border border-accent text-info text-sm rounded-lg px-1 py-2;
+	@apply border bg-accent text-info   border-outline text-sm rounded-lg px-1 py-1;
+}
+
+.selectcode {
+	@apply border text-info  border-outline  text-sm rounded-lg px-1 py-2;
 }
 .input {
-	@apply border border-accent text-info sm:text-sm rounded-lg w-full px-3 py-2;
+	@apply border border-outline bg-accent  text-info sm:text-sm rounded-lg w-full px-3 py-2;
 }
+.mobileinput {
+	@apply border border-secondary  text-info sm:text-sm rounded-lg w-full px-3 py-2;
+}
+
 .inputotp {
-	@apply border border-accent text-info sm:text-sm rounded-lg w-full px-3 py-2 text-center;
+	@apply border  border-secondary text-info sm:text-sm rounded-lg w-full px-3 py-2 text-center;
 }
+
 .label {
-	@apply block mb-2 mt-2 text-sm font-medium text-info;
+	@apply block mb-2 mt-2 text-info  text-sm font-medium;
 }
 .para {
-	@apply text-sm font-light text-gray-600 text-center;
+	@apply text-sm font-light  text-center;
 }
 .heading {
 	@apply text-xl font-bold text-info;
@@ -192,7 +210,7 @@
 	@apply font-medium text-info hover:underline;
 }
 .navbar {
-	@apply bg-accent border border-accent text-info text-sm py-2 flex items-center justify-between px-4 h-14 sticky top-0 z-50;
+	@apply bg-primary border-b border-outline text-sm py-2 flex items-center justify-between px-4 h-14 sticky top-0 z-50;
 }
 
 .logo {
@@ -202,23 +220,23 @@
 	@apply text-lg font-bold text-info;
 }
 .user-profile-btn {
-	@apply w-10 h-10 rounded-full bg-accent flex items-center justify-center;
+	@apply w-10 h-10 rounded-full bg-secondary flex items-center justify-center;
 }
 .user-profile-btn-text {
 	@apply text-gray-800;
 }
 .user-menu {
-	@apply absolute right-0 top-14  w-48 bg-accent rounded-md shadow-lg py-1 text-info z-50;
+	@apply absolute right-0 top-14  w-56 bg-primary rounded-md shadow-lg py-1 text-info z-50;
 }
 .user-name {
-	@apply px-3 py-2 text-lg  text-info  flex items-center space-x-2;
+	@apply px-3 py-2 text-base  text-info  flex items-center space-x-2;
 }
 
 .initial-icon {
-	@apply w-10 h-10 rounded-full bg-neutral text-info flex items-center justify-center  uppercase text-sm;
+	@apply w-10 h-10 rounded-full  bg-secondary  text-info flex items-center justify-center  uppercase text-sm;
 }
 .user-menu-item {
-	@apply flex items-center w-full px-4 py-2 text-info  hover:bg-neutral;
+	@apply flex items-center w-full px-4 py-2 text-info  hover:bg-secondary;
 }
 .user-menu-item.delete-account {
 	@apply text-error bg-transparent border-none cursor-pointer;
@@ -227,42 +245,46 @@
 	@apply text-error;
 }
 .user-menu-divider {
-	@apply border-accent;
+	@apply border-outline;
 }
 .menu-icon {
 	@apply mr-2;
 }
 
 .theme-menu {
-	@apply absolute right-0 top-14 w-60 sm:w-80 bg-accent shadow-lg rounded-md p-6 z-50;
+	@apply absolute right-0 top-14  w-64  sm:w-96 bg-secondary shadow-lg rounded-md p-6 z-50;
 }
 
 .theme-divider {
-	@apply my-2  sm:my-4 border border-accent;
+	@apply my-4  border border-secondary;
 }
 
 .theme-option {
-	@apply px-3 py-3 sm:p-3 rounded-lg border text-xs sm:text-sm;
+	@apply px-8 py-3 sm:px-8 sm:py-3  sm:pl-4  text-xs sm:text-sm relative flex items-center justify-center rounded-lg;
 }
+
 .theme-modes {
 	@apply flex-1 flex items-center justify-center p-2 sm:p-4 border border-gray-600 rounded-lg text-xs sm:text-sm;
 }
 
 .themes-close-button {
-	@apply absolute top-2 right-2;
+	@apply absolute top-2 right-2 text-info;
+}
+.user-menu-close {
+	@apply absolute top-2 right-2 text-info;
 }
 .para {
 	@apply mb-2 text-sm text-left text-info;
 }
 
 .sidebar {
-	@apply w-16 sm:w-56 min-h-screen bg-accent border-accent text-info px-4 sm:px-8 py-4 fixed top-14 left-0;
+	@apply w-16 border-r border-outline sm:w-56 min-h-screen bg-secondary  text-info px-4 sm:px-8 py-4 fixed top-14 left-0;
 }
 .sidebar-list {
-	@apply space-y-2;
+	@apply space-y-2 sm:ml-4;
 }
 .sidebar-item {
-	@apply flex items-center hover:bg-neutral px-2 py-2 rounded;
+	@apply flex items-center hover:bg-primary border-outline px-2 py-2 rounded;
 }
 .sidebar-item span {
 	@apply ml-2;
@@ -274,22 +296,22 @@
 	@apply hidden sm:inline  text-info;
 }
 .main-content {
-	@apply flex-1 p-4 ml-16 sm:ml-56;
+	@apply flex-1 p-4 ml-16  sm:ml-56 bg-accent;
 }
 .iconsize {
 	@apply w-5 h-5;
 }
 .history {
-	@apply bg-accent  text-xs px-4 py-2 md:px-1 md:py-1 lg:px-4 lg:py-2 lg:text-sm  text-info rounded-md shadow hover:bg-neutral;
+	@apply bg-secondary  border text-xs px-4 py-2 md:px-1 md:py-1 lg:px-4 lg:py-2 lg:text-sm  text-info rounded-md shadow hover:bg-active;
 }
 .history.active {
 	@apply bg-active;
 }
 .tasks {
-	@apply justify-between sm:justify-start space-x-10 sm:space-x-2  text-sm sm:text-base my-3 mx-2 sm:mx-8 flex flex-row text-center;
+	@apply justify-between sm:justify-start space-x-6 sm:space-x-2 xl:space-x-3  text-sm sm:text-base my-3 mx-2 sm:mx-8 flex flex-row text-center;
 }
 .activetasks {
-	@apply space-y-2 sm:space-y-0 sm:space-x-2 mx-2 sm:mx-8 sm:text-base flex flex-col md:flex-row text-sm;
+	@apply space-y-2 sm:space-y-0 sm:space-x-2 xl:space-x-3 mx-2 sm:mx-8 sm:text-base flex flex-col md:flex-row text-sm;
 }
 .usertasks {
 	@apply mx-4 sm:mx-10;
@@ -299,20 +321,20 @@
 }
 
 .thead {
-	@apply sticky top-0 text-sm sm:text-base  sm:text-info text-info bg-accent  table w-full table-fixed  rounded-t-lg;
+	@apply sticky top-0 text-sm sm:text-base  sm:text-info text-info bg-secondary  table w-full table-fixed  rounded-t-lg;
 }
 
 .tabledata {
-	@apply text-center text-sm border border-accent ;
+	@apply text-center text-sm border border-secondary text-info;
 }
 .tbody {
-	@apply block overflow-y-auto  rounded-b-lg border-accent border;
+	@apply block overflow-y-auto  rounded-b-lg border-secondary border;
 }
 .th {
-	@apply p-2 text-left  font-normal;
+	@apply p-2 text-left  text-xs sm:text-sm font-normal pl-4;
 }
 .td {
-	@apply p-2 text-left;
+	@apply p-2 text-left text-xs sm:text-sm  pl-4;
 }
 .sort-icon {
 	@apply text-sm align-middle;
@@ -321,26 +343,26 @@
 	@apply space-x-1;
 }
 .previous {
-	@apply px-4 py-2  text-xs lg:text-sm   text-info rounded-md shadow hover:bg-neutral bg-accent my-2;
+	@apply px-4 py-2  text-xs lg:text-sm   text-info rounded-md shadow hover:bg-active bg-secondary my-2;
 }
 
 .next {
-	@apply px-4 py-2 text-xs lg:text-sm  text-info rounded-md shadow hover:bg-neutral bg-accent my-2;
+	@apply px-4 py-2 text-xs lg:text-sm  text-info rounded-md shadow hover:bg-active bg-secondary my-2;
 }
 .chart {
-	@apply h-80 w-full relative;
+	@apply h-80  w-full relative;
 }
 .canvas {
-	@apply absolute inset-0 w-full h-full border border-accent  rounded-xl p-4;
+	@apply absolute inset-0 w-full h-full border border-outline  rounded-xl p-4;
 }
 
-.userinput{
-	@apply bg-gray-50 rounded-md border border-gray-300 p-3 text-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-gray-500;
+.userinput {
+	@apply bg-gray-50 rounded-md border border-outline p-3 text-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-gray-500;
 }
-.userlabel{
+.userlabel {
 	@apply block text-base mb-1;
 }
-.error-text{
+.error-text {
 	@apply text-red-500 text-sm mt-1;
 }
 thead,
@@ -357,7 +379,7 @@ tbody tr {
 }
 
 .modal {
-	@apply bg-white border-accent rounded-lg shadow-lg w-full sm:w-11/12 md:max-w-md lg:max-w-lg  p-6 mx-4 sm:mx-auto;
+	@apply bg-accent border-secondary rounded-lg shadow-lg w-full sm:w-11/12 md:max-w-md lg:max-w-lg  p-6 mx-4 sm:mx-auto;
 }
 
 .modal-title {
@@ -373,11 +395,11 @@ tbody tr {
 }
 
 .cancel-btn {
-	@apply py-2 px-4 rounded-md border border-gray-400 cursor-pointer text-sm text-info;
+	@apply py-2 px-4 rounded-md border border-outline cursor-pointer text-sm text-info;
 }
 
 .cancel-btn:hover {
-	@apply bg-accent;
+	@apply bg-secondary;
 }
 
 .confirm-btn {
@@ -409,17 +431,17 @@ tbody tr {
 }
 
 .page-size-selector {
-	@apply sm:px-2 py-2 border border-accent rounded-md my-4 text-xs sm:text-sm;
+	@apply sm:px-2 py-2 border bg-accent text-info rounded-md my-4 text-xs sm:text-sm;
 }
 .pages {
-	@apply hover:bg-accent;
+	@apply hover:bg-secondary;
 }
 .pagination-controls {
 	@apply flex flex-1 justify-end items-center text-xs sm:text-sm;
 }
 
 .pagination-button {
-	@apply sm:px-2 cursor-pointer;
+	@apply sm:px-2 cursor-pointer text-info;
 }
 
 .pagination-button:disabled {
@@ -430,143 +452,87 @@ tbody tr {
 	@apply text-info;
 }
 
+/* Careplan */
+.careplan-history {
+	@apply text-sm lg:text-lg text-info font-semibold;
+}
+
+.basic-information {
+	@apply text-sm text-info lg:text-lg font-semibold mb-4;
+}
+
 .careplan-container {
-	@apply w-full p-4;
+	@apply w-full bg-accent px-6;
 }
 
-.careplan-card {
-	@apply bg-white border rounded-lg shadow-sm;
+.status-card {
+	@apply bg-secondary shadow-md p-4 hover:bg-active rounded-lg border border-outline flex flex-col items-center justify-center;
 }
 
-.careplan-header {
-	@apply border-b px-6 py-4;
+.basic-info-card {
+	@apply bg-secondary rounded-lg shadow-md p-6
 }
 
-.careplan-header-content {
-	@apply flex justify-between items-center;
+.title {
+	@apply text-sm text-info;
 }
 
-.careplan-title {
-	@apply text-xl font-semibold;
+.counts {
+	@apply text-lg lg:text-xl text-info font-semibold;
 }
 
-.careplan-view-selector {
-	@apply flex items-center gap-2;
+.careplan-info-table {
+	@apply bg-accent  rounded-lg p-2 lg:p-6 flex lg:w-1/2 justify-start;
 }
-
-.careplan-select {
-	@apply border rounded px-3 py-1.5 text-sm bg-white;
-}
-
-.careplan-stats-grid {
-	@apply grid grid-cols-3 gap-4 mb-6;
-}
-
-.careplan-stat-card {
-	@apply rounded-lg p-4;
-}
-
-.careplan-stat-label {
-	@apply text-sm;
-}
-
-.careplan-stat-value {
-	@apply text-2xl font-semibold mt-1;
-}
-
-.careplan-content {
-	@apply p-6;
-}
-
-.careplan-chart-container {
-	@apply flex gap-6;
-}
-
-.careplan-chart {
-	@apply flex-1;
-}
-
-.careplan-chart-wrapper {
-	@apply h-[400px] w-full;
-}
-
-.careplan-info-sidebar {
-	@apply w-80;
-}
-
-.careplan-info-card {
-	@apply bg-gray-50 rounded-lg p-4 mt-16;
-}
-
 .careplan-table {
-	@apply w-full;
+	@apply w-full lg:w-1/2 text-sm;
 }
 
 .careplan-table-body {
-	@apply divide-y divide-gray-200;
+	@apply text-info text-left;
+}
+.careplan-table-row {
+	@apply border-outline border-b;
+}
+/* Careplan  ends*/
+
+.my-profile {
+	@apply w-full mx-2 sm:mx-4;
+}
+.personal-Info {
+	@apply text-sm   text-info sm:text-lg font-semibold my-2;
 }
 
-.careplan-table-cell {
-	@apply py-3 text-sm;
+.my-settings {
+	@apply text-sm text-info  sm:text-xl font-semibold;
 }
 
-.careplan-table-label {
-	@apply font-medium text-gray-600;
+.profile-icon {
+	@apply bg-secondary  text-info w-16 h-16 rounded-full flex items-center justify-center text-xl  my-4;
 }
 
-.careplan-table-value {
+.demogrphic-info {
+	@apply text-sm text-info sm:text-lg font-semibold;
+}
+.health-history {
+	@apply text-sm  text-info sm:text-lg font-semibold;
+}
+
+.save-changes {
+	@apply bg-active border border-outline text-xs px-4 py-2 md:px-1 md:py-1 lg:px-4 lg:py-2 lg:text-sm  text-info rounded-md shadow hover:bg-active;
+}
+.hr-line {
+	@apply border-t border-secondary my-4;
+}
+
+.not-available {
+	@apply text-center text-xs md:text-sm text-info border border-outline rounded-md p-4;
+}
+
+.txt-gr-700 {
+	@apply text-gray-700;
+}
+
+.txt-gr-900 {
 	@apply text-gray-900;
-}
-
-.careplan-empty-state {
-	@apply flex items-center justify-center h-64 bg-gray-50 rounded-lg;
-}
-
-.careplan-empty-text {
-	@apply text-gray-500 text-lg;
-}
-
-/* Status-specific background colors */
-.bg-stat-total {
-	@apply bg-gray-50;
-}
-
-.bg-stat-completed {
-	@apply bg-green-50;
-}
-
-.bg-stat-delayed {
-	@apply bg-red-50;
-}
-
-/* Status-specific text colors */
-.text-stat-total {
-	@apply text-gray-600;
-}
-
-.text-stat-completed {
-	@apply text-green-600;
-}
-
-.text-stat-delayed {
-	@apply text-red-600;
-}
-
-
-
-
-
-.my-profile{
-	@apply w-full p-8 ;
-}
-.personal-Info{
-	@apply text-lg font-semibold mb-2;
-}
-
-.my-settings{
-	@apply text-2xl font-bold mb-6;
-}
-
-.profile-icon{
-	@apply bg-accent w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold mb-2;
 }

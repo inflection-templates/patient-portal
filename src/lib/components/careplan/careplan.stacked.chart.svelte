@@ -110,7 +110,10 @@
                         title: {
                             display: true,
                             text: view === 'week' ? 'Weeks' : 'Days',
-                            font: { size: 14 }
+                           font: {
+                            size: 16,
+                            weight: 'semi-bold'
+                        },
                         },
                         grid: {
                             display: false
@@ -122,22 +125,25 @@
                         title: {
                             display: true,
                             text: 'Number of Tasks',
-                            font: { size: 14 }
+                            font: {
+                            size: 16,
+                            weight: 'semi-bold'
+                        },
                         },
                         grid: {
-                            color: '#E5E7EB'
+                            display: true
                         }
                     }
                 },
                 plugins: {
                     title: {
                         display: true,
-                        text: `Task Status by ${view === 'week' ? 'Week' : 'Day'}`,
+                        text: `Task Status by ${view === 'week' ? 'Week' : 'day'}`,
                         font: {
                             size: 16,
-                            weight: 'bold'
+                            weight: 'semi-bold'
                         },
-                        padding: { bottom: 20 }
+                        padding: { bottom: 2 }
                     },
                     legend: {
                         position: 'top',

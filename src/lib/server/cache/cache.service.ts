@@ -2,14 +2,18 @@ import { InMemoryCache } from './inmemory.cache'
 import { RedisCache } from './redis.cache';
 import type { ICache } from './cache.interface';
 import { CACHE_TYPE } from '$env/static/private';
+import { building } from '$app/environment';
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
 const getCache = () => {
-    if (CACHE_TYPE === 'in-memory') {
-        return new InMemoryCache();
+    //code should not be executed during the build step.
+    if (!building) {
+        if (CACHE_TYPE === 'in-memory') {
+            return new InMemoryCache();
+        }
+        return new RedisCache();
     }
-    return new RedisCache();
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -44,10 +48,10 @@ export class CacheService {
     }
 
     static findAndClear = async (searchPatterns: string[]): Promise<string[]> => {
-        var keys: string[] = [];
-        for (var substr of searchPatterns)
+        const keys: string[] = [];
+        for (const substr of searchPatterns)
         {
-            var removedKeys = await CacheService._cache.findAndClear(substr);
+            const removedKeys = await CacheService._cache.findAndClear(substr);
             keys.push(...removedKeys);
         }
         return keys;

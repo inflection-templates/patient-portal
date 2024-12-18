@@ -13,7 +13,8 @@ module.exports = {
         neutral: 'var(--neutral-color)',
         error: 'var(--error-color)',
         success: 'var(--success-color)',
-        active: 'var(--active-color)'
+        active: 'var(--active-color)',
+        outline: 'var(--outline-color)'
       },
       fontFamily: {}
     }

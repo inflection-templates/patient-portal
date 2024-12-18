@@ -1,3 +1,4 @@
+import { DateStringFormat } from "./time.types";
 
 export class Helper {
 
@@ -201,4 +202,18 @@ export class Helper {
         date.setTime(date.getTime() + numOfHours * 60 * 60 * 1000);
         return date;
     }
+
+    static getDateString = (date: Date, format: DateStringFormat): string => {
+
+        if (format === DateStringFormat.YYYY_MM_DD) {
+            return date.toISOString().split('T')[0];
+        }
+        return date.toISOString().split('T')[0];
+    };
+
+    static getYesterdayDate = (): string => {
+        const today = new Date();
+        today.setDate(today.getDate() - 1);
+        return Helper.getDateString(today, DateStringFormat.YYYY_MM_DD);
+    };
 }

@@ -2,6 +2,8 @@ import { error, type ServerLoadEvent } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import {getUserTasks } from "$routes/api/services/user.task";
 import { formatDate, getDayWiseData, getWeekWiseData } from "$lib/utils.ts/functions";
+// import { formatDate} from "$lib/utils.ts/functions";
+// import { getPatientStatistics } from "$routes/api/services/statistics";
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -57,8 +59,16 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 
     const { startDate, endDate } = getStartAndEndDates(careplanTasks);
 
+    // const response = await getPatientStatistics(sessionId, userId);
+
+    // const careplanTasks = response.careplanData.careplanTasks;
+    // const dayWiseSeparatedData = response.careplanData.dayWiseSeparatedData;
+    // const weekWiseSeparatedData = response.careplanData.weekWiseSeparatedData;
+    // const startDate = response.careplanData.startDate;
+    // const endDate = response.careplanData.endDate;
+
     return {
-        userTasks,
+        // userTasks,
         sessionId,
         careplanTasks,
         dayWiseSeparatedData,

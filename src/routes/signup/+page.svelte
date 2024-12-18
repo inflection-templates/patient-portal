@@ -5,7 +5,7 @@
 <section class="section">
 	<div class="absolute top-4 left-4 flex items-center">
 		<img src="patient.png" alt="Logo" class="logo" />
-		<h1 class="heading">Patient Portal</h1>
+		<!-- <h1 class="heading">Patient Portal</h1> -->
 	</div>
 
 	<div class="absolute top-4 right-4 flex items-center">

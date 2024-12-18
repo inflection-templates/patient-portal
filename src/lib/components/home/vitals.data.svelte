@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
 	import { formatDateMonth } from '../../utils.ts/functions';
 
 	export let data: any[] = [];
@@ -52,12 +53,12 @@
 			<table class="w-full border-collapse text-sm">
 				<thead class="thead">
 					<tr>
-						<th class="th"></th>
-						<th class="th" on:click={sortByDate} style="cursor: pointer;">
+						<th class="th w-[5%]"></th>
+						<th class="th w-[40%] lg:w-[15%]" on:click={sortByDate}>
 							Date <span class="sort-icon">{sortOrder === 'ascending' ? '▲' : '▼'}</span>
 						</th>
 						{#if title == 'Blood Pressure'}
-							<th class="th">Systolic ({data[0].unit})</th>
+							<th class="th w-[40%] lg:w-[15%]">Systolic ({data[0].unit})</th>
 							<th class="th">Diastolic ({data[0].unit})</th>
 						{:else}
 							<th class="th">{title} ({data[0].unit})</th>
@@ -67,10 +68,10 @@
 				<tbody class="tbody">
 					{#each paginatedData as item, index}
 						<tr class="tabledata">
-							<td class="td">{(currentPage - 1) * pageSize + index + 1}</td>
-							<td class="td">{formatDateMonth(item.date)}</td>
+							<td class="td w-[5%]">{(currentPage - 1) * pageSize + index + 1}</td>
+							<td class="td w-[40%] lg:w-[15%]">{formatDateMonth(item.date)}</td>
 							{#if title == 'Blood Pressure'}
-								<td class="td">{item.value}</td>
+								<td class="td w-[40%] lg:w-[15%]">{item.value}</td>
 								<td class="td">{item.value1}</td>
 							{:else}
 								<td class="td">{item.value}</td>
@@ -100,11 +101,11 @@
 					First
 				</button>
 				<button class="pagination-button" on:click={prevPage} disabled={currentPage === 1}>
-					&larr;
+					<Icon icon="mdi:less-than" width="20" height="20" />
 				</button>
 				<span class="current-page">{currentPage}</span>
 				<button class="pagination-button" on:click={nextPage} disabled={currentPage === totalPages}>
-					&rarr;
+					<Icon icon="mdi:greater-than" width="20" height="20" />
 				</button>
 				<button
 					class="pagination-button"
@@ -117,7 +118,5 @@
 		</div>
 	</div>
 {:else}
-	<div class="p-4 text-center">
-		<p>No data available for {title}.</p>
-	</div>
+	<p class="  not-available">No data available for {title}.</p>
 {/if}

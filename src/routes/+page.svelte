@@ -1,24 +1,37 @@
 <script lang="ts">
+	import { getPublicFooterLink, getPublicFooterText, getPublicLogoImageSource } from '$lib/components/themes/theme.selector';
+    import CountryCode from "$lib/components/country.code.svelte";
 	// import { loginMethods } from '../config';
 	import Icon from '@iconify/svelte';
+	import { SYSTEM_ID } from '$lib/constants';
 	let showPassword = false;
 	let loginMethod = 'mobile';
 	function togglePasswordVisibility() {
 		showPassword = !showPassword;
 	}
+
+	const logoImageSource = getPublicLogoImageSource();
+	const footerText = `© ${new Date().getFullYear()} ${getPublicFooterText()}`;
+	const footerLink = getPublicFooterLink();
+	let countryCode;
+    $: if (SYSTEM_ID === "AHA") {
+        countryCode = '+1'
+    } else {
+        countryCode = ''
+    }
 </script>
 
-<section class="section">
+<section class="section min-h-screen flex flex-col">
 	<div class="absolute top-4 left-4 flex items-center">
-		<img src="patient.png" alt="Logo" class="logo" />
-		<h1 class="heading">Patient Portal</h1>
+		<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100"/>
+		<!-- <h1 class="heading">Patient Portal</h1> -->
 	</div>
 
-	<div class="absolute top-4 right-4 flex items-center">
+	<!-- <div class="absolute top-4 right-4 flex items-center">
 		<a href="/signup">
 			<button class="py-2 px-3 btn">Sign Up</button>
 		</a>
-	</div>
+	</div> -->
 
 	<div class="card">
 		<div class="p-8">
@@ -38,19 +51,27 @@
 					<div id="mobile-login">
 						<label for="mobile" class="label">Mobile Number</label>
 						<div class="flex space-x-2">
-							<select class="select" name="countryCode">
+							<!-- <select class="selectcode" name="countryCode">
 								<option value="+1">+1</option>
 								<option value="+91">+91</option>
 								<option value="+44">+44</option>
 								<option value="+61">+61</option>
-							</select>
+							</select> -->
+							{#if SYSTEM_ID == "AHA"}
+								<select class="selectcode" required>
+									<option value="+1">+1</option>   
+								</select>
+							{:else}
+								<CountryCode bind:countryCode></CountryCode>
+							{/if} 
+								<input hidden type="text" name='countryCode' bind:value={countryCode}> 
 							<input
 								type="tel"
 								name="phone"
 								pattern="[0-9]*"
 								inputmode="numeric"
 								id="mobile"
-								class="input"
+								class="mobileinput"
 								placeholder="Your mobile number"
 							/>
 						</div>
@@ -98,4 +119,7 @@
 			</form>
 		</div>
 	</div>
+	<footer class="fixed bottom-0 w-full text-center py-4">
+		<a href={footerLink} class="!text-black">{footerText}</a>
+	</footer>
 </section>

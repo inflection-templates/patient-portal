@@ -124,19 +124,17 @@
 	<div class="my-profile">
 		<h1 class="my-settings">My Settings</h1>
 
-		<div class="grid grid-cols-4 gap-12">
+		<div class="grid grid-cols-4 gap-8">
 			<div>
 				<h2 class="personal-Info">Personal Information</h2>
-				<p class="para">Your personal information and account security settings.</p>
+				<p class=" text-info">Your personal information and account security settings.</p>
 			</div>
-			<div class="col-span-3">
-				<div class="flex items-center mb-4">
-					<div class="profile-container">
+			<div class="col-span-3 mx-6">
+				<div class="flex items-center">
+					<div class="profile-container flex items-center gap-4">
 						{#if imageUrl === undefined}
 							<label for="fileinput" class="cursor-pointer">
-								<div
-									class=" profile-icon "
-								>
+								<div class="profile-icon">
 									{initials}
 								</div>
 							</label>
@@ -148,10 +146,9 @@
 								placeholder="Image"
 								on:change={async (e) => await onFileSelected(e)}
 							/>
-							<span class=" text-lg font-semibold">{personObject.DisplayName || 'Unknown'}</span>
 						{:else}
 							<label for="fileinput" class="cursor-pointer">
-								<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
+								<Image cls="h-36 w-36 rounded-full" source={imageUrl} w="36" h="36" />
 							</label>
 							<input
 								id="fileinput"
@@ -162,16 +159,16 @@
 								placeholder="Image"
 								on:change={async (e) => await onFileSelected(e)}
 							/>
-							<span class=" text-lg font-semibold">{personObject.DisplayName || 'Unknown'}</span>
 						{/if}
-						<input type="hidden" name="imageResourceId" value={imageResourceId} />
-						{#if form?.errors?.imageResourceId}
-							<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
-						{/if}
+						<span class="text-lg text-info">{personObject.DisplayName || 'Unknown'}</span>
 					</div>
+					<input type="hidden" name="imageResourceId" value={imageResourceId} />
+					{#if form?.errors?.imageResourceId}
+						<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
+					{/if}
 				</div>
 
-				<div class="mb-4">
+				<div>
 					<label class="label" for="FirstName">First Name</label>
 					<input
 						type="text"
@@ -182,7 +179,7 @@
 						bind:value={firstname}
 					/>
 				</div>
-				<div class="mb-4 bg-white">
+				<div>
 					<label class="label" for="LastName">Last Name</label>
 					<input
 						type="text"
@@ -193,7 +190,7 @@
 						bind:value={lastname}
 					/>
 				</div>
-				<div class="mb-4">
+				<div>
 					<label class="label" for="Gender">Sex</label>
 					<select id="Gender" class="input" name="gender" bind:value={gender}>
 						<option value="" disabled selected>Select an option</option>
@@ -204,7 +201,7 @@
 						<option value="Unknown">Unknown</option>
 					</select>
 				</div>
-				<div class="mb-4">
+				<div>
 					<label class="label" for="BirthDate">Date Of Birth</label>
 					<input
 						type="date"
@@ -215,7 +212,7 @@
 						bind:value={formattedDateOfBirth}
 					/>
 				</div>
-				<div class="mb-4">
+				<div>
 					<label class="label" for="MaritalStatus">Marital Status</label>
 					<select
 						id="MaritalStatus"
@@ -231,7 +228,7 @@
 						<option value="Unknown">Unknown</option>
 					</select>
 				</div>
-				<div class="mb-4">
+				<div>
 					<label class="label" for="Phone">Mobile Number</label>
 					<div class="flex flex-row space-x-2">
 						<select class="select" name="countryCode" bind:value={countryCode}>
@@ -255,7 +252,7 @@
 					</div>
 				</div>
 
-				<div class="mb-4">
+				<div>
 					<label class="label" for="email">Email</label>
 					<input
 						type="email"
@@ -271,13 +268,13 @@
 				</div>
 			</div>
 		</div>
-		<hr class="border-t border-gray-300 my-4" />
+		<hr class="hr-line" />
 		<div class="grid grid-cols-4 gap-8">
-			<div class="">
-				<h2 class="text-lg font-semibold mb-2">Demographic Information</h2>
+			<div>
+				<h2 class="demogrphic-info">Demographic Information</h2>
 			</div>
-			<div class="col-span-3 bg-white">
-				<div class="mb-4">
+			<div class="col-span-3 mx-6">
+				<div>
 					<label class="label" for="Race">What is your race?</label>
 					<select id="Race" name="race" class="input" bind:value={race}>
 						<option value="" disabled selected>Prefer not to say</option>
@@ -290,7 +287,7 @@
 						<option value="White">White</option>
 					</select>
 				</div>
-				<div class="mb-4">
+				<div>
 					<label class="label" for="Ethnicity">What is your ethnicity?</label>
 					<select id="Ethnicity" name="ethnicity" class="input" bind:value={ethnicity}>
 						<option value="" disabled selected>Prefer not to say</option>
@@ -300,12 +297,12 @@
 				</div>
 			</div>
 		</div>
-		<hr class="border-t border-gray-300 my-4" />
+		<hr class=" hr-line" />
 		<div class="grid grid-cols-4 gap-8">
-			<div class="">
-				<h2 class="text-lg font-semibold mb-2">Health And Stroke History</h2>
+			<div>
+				<h2 class="health-history">Health And Stroke History</h2>
 			</div>
-			<div class="col-span-3 bg-white">
+			<div class="col-span-3 mx-6">
 				<div class="mb-4">
 					<label class="label" for="StrokeSurvivorOrCaregiver"
 						>Are you stroke survivor or caregiver?</label
@@ -344,13 +341,8 @@
 			</div>
 		</div>
 
-		<div class="flex justify-end mt-8">
-			<button
-				class="bg-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-				type="submit"
-			>
-				Save changes
-			</button>
+		<div class="flex justify-end mx-6">
+			<button class="save-changes" type="submit"> Save changes </button>
 		</div>
 	</div>
 </form>

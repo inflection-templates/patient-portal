@@ -36,7 +36,8 @@ export function createTimeSeriesConfig(chartData: ProcessedChartData): ChartConf
         tension: 0.3,
         pointRadius: 4,
         pointHoverRadius: 6,
-        fill: false
+        fill: false,
+        clip: false
     }));
 
     return {
@@ -87,7 +88,7 @@ export function createTimeSeriesConfig(chartData: ProcessedChartData): ChartConf
                     text: 'Tasks by Category Over Time',
                     font: {
                         size: 16,
-                        weight: 'bold'
+                        weight: 'semi-bold'
                     },
                     padding: 20
                 },
