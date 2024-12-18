@@ -9,6 +9,7 @@
 	//////////////////////////////////////////////////////////////////////
 	
 	const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
+	console.log("systemType:",systemType);
 	let showPassword = false;
 	let loginMethod = 'mobile';
 	function togglePasswordVisibility() {
@@ -19,11 +20,13 @@
 	const footerText = `© ${new Date().getFullYear()} ${getPublicFooterText()}`;
 	const footerLink = getPublicFooterLink();
 	let countryCode;
-    $: if (systemType === SystemTypes.AHA) {
+
+    if (systemType === SystemTypes.AHA) {
         countryCode = '+1'
     } else {
         countryCode = ''
     }
+
 </script>
 
 <section class="section min-h-screen flex flex-col">
