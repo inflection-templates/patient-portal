@@ -80,7 +80,7 @@
                     backgroundColor: '#22C55E'
                 },
                 {
-                    label: 'Delayed',
+                    label: 'Pending',
                     data: sortedLabels.map((label) => dataMap.get(label).Delayed),
                     backgroundColor: '#EF4444'
                 }
