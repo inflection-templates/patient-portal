@@ -1,12 +1,11 @@
 import { getPatientById, updatePatientById } from '$routes/api/services/user';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { string } from 'zod';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
-import { countryCode } from '$lib/components/country.code.svelte';
 
-const itemsPerPage = 100;
+///////////////////////////////////////////////////////////////////////////////
+
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const sessionId = event.cookies.get('sessionId');
