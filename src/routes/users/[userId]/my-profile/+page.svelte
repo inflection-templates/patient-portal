@@ -160,7 +160,11 @@
 								on:change={async (e) => await onFileSelected(e)}
 							/>
 						{/if}
-						<span class="text-lg text-info">{personObject.DisplayName || 'Unknown'}</span>
+						<div class ="flex flex-col">
+							<span class="text-lg text-info">{personObject.DisplayName || 'Unknown'}</span>
+							<span class="text-info opacity-50">{phone}</span>
+						</div>
+					
 					</div>
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
 					{#if form?.errors?.imageResourceId}
@@ -249,7 +253,8 @@
 						/>
 					</div>
 				</div> -->
-
+				<input hidden type="text" name="phone" bind:value={mobileNumber} />
+				<input hidden type="text" name="countryCode" bind:value={countryCode} />
 				<div>
 					<label class="label" for="email">Email</label>
 					<input
@@ -303,7 +308,7 @@
 			<div class="col-span-3 mx-6">
 				<div class="mb-4">
 					<label class="label" for="StrokeSurvivorOrCaregiver"
-						>Are you stroke survivor or caregiver?</label
+						>Are you a stroke survivor or caregiver?</label
 					>
 					<select
 						id="StrokeSurvivorOrCaregiver"
