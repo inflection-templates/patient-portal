@@ -301,7 +301,7 @@
 				<h2 class="health-history">Health And Stroke History</h2>
 			</div>
 			<div class="col-span-3 mx-6">
-				<div class="mb-4">
+				<div>
 					<label class="label" for="StrokeSurvivorOrCaregiver"
 						>Are you stroke survivor or caregiver?</label
 					>
@@ -315,7 +315,7 @@
 						<option value="Caregiver">Caregiver</option>
 					</select>
 				</div>
-				<div class="mb-4">
+				<div>
 					<label class="label" for="WorkedPriorToStroke">Did you work prior to your stroke?</label>
 					<select
 						id="WorkedPriorToStroke"
@@ -328,7 +328,7 @@
 					</select>
 				</div>
 
-				<div class="mb-4">
+				<div>
 					<label class="label" for="live-alone">Do you live alone?</label>
 					<select id="LivingAlone" name="livingAlone" class="input" bind:value={livingAlone}>
 						<option value="true">Yes</option>
