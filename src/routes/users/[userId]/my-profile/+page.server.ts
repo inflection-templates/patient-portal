@@ -3,6 +3,8 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
+import { redirect } from 'sveltekit-flash-message/server';
+import { errorMessage, successMessage } from '$lib/utils.ts/message.utils';
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -102,5 +104,16 @@ export const actions = {
 			result.postalCode,
 			result.imageResourceId
 		);
+
+		if (response.Status == 'failure' || response.HttpCode !== 200) {
+			throw redirect(`/users/${userId}/my-profile`, errorMessage(response.Message), event);
+		}
+		
+		throw redirect(
+            303,
+            `/users/${userId}/my-profile`,
+            successMessage(`Profile updated successfully!`),
+            event
+        );
 	}
 };
