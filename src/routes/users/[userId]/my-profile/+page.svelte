@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { any } from 'zod';
 	import type { PageServerData } from './$types';
 	import {
 		getInitials,
@@ -8,8 +7,9 @@
 		formatBirthdate
 	} from '$lib/utils.ts/functions';
 	import Image from '$lib/components/image.svelte';
-	import { enhance } from '$app/forms';
 
+	///////////////////////////////////////////////////////////////////////////
+	
 	export let form;
 	export let data: PageServerData;
 
@@ -197,8 +197,6 @@
 						<option value="Male">Male</option>
 						<option value="Female">Female</option>
 						<option value="Intersex">Intersex</option>
-						<option value="other">other</option>
-						<option value="Unknown">Unknown</option>
 					</select>
 				</div>
 				<div>
@@ -220,15 +218,14 @@
 						class="w-full input"
 						bind:value={maritalStatus}
 					>
-						<option value="" disabled selected>Select an option</option>
 						<option value="Married">Married</option>
 						<option value="Single">Single</option>
 						<option value="Divorced">Divorced</option>
 						<option value="Widowed">Widowed</option>
-						<option value="Unknown">Unknown</option>
+						
 					</select>
 				</div>
-				<div>
+				<!-- <div>
 					<label class="label" for="Phone">Mobile Number</label>
 					<div class="flex flex-row space-x-2">
 						<select class="select" name="countryCode" bind:value={countryCode}>
@@ -248,9 +245,10 @@
 							maxlength="10"
 							class="input"
 							bind:value={mobileNumber}
+							required
 						/>
 					</div>
-				</div>
+				</div> -->
 
 				<div>
 					<label class="label" for="email">Email</label>
@@ -277,7 +275,7 @@
 				<div>
 					<label class="label" for="Race">What is your race?</label>
 					<select id="Race" name="race" class="input" bind:value={race}>
-						<option value="" disabled selected>Prefer not to say</option>
+						<option value="Prefer not to say" selected>Prefer not to say</option>
 						<option value="American Indian/Alaskan Native">American Indian/Alaskan Native</option>
 						<option value="Asian">Asian</option>
 						<option value="Black/African American">Black/African American</option>
@@ -290,7 +288,7 @@
 				<div>
 					<label class="label" for="Ethnicity">What is your ethnicity?</label>
 					<select id="Ethnicity" name="ethnicity" class="input" bind:value={ethnicity}>
-						<option value="" disabled selected>Prefer not to say</option>
+						<option value="Prefer not to say" selected>Prefer not to say</option>
 						<option value="Hispanic/Latino">Hispanic/Latino</option>
 						<option value="Not Hispanic/Latino">Not Hispanic/Latino</option>
 					</select>
@@ -313,7 +311,6 @@
 						class="input"
 						bind:value={strokeSurvivorOrCaregiver}
 					>
-						<option value="" disabled selected>Prefer not to say</option>
 						<option value="Survivor">Survivor</option>
 						<option value="Caregiver">Caregiver</option>
 					</select>

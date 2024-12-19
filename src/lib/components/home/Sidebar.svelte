@@ -8,7 +8,7 @@
 	const sidebarTabs: TabDefinition[] = sidebarMenu(userId);
 
 	userId = $page.params.userId;
-	let homeLink = `/users/${userId}/careplan`;
+	// let homeLink = `/users/${userId}/careplan`;
 </script>
 
 <div class="flex">
@@ -16,7 +16,7 @@
 		<ul class="sidebar-list">
 			{#each sidebarTabs as tab}
 				<li>
-					<a href={tab.path} class="sidebar-item">
+					<a href={tab.path} class="sidebar-item" class:!bg-primary={$page.url.pathname.startsWith(tab.path)}>
 						<Icon icon={tab.icon} class="iconsize" />
 						<span class="sidebar-text">{tab.name}</span>
 					</a>

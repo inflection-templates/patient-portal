@@ -58,7 +58,7 @@
 						}
 					},
 					y: {
-						beginAtZero: false,
+						beginAtZero: true,
 						grid: {
 							display: true,
 							color: 'rgba(0, 0, 0, 0.1)', // Light gray, 10% opacity
