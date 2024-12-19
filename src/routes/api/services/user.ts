@@ -35,8 +35,8 @@ export const getPatientById = async (
 export const logout = async (sessionId: string) => {
 	const url = BACKEND_API_URL + `/users/logout`;
 	const result = await post_(url, {}, true, sessionId);
-	const findAndClearKeys = [`req-getUserRoles`];
-	await CacheService.findAndClear(findAndClearKeys);
+	// const findAndClearKeys = [`req-getUserRoles`];
+	await CacheService.clear();
 	return result;
 };
 
