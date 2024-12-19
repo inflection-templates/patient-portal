@@ -22,7 +22,7 @@
 		href={basicStatsLink}
 		on:click={() => setActive('basic')}
 	>
-		Basic
+		Home
 	</a>
 
 	<a

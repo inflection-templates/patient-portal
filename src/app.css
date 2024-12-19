@@ -457,12 +457,20 @@ tbody tr {
 	@apply text-sm lg:text-lg text-info font-semibold;
 }
 
+.basic-information {
+	@apply text-sm text-info lg:text-lg font-semibold mb-4;
+}
+
 .careplan-container {
 	@apply w-full bg-accent px-6;
 }
 
 .status-card {
 	@apply bg-secondary shadow-md p-4 hover:bg-active rounded-lg border border-outline flex flex-col items-center justify-center;
+}
+
+.basic-info-card {
+	@apply bg-secondary rounded-lg shadow-md p-6
 }
 
 .title {
@@ -519,4 +527,12 @@ tbody tr {
 
 .not-available {
 	@apply text-center text-xs md:text-sm text-info border border-outline rounded-md p-4;
+}
+
+.txt-gr-700 {
+	@apply text-gray-700;
+}
+
+.txt-gr-900 {
+	@apply text-gray-900;
 }
