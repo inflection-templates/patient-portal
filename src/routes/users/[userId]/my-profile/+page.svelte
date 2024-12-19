@@ -218,15 +218,14 @@
 						class="w-full input"
 						bind:value={maritalStatus}
 					>
-						<option value="" disabled selected>Select an option</option>
 						<option value="Married">Married</option>
 						<option value="Single">Single</option>
 						<option value="Divorced">Divorced</option>
 						<option value="Widowed">Widowed</option>
-						<option value="Unknown">Unknown</option>
+						
 					</select>
 				</div>
-				<div>
+				<!-- <div>
 					<label class="label" for="Phone">Mobile Number</label>
 					<div class="flex flex-row space-x-2">
 						<select class="select" name="countryCode" bind:value={countryCode}>
@@ -249,7 +248,7 @@
 							required
 						/>
 					</div>
-				</div>
+				</div> -->
 
 				<div>
 					<label class="label" for="email">Email</label>
