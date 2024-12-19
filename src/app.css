@@ -165,7 +165,7 @@
 	@apply min-h-screen bg-secondary flex items-center justify-center px-8 relative;
 }
 .card {
-	@apply w-full max-w-md  bg-accent  rounded-3xl shadow-lg border-secondary;
+	@apply w-full max-w-md lg:max-w-lg xl:max-w-md  bg-accent  rounded-3xl shadow-lg border-secondary;
 }
 .btn {
 	@apply w-full bg-blue-500 hover:bg-blue-600 text-base font-bold py-2 rounded-lg shadow transition duration-200;
@@ -337,7 +337,7 @@
 	@apply p-2 text-left text-xs sm:text-sm  pl-4;
 }
 .sort-icon {
-	@apply text-sm align-middle;
+	@apply text-sm  ml-6;
 }
 .pagination-controls {
 	@apply space-x-1;
