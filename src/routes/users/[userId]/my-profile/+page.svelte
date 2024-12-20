@@ -253,8 +253,8 @@
 						/>
 					</div>
 				</div> -->
-				<input hidden type="text" name="phone" bind:value={mobileNumber} />
-				<input hidden type="text" name="countryCode" bind:value={countryCode} />
+				<input hidden type="text" name="phone" bind:value={phone} />
+				<!-- <input hidden type="text" name="countryCode" bind:value={countryCode} /> -->
 				<div>
 					<label class="label" for="email">Email</label>
 					<input
