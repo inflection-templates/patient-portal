@@ -61,7 +61,7 @@
 				<div class=" counts">{taskStatusCounts.completed || 0}</div>
 			</div>
 			<div class="status-card">
-				<div class="title">Delayed</div>
+				<div class="title">Pending</div>
 				<div class=" counts">{taskStatusCounts.delayed || 0}</div>
 			</div>
 		</div>
