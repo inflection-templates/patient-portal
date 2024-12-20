@@ -3,20 +3,23 @@
 	import ConfirmModal from '../modal/confirm.modal.svelte';
 	import { getPublicLogoImageSource } from '../themes/theme.selector';
 
+	///////////////////////////////////////////////////////////////////////////
+
 	export let logout;
 	export let userId: string | undefined;
 	export let deleteAccount: () => void;
 	export let imageUrl: string | undefined;
-
 	export let userName: string;
 	let showConfirmDelete_ = false;
-	$: showModal = showConfirmDelete_;
+	let showConfirmLogout_ = false;
+	$: showModal = showConfirmDelete_ || showConfirmLogout_;
 
 	const deleteMessage_ =
 		'Are you sure you want to delete your account? ' +
 		'This action is irreversible, and all associated data will be permanently removed.';
+	const logoutMessage_ = 'Are you sure you want to sign out?';
 	$: deleteMessage = deleteMessage_;
-
+	$: logoutMessage = logoutMessage_;
 	let showUserMenu = false;
 	let showThemeMenu = false;
 	const themeModes = ['Light', 'Dark'];
@@ -45,13 +48,12 @@
 		{
 			label: 'Sign Out',
 			icon: 'material-symbols:logout',
-			action: logout,
-			type: 'button'
+			action: openLogoutModal,
 		},
 		{
 			label: 'Delete Account',
 			icon: 'ic:baseline-delete-forever',
-			action: openModal
+			action: openDeleteModal
 		}
 	];
 
@@ -83,19 +85,46 @@
 		}
 	};
 
-	function openModal() {
-		showModal = true;
+	// function openModal() {
+	// 	showModal = true;
+	// }
+
+	// function handleDeleteConfirm() {
+	// 	if (deleteAccount) {
+	// 		deleteAccount();
+	// 	}
+	// 	showModal = false;
+	// }
+
+	// function handleDeleteCancel() {
+	// 	showModal = false;
+	// }
+
+	function openDeleteModal() {
+		showConfirmDelete_ = true;
+	}
+
+	function openLogoutModal() {
+		showConfirmLogout_ = true;
 	}
 
 	function handleDeleteConfirm() {
 		if (deleteAccount) {
 			deleteAccount();
 		}
-		showModal = false;
+		showConfirmDelete_ = false;
 	}
 
-	function handleDeleteCancel() {
-		showModal = false;
+	function handleLogoutConfirm() {
+		if (logout) {
+			logout();
+		}
+		showConfirmLogout_ = false;
+	}
+
+	function handleCancel() {
+		showConfirmDelete_ = false;
+		showConfirmLogout_ = false;
 	}
 
 	const closeThemeMenu = () => {
@@ -232,10 +261,19 @@
 	</div>
 
 	<ConfirmModal
-		show={showModal}
+		show={showConfirmDelete_}
 		title="Delete Account"
 		message={deleteMessage}
-		close={handleDeleteCancel}
+		close={handleCancel}
 		confirm={handleDeleteConfirm}
+	/>
+
+	<ConfirmModal
+		show={showConfirmLogout_}
+		title="Sign Out"
+		message={logoutMessage}
+		close={handleCancel}
+		confirm={handleLogoutConfirm}
+		confirmButtonText="Sign Out"
 	/>
 </header>
