@@ -139,39 +139,34 @@
 				<p class=" text-info">Your personal information and account security settings.</p>
 				<div class="flex items-center mt-7">
 					<div class="profile-container flex flex-col items-center gap-4">
-						<div class="relative">
+						<div class="relative hidden md:flex justify-center items-center">
 							{#if previewImage !== null}
-								<div class="relative w-36 h-36">
 									<img
 										src={previewImage}
 										alt="Preview"
-										class="h-36 w-36 rounded-full object-cover"
+										class="profile-image"
 									/>
-									<!-- <Image source={previewImage} w="36" h="36" cls="h-36 w-36 rounded-full object-cover" /> -->
 									<label
 										for="fileinput"
-										class="absolute bottom-2 right-2 bg-gray-800 text-white p-2 rounded-full cursor-pointer hover:bg-gray-700 flex items-center justify-center"
+										class="absolute camera-icon"
 										title="Update Image"
 									>
 										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
 									</label>
-								</div>
 							{:else if imageUrl !== undefined}
-								<div class="relative w-36 h-36">
 									<Image
 										source={imageUrl}
 										w="36"
 										h="36"
-										cls="h-36 w-36 rounded-full object-cover"
+										cls="profile-image"
 									/>
 									<label
 										for="fileinput"
-										class="absolute bottom-2 right-2 bg-gray-800 text-white p-2 rounded-full cursor-pointer hover:bg-gray-700 flex items-center justify-center"
+										class="absolute camera-icon"
 										title="Update Image"
 									>
 										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
 									</label>
-								</div>
 							{:else}
 								<label for="fileinput" class="cursor-pointer">
 									<div
@@ -182,7 +177,7 @@
 								</label>
 								<label
 									for="fileinput"
-									class="absolute bottom-2 right-2 bg-gray-800 text-white p-2 rounded-full cursor-pointer hover:bg-gray-700 flex items-center justify-center"
+									class="absolute camera-icon"
 									title="Update Image"
 								>
 									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
@@ -196,6 +191,7 @@
 								on:change={onFileSelected}
 							/>
 						</div>
+			
 					</div>
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
 					{#if form?.errors?.imageResourceId}
@@ -204,8 +200,8 @@
 				</div>
 			</div>
 			<div class="col-span-3 mx-6">
-				<!-- <div class="flex items-center">
-					<div class="profile-container flex items-center gap-4">
+				<div class="flex items-center">
+					<!-- <div class="profile-container flex items-center gap-4">
 						{#if imageUrl === undefined}
 							<label for="fileinput" class="cursor-pointer">
 								<div class="profile-icon">
@@ -239,12 +235,67 @@
 							<span class="text-info opacity-50">{phone}</span>
 						</div>
 					
+					</div> -->
+					<div class="profile-container flex flex-col items-center gap-4">
+						<div class="relative flex md:hidden justify-center items-center">
+							{#if previewImage !== null}
+									<img
+										src={previewImage}
+										alt="Preview"
+										class="profile-image"
+									/>
+									<label
+										for="fileinput"
+										class="absolute camera-icon"
+										title="Update Image"
+									>
+										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+									</label>
+							{:else if imageUrl !== undefined}
+									<Image
+										source={imageUrl}
+										w="20"
+										h="36"
+										cls="profile-image"
+									/>
+									<label
+										for="fileinput"
+										class="absolute camera-icon"
+										title="Update Image"
+									>
+										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+									</label>
+							{:else}
+								<label for="fileinput" class="cursor-pointer">
+									<div
+										class="bg-secondary text-info h-36 w-36 rounded-full flex items-center justify-center text-3xl my-4"
+									>
+										{initials}
+									</div>
+								</label>
+								<label
+									for="fileinput"
+									class="absolute camera-icon"
+									title="Update Image"
+								>
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+								</label>
+							{/if}
+							<input
+								id="fileinput"
+								type="file"
+								class="hidden"
+								accept="image/*"
+								on:change={onFileSelected}
+							/>
+						</div>
+			
 					</div>
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
 					{#if form?.errors?.imageResourceId}
 						<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
 					{/if}
-				</div> -->
+				</div>
 
 				<div>
 					<label class="label" for="FirstName">First Name</label>
