@@ -2,6 +2,7 @@
 	import Icon from '@iconify/svelte';
 	import ConfirmModal from '../modal/confirm.modal.svelte';
 	import { getPublicLogoImageSource } from '../themes/theme.selector';
+	import Image from '$lib/components/image.svelte';
 
 	///////////////////////////////////////////////////////////////////////////
 
@@ -152,7 +153,12 @@
 					if (showUserMenu) showThemeMenu = false;
 				}}
 			>
-				<span class="initial-icon">{userInitials}</span>
+			{#if imageUrl}
+				<Image cls="initial-icon" source={imageUrl} w=24 h=24 />
+			{:else}
+			 <span class="initial-icon">{userInitials}</span>
+			{/if}
+				
 			</button>
 			{#if showUserMenu}
 				<div class="user-menu">
@@ -160,9 +166,14 @@
 						<Icon icon="ant-design:close-outlined" class="h-5 w-5" />
 					</button>
 					<div class="user-name">
-						<div class="initial-icon">
+						<!-- <div class="initial-icon">
 							{userInitials}
-						</div>
+						</div> -->
+						{#if imageUrl}
+						<Image cls="initial-icon" source={imageUrl} w=24 h=24 />
+						{:else}
+						<div class="initial-icon">{userInitials}</div>
+						{/if}
 						<span>{userName}</span>
 					</div>
 					<hr class="user-menu-divider" />

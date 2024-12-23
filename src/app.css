@@ -538,3 +538,11 @@ tbody tr {
 .txt-gr-900 {
 	@apply text-gray-900;
 }
+
+.camera-icon {
+	@apply -bottom-2 -right-2 md:bottom-0 md:right-0 bg-secondary text-info p-2 rounded-full cursor-pointer flex items-center justify-center;
+}
+
+.profile-image {
+	@apply h-24 w-24 md:h-28 md:w-28 lg:h-32 lg:w-32 rounded-full object-cover;
+}

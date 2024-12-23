@@ -7,9 +7,10 @@
 		formatBirthdate
 	} from '$lib/utils.ts/functions';
 	import Image from '$lib/components/image.svelte';
+	import Icon from '@iconify/svelte';
 
 	///////////////////////////////////////////////////////////////////////////
-	
+
 	export let form;
 	export let data: PageServerData;
 
@@ -63,8 +64,10 @@
 	}
 
 	let profileImage;
+	let previewImage = null;
+
 	let errorMessage = {
-		Text: 'Max file upload size 150 KB',
+		Text: '',
 		Colour: 'border-b-surface-700'
 	};
 	const MAX_FILE_SIZE = 1024 * 150;
@@ -76,6 +79,14 @@
 			errorMessage.Colour = 'text-error-500';
 			profileImage.value = null;
 			return;
+		}
+
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = () => {
+				previewImage = reader.result;
+			};
+			reader.readAsDataURL(file);
 		}
 
 		errorMessage.Text = 'Please wait, file upload is in progress';
@@ -116,22 +127,81 @@
 			errorMessage.Colour = 'text-error-500';
 		}
 	};
-
-	let emailval = '';
+	
 </script>
 
-<form action="?/updateprofile" method="post">
+<form action="?/updateprofile" method="post" enctype="multipart/form-data">
 	<div class="my-profile">
 		<h1 class="my-settings">My Settings</h1>
-
 		<div class="grid grid-cols-4 gap-8">
 			<div>
 				<h2 class="personal-Info">Personal Information</h2>
 				<p class=" text-info">Your personal information and account security settings.</p>
+				<div class="flex items-center mt-7">
+					<div class="profile-container flex flex-col items-center gap-4">
+						<div class="relative hidden md:flex justify-center items-center">
+							{#if previewImage !== null}
+									<img
+										src={previewImage}
+										alt="Preview"
+										class="profile-image"
+									/>
+									<label
+										for="fileinput"
+										class="absolute camera-icon"
+										title="Update Image"
+									>
+										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+									</label>
+							{:else if imageUrl !== undefined}
+									<Image
+										source={imageUrl}
+										w="36"
+										h="36"
+										cls="profile-image"
+									/>
+									<label
+										for="fileinput"
+										class="absolute camera-icon"
+										title="Update Image"
+									>
+										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+									</label>
+							{:else}
+								<label for="fileinput" class="cursor-pointer">
+									<div
+										class="bg-secondary text-info h-36 w-36 rounded-full flex items-center justify-center text-3xl my-4"
+									>
+										{initials}
+									</div>
+								</label>
+								<label
+									for="fileinput"
+									class="absolute camera-icon"
+									title="Update Image"
+								>
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+								</label>
+							{/if}
+							<input
+								id="fileinput"
+								type="file"
+								class="hidden"
+								accept="image/*"
+								on:change={onFileSelected}
+							/>
+						</div>
+			
+					</div>
+					<input type="hidden" name="imageResourceId" value={imageResourceId} />
+					{#if form?.errors?.imageResourceId}
+						<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
+					{/if}
+				</div>
 			</div>
 			<div class="col-span-3 mx-6">
 				<div class="flex items-center">
-					<div class="profile-container flex items-center gap-4">
+					<!-- <div class="profile-container flex items-center gap-4">
 						{#if imageUrl === undefined}
 							<label for="fileinput" class="cursor-pointer">
 								<div class="profile-icon">
@@ -165,6 +235,61 @@
 							<span class="text-info opacity-50">{phone}</span>
 						</div>
 					
+					</div> -->
+					<div class="profile-container flex flex-col items-center gap-4">
+						<div class="relative flex md:hidden justify-center items-center">
+							{#if previewImage !== null}
+									<img
+										src={previewImage}
+										alt="Preview"
+										class="profile-image"
+									/>
+									<label
+										for="fileinput"
+										class="absolute camera-icon"
+										title="Update Image"
+									>
+										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+									</label>
+							{:else if imageUrl !== undefined}
+									<Image
+										source={imageUrl}
+										w="20"
+										h="36"
+										cls="profile-image"
+									/>
+									<label
+										for="fileinput"
+										class="absolute camera-icon"
+										title="Update Image"
+									>
+										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+									</label>
+							{:else}
+								<label for="fileinput" class="cursor-pointer">
+									<div
+										class="bg-secondary text-info h-36 w-36 rounded-full flex items-center justify-center text-3xl my-4"
+									>
+										{initials}
+									</div>
+								</label>
+								<label
+									for="fileinput"
+									class="absolute camera-icon"
+									title="Update Image"
+								>
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+								</label>
+							{/if}
+							<input
+								id="fileinput"
+								type="file"
+								class="hidden"
+								accept="image/*"
+								on:change={onFileSelected}
+							/>
+						</div>
+			
 					</div>
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
 					{#if form?.errors?.imageResourceId}
@@ -226,7 +351,6 @@
 						<option value="Single">Single</option>
 						<option value="Divorced">Divorced</option>
 						<option value="Widowed">Widowed</option>
-						
 					</select>
 				</div>
 				<!-- <div>

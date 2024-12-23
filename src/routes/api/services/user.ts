@@ -29,7 +29,13 @@ export const getPatientById = async (
 	patientId: string | undefined
 ) => {
 	const url = BACKEND_API_URL + `/patients/${patientId}`;
-	return await get_(url, true, sessionId);
+	const cacheKey = `session-${sessionId}:req-getPatientById`;
+	if (await CacheService.has(cacheKey)) {
+        return await CacheService.get(cacheKey);
+    }
+	const result = await get_(url, true, sessionId);
+	await CacheService.set(cacheKey, result);
+	return result;
 };
 
 export const logout = async (sessionId: string) => {
@@ -99,5 +105,7 @@ export const updatePatientById = async (
 	};
 	console.log('in the user update', body);
 	const url = BACKEND_API_URL + `/patients/${patientId}`;
+	const findAndClearKeys = [`session-${sessionId}:req-getPatientById`];
+	await CacheService.findAndClear(findAndClearKeys)
 	return await put_(url, body, true, sessionId);
 };
