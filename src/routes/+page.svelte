@@ -45,7 +45,7 @@
 	<div class="card">
 		<div class="p-8">
 			<h1 class="text-xl text-info font-semibold">Login</h1>
-			<p class=" text-sm mt-2 text-gray-500">
+			<p class=" text-sm mt-1  mb-4 text-gray-500">
 				Enter your mobile number below to login to your account.
 			</p>
 			<form method="post" action="?/generateOtp" class="space-y-6">
