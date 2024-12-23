@@ -127,7 +127,6 @@
 			errorMessage.Colour = 'text-error-500';
 		}
 	};
-	
 </script>
 
 <form action="?/updateprofile" method="post" enctype="multipart/form-data">
@@ -141,32 +140,15 @@
 					<div class="profile-container flex flex-col items-center gap-4">
 						<div class="relative hidden md:flex justify-center items-center">
 							{#if previewImage !== null}
-									<img
-										src={previewImage}
-										alt="Preview"
-										class="profile-image"
-									/>
-									<label
-										for="fileinput"
-										class="absolute camera-icon"
-										title="Update Image"
-									>
-										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
-									</label>
+								<img src={previewImage} alt="Preview" class="profile-image" />
+								<label for="fileinput" class="absolute camera-icon" title="Update Image">
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+								</label>
 							{:else if imageUrl !== undefined}
-									<Image
-										source={imageUrl}
-										w="36"
-										h="36"
-										cls="profile-image"
-									/>
-									<label
-										for="fileinput"
-										class="absolute camera-icon"
-										title="Update Image"
-									>
-										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
-									</label>
+								<Image source={imageUrl} w="36" h="36" cls="profile-image" />
+								<label for="fileinput" class="absolute camera-icon" title="Update Image">
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+								</label>
 							{:else}
 								<label for="fileinput" class="cursor-pointer">
 									<div
@@ -175,11 +157,7 @@
 										{initials}
 									</div>
 								</label>
-								<label
-									for="fileinput"
-									class="absolute camera-icon"
-									title="Update Image"
-								>
+								<label for="fileinput" class="absolute camera-icon" title="Update Image">
 									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
 								</label>
 							{/if}
@@ -191,7 +169,6 @@
 								on:change={onFileSelected}
 							/>
 						</div>
-			
 					</div>
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
 					{#if form?.errors?.imageResourceId}
@@ -239,32 +216,15 @@
 					<div class="profile-container flex flex-col items-center gap-4">
 						<div class="relative flex md:hidden justify-center items-center">
 							{#if previewImage !== null}
-									<img
-										src={previewImage}
-										alt="Preview"
-										class="profile-image"
-									/>
-									<label
-										for="fileinput"
-										class="absolute camera-icon"
-										title="Update Image"
-									>
-										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
-									</label>
+								<img src={previewImage} alt="Preview" class="profile-image" />
+								<label for="fileinput" class="absolute camera-icon" title="Update Image">
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+								</label>
 							{:else if imageUrl !== undefined}
-									<Image
-										source={imageUrl}
-										w="20"
-										h="36"
-										cls="profile-image"
-									/>
-									<label
-										for="fileinput"
-										class="absolute camera-icon"
-										title="Update Image"
-									>
-										<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
-									</label>
+								<Image source={imageUrl} w="20" h="36" cls="profile-image" />
+								<label for="fileinput" class="absolute camera-icon" title="Update Image">
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+								</label>
 							{:else}
 								<label for="fileinput" class="cursor-pointer">
 									<div
@@ -273,11 +233,7 @@
 										{initials}
 									</div>
 								</label>
-								<label
-									for="fileinput"
-									class="absolute camera-icon"
-									title="Update Image"
-								>
+								<label for="fileinput" class="absolute camera-icon" title="Update Image">
 									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
 								</label>
 							{/if}
@@ -289,7 +245,6 @@
 								on:change={onFileSelected}
 							/>
 						</div>
-			
 					</div>
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
 					{#if form?.errors?.imageResourceId}
@@ -321,12 +276,17 @@
 				</div>
 				<div>
 					<label class="label" for="Gender">Sex</label>
-					<select id="Gender" class="input" name="gender" bind:value={gender}>
-						<option value="" disabled selected>Select an option</option>
-						<option value="Male">Male</option>
-						<option value="Female">Female</option>
-						<option value="Intersex">Intersex</option>
-					</select>
+					<div class="relative">
+						<select id="Gender" class="input" name="gender" bind:value={gender}>
+							<option value="" disabled selected>Select an option</option>
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+							<option value="Intersex">Intersex</option>
+						</select>
+						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
+						</div>
+					</div>
 				</div>
 				<div>
 					<label class="label" for="BirthDate">Date Of Birth</label>
@@ -335,23 +295,28 @@
 						id="BirthDate"
 						placeholder="MM-DD-YYYY"
 						name="birthDate"
-						class=" input"
+						class=" input "
 						bind:value={formattedDateOfBirth}
 					/>
 				</div>
 				<div>
 					<label class="label" for="MaritalStatus">Marital Status</label>
-					<select
-						id="MaritalStatus"
-						name="maritalStatus"
-						class="w-full input"
-						bind:value={maritalStatus}
-					>
-						<option value="Married">Married</option>
-						<option value="Single">Single</option>
-						<option value="Divorced">Divorced</option>
-						<option value="Widowed">Widowed</option>
-					</select>
+					<div class="relative">
+						<select
+							id="MaritalStatus"
+							name="maritalStatus"
+							class=" input"
+							bind:value={maritalStatus}
+						>
+							<option value="Married">Married</option>
+							<option value="Single">Single</option>
+							<option value="Divorced">Divorced</option>
+							<option value="Widowed">Widowed</option>
+						</select>
+						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
+						</div>
+					</div>
 				</div>
 				<!-- <div>
 					<label class="label" for="Phone">Mobile Number</label>
@@ -403,24 +368,34 @@
 			<div class="col-span-3 mx-6">
 				<div>
 					<label class="label" for="Race">What is your race?</label>
-					<select id="Race" name="race" class="input" bind:value={race}>
-						<option value="Prefer not to say" selected>Prefer not to say</option>
-						<option value="American Indian/Alaskan Native">American Indian/Alaskan Native</option>
-						<option value="Asian">Asian</option>
-						<option value="Black/African American">Black/African American</option>
-						<option value="Native Hawaiin or Other Pacific Islander"
-							>Native Hawaiin or Other Pacific Islander</option
-						>
-						<option value="White">White</option>
-					</select>
+					<div class="relative">
+						<select id="Race" name="race" class="input" bind:value={race}>
+							<option value="Prefer not to say" selected>Prefer not to say</option>
+							<option value="American Indian/Alaskan Native">American Indian/Alaskan Native</option>
+							<option value="Asian">Asian</option>
+							<option value="Black/African American">Black/African American</option>
+							<option value="Native Hawaiin or Other Pacific Islander"
+								>Native Hawaiin or Other Pacific Islander</option
+							>
+							<option value="White">White</option>
+						</select>
+						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
+						</div>
+					</div>
 				</div>
 				<div>
 					<label class="label" for="Ethnicity">What is your ethnicity?</label>
-					<select id="Ethnicity" name="ethnicity" class="input" bind:value={ethnicity}>
-						<option value="Prefer not to say" selected>Prefer not to say</option>
-						<option value="Hispanic/Latino">Hispanic/Latino</option>
-						<option value="Not Hispanic/Latino">Not Hispanic/Latino</option>
-					</select>
+					<div class="relative">
+						<select id="Ethnicity" name="ethnicity" class="input" bind:value={ethnicity}>
+							<option value="Prefer not to say" selected>Prefer not to say</option>
+							<option value="Hispanic/Latino">Hispanic/Latino</option>
+							<option value="Not Hispanic/Latino">Not Hispanic/Latino</option>
+						</select>
+						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -434,41 +409,56 @@
 					<label class="label" for="StrokeSurvivorOrCaregiver"
 						>Are you a stroke survivor or caregiver?</label
 					>
-					<select
-						id="StrokeSurvivorOrCaregiver"
-						name="strokeSurvivorOrCaregiver"
-						class="input"
-						bind:value={strokeSurvivorOrCaregiver}
-					>
-						<option value="Survivor">Survivor</option>
-						<option value="Caregiver">Caregiver</option>
-					</select>
+					<div class="relative">
+						<select
+							id="StrokeSurvivorOrCaregiver"
+							name="strokeSurvivorOrCaregiver"
+							class="input"
+							bind:value={strokeSurvivorOrCaregiver}
+						>
+							<option value="Survivor">Survivor</option>
+							<option value="Caregiver">Caregiver</option>
+						</select>
+						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
+						</div>
+					</div>
 				</div>
 				<div>
 					<label class="label" for="WorkedPriorToStroke">Did you work prior to your stroke?</label>
-					<select
-						id="WorkedPriorToStroke"
-						name="workedPriorToStroke"
-						class="input"
-						bind:value={workedPriorToStroke}
-					>
-						<option value="true">Yes</option>
-						<option value="false">No</option>
-					</select>
+					<div class="relative">
+						<select
+							id="WorkedPriorToStroke"
+							name="workedPriorToStroke"
+							class=" input"
+							bind:value={workedPriorToStroke}
+						>
+							<option value="true">Yes</option>
+							<option value="false">No</option>
+						</select>
+						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
+						</div>
+					</div>
 				</div>
 
-				<div >
-					<label class="label" for="live-alone">Do you live alone?</label>
-					<select id="LivingAlone" name="livingAlone" class="input" bind:value={livingAlone}>
-						<option value="true">Yes</option>
-						<option value="false">No</option>
-					</select>
+				<div>
+					<label class="label" for="LivingAlone">Do you live alone?</label>
+					<div class="relative">
+						<select id="LivingAlone" name="livingAlone" class=" input" bind:value={livingAlone}>
+							<option value="true">Yes</option>
+							<option value="false">No</option>
+						</select>
+						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
+						</div>
+					</div>
+				</div>
+
+				<div class="flex justify-end ">
+					<button class="save-changes" type="submit"> Save changes </button>
 				</div>
 			</div>
-		</div>
-
-		<div class="flex justify-end mx-6">
-			<button class="save-changes" type="submit"> Save changes </button>
 		</div>
 	</div>
 </form>
