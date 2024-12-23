@@ -4,6 +4,7 @@
 	export let message: string;
 	export let close: () => void;
 	export let confirm: () => void;
+	export let confirmButtonText = 'Delete';
 	$: show = show;
 </script>
 
@@ -14,7 +15,7 @@
 			<p class="modal-message">{message}</p>
 			<div class="modal-actions">
 				<button class="cancel-btn" on:click={close}> Cancel </button>
-				<button class="confirm-btn" on:click={confirm}> Delete </button>
+				<button class="confirm-btn" on:click={confirm}> {confirmButtonText} </button>
 			</div>
 		</div>
 	</div>

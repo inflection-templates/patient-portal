@@ -23,7 +23,7 @@
     };
 
     const basicInfo = [
-        { label: "Name", value: getValue(userProfileData?.UserName) },
+        { label: "Name", value: getValue(userProfileData?.DisplayName) },
         { label: "Date of Birth", value: formatBirthdate(getValue(userProfileData?.BirthDate)) },
         { label: "Email", value: getValue(userProfileData?.Email) },
         { label: "Phone", value: getValue(userProfileData?.Phone) },
