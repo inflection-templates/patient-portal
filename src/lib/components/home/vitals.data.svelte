@@ -55,7 +55,16 @@
 					<tr>
 						<th class="th w-[5%]"></th>
 						<th class="th w-[40%] lg:w-[15%]" on:click={sortByDate}>
-							Date <span class="sort-icon">{sortOrder === 'ascending' ? '▲' : '▼'}</span>
+							<div class="flex items-center">
+								<span>Date</span>
+								<span class="sort-icon ">
+									{#if sortOrder === 'ascending'}
+										<Icon icon="mdi:arrow-up" />
+									{:else}
+										<Icon icon="mdi:arrow-down" />
+									{/if}
+								</span>
+							</div>
 						</th>
 						{#if title == 'Blood Pressure'}
 							<th class="th w-[40%] lg:w-[15%]">Systolic ({data[0].unit})</th>
@@ -84,12 +93,15 @@
 
 		<!-- Page Selector and Pagination Controls -->
 		<div class="table-footer">
-			<div class="page-size-container">
+			<div class="relative">
 				<select class="page-size-selector" on:change={updatePageSize}>
 					<option class="pages" value="5">5 Records per page</option>
 					<option class="pages" value="10">10 Records per page</option>
 					<option class="pages" value="15">15 Records per page</option>
 				</select>
+				<div class="absolute inset-y-0 right-2 flex items-center pointer-events-none">
+					<Icon icon="mdi:chevron-down" class="text-info w-5 h-5 " />
+				  </div>
 			</div>
 
 			<div class="pagination-controls">

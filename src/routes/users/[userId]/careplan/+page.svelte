@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CareplanStackedChart from '$lib/components/careplan/careplan.stacked.chart.svelte';
+	import Icon from '@iconify/svelte';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
@@ -42,10 +43,16 @@
 		{#if hasData}
 			<div class="flex items-center gap-2">
 				<span class="title">View:</span>
-				<select class="select" bind:value={selectedView}>
-					<option value="day">Day Wise</option>
-					<option value="week">Week Wise</option>
-				</select>
+
+				<div class="relative">
+					<select class=" select" bind:value={selectedView}>
+						<option value="day">Day Wise</option>
+						<option value="week">Week Wise</option>
+					</select>
+					<div class="absolute inset-y-0 right-2 flex items-center pointer-events-none">
+						<Icon icon="mdi:chevron-down" class="text-info w-5 h-5 " />
+					</div>
+				</div>
 			</div>
 		{/if}
 	</div>

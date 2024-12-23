@@ -27,7 +27,7 @@
 	$: enteredOtp = otp.join('');
 	$: console.log('OTP input elements', enteredOtp);
 	$: console.log('Enter OTP input', enteredOtp);
-	
+
 	const logoImageSource = getPublicLogoImageSource();
 
 	const handleOtpInput = (index: number) => {
@@ -94,7 +94,7 @@
 	<div class="absolute top-4 left-4 flex items-center">
 		<!-- <img src="/patient.png" alt="Logo" class="logo" /> -->
 		<!-- <h1 class="heading">Patient Portal</h1> -->
-		<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100"/>
+		<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100" />
 	</div>
 
 	<!-- <div class="absolute top-4 right-4 flex items-center">
@@ -125,7 +125,7 @@
 					</div>
 
 					{#if !isTimerExpired}
-						<div class="text-info text-center my-4">OTP expires in {timer}</div>
+						<div class=" otp-expires">OTP expires in {timer}</div>
 					{:else}
 						<div class="mt-2 text-center">
 							<span class="text-info">Didn't receive OTP?</span>

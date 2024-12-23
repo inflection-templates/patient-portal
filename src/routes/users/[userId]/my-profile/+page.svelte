@@ -328,7 +328,7 @@
 					</select>
 				</div>
 
-				<div>
+				<div >
 					<label class="label" for="live-alone">Do you live alone?</label>
 					<select id="LivingAlone" name="livingAlone" class="input" bind:value={livingAlone}>
 						<option value="true">Yes</option>

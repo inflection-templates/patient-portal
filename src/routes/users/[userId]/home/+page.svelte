@@ -47,7 +47,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {#each basicInfo as info}
                 <div>
-                    <p class="label">{info.label}</p>
+                    <p class="info-label">{info.label}</p>
                     <p class="mt-1 label">{info.value || 'Not specified'}</p>
                 </div>
             {/each}
