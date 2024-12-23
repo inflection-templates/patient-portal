@@ -16,7 +16,7 @@
 		<ul class="sidebar-list">
 			{#each sidebarTabs as tab}
 				<li>
-					<a href={tab.path} class="sidebar-item" class:!bg-primary={$page.url.pathname.startsWith(tab.path)}>
+					<a href={tab.path} class="sidebar-item" class:!bg-active={$page.url.pathname.startsWith(tab.path)}>
 						<Icon icon={tab.icon} class="iconsize" />
 						<span class="sidebar-text">{tab.name}</span>
 					</a>

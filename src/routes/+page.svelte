@@ -1,15 +1,19 @@
 <script lang="ts">
-	import { getPublicFooterLink, getPublicFooterText, getPublicLogoImageSource } from '$lib/components/themes/theme.selector';
-    import CountryCode from "$lib/components/country.code.svelte";
+	import {
+		getPublicFooterLink,
+		getPublicFooterText,
+		getPublicLogoImageSource
+	} from '$lib/components/themes/theme.selector';
+	import CountryCode from '$lib/components/country.code.svelte';
 	// import { loginMethods } from '../config';
 	import Icon from '@iconify/svelte';
 	import { SystemTypes } from '$lib/system.types';
 	import { SYSTEM_ID } from '$lib/constants';
 
 	//////////////////////////////////////////////////////////////////////
-	
+
 	const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
-	console.log("systemType:",systemType);
+	console.log('systemType:', systemType);
 	let showPassword = false;
 	let loginMethod = 'mobile';
 	function togglePasswordVisibility() {
@@ -21,15 +25,14 @@
 	const footerLink = getPublicFooterLink();
 	let countryCode;
 
-    // if (systemType === SystemTypes.AHA) {
-    //     countryCode = '+1'
-    // }
-
+	// if (systemType === SystemTypes.AHA) {
+	//     countryCode = '+1'
+	// }
 </script>
 
 <section class="section min-h-screen flex flex-col">
 	<div class="absolute top-4 left-4 flex items-center">
-		<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100"/>
+		<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100" />
 		<!-- <h1 class="heading">Patient Portal</h1> -->
 	</div>
 
@@ -41,6 +44,10 @@
 
 	<div class="card">
 		<div class="p-8">
+			<h1 class="text-xl text-info font-semibold">Login</h1>
+			<p class=" text-sm mt-1  mb-4 text-gray-500">
+				Enter your mobile number below to login to your account.
+			</p>
 			<form method="post" action="?/generateOtp" class="space-y-6">
 				<!-- <div>
 					<div class="flex space-x-4">
@@ -65,12 +72,12 @@
 							</select> -->
 							{#if systemType === SystemTypes.AHA}
 								<select name="countryCode" class="selectcode" required>
-									<option value="+1">+1</option>   
+									<option value="+1">+1</option>
 								</select>
 							{:else}
-								<CountryCode/>
-							{/if} 
-								<!-- <input hidden type="text" name='countryCode' bind:value={countryCode}>  -->
+								<CountryCode />
+							{/if}
+							<!-- <input hidden type="text" name='countryCode' bind:value={countryCode}>  -->
 							<input
 								type="tel"
 								name="phone"
