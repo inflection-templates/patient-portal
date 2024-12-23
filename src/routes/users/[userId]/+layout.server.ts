@@ -1,6 +1,7 @@
 import { SessionManager } from "$routes/api/sessions/session.manager";
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import type { LayoutServerLoad } from "./$types";
+import { getPatientById } from "$routes/api/services/user";
 
 /////////////////////////////////////////////////////////////////
 
@@ -29,7 +30,15 @@ export const load: LayoutServerLoad = async (event) => {
         roleName        : session.roleName,
         profileImageUrl : session.profileImageUrl
     };
+    
+    const response = await getPatientById(sessionId, session.userId);
+
+	if (response.Status === 'failure' || response.HttpCode !== 200) {
+		throw error(response.HttpCode, response.Message);
+	}
+	const user = response.Data.Patient.User;
 	return {
-        sessionUser
+        sessionUser,
+        user
     };
 };

@@ -8,9 +8,14 @@
 
 	export let data;
 	const userId = $page.params.userId;
-	const username = data.sessionUser.fullName;
-	const imageUrl = data.sessionUser.profileImageUrl;
+	// const username = data.sessionUser.fullName;
+	// const imageUrl = data.sessionUser.profileImageUrl;
 	// const logoImageSource = getPublicLogoImageSource();
+
+	console.log('data', data.user);	
+	$:username = data.user.Person.DisplayName;
+	$:email = data.user.Person.Email;
+	$:imageUrl = data.user.Person.ProfileImageURL;
 	const footerText = `© ${new Date().getFullYear()} ${getPublicFooterText()}`;
 	const footerLink = getPublicFooterLink();
 
