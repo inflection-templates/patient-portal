@@ -127,8 +127,8 @@
 					{#if !isTimerExpired}
 						<div class=" otp-expires">OTP expires in {timer}</div>
 					{:else}
-						<div class="mt-2 text-center">
-							<span class="text-info">Didn't receive OTP?</span>
+						<div class="resend-otp">
+							<span>Didn't receive OTP ?</span>
 							{#if !isSubmitting}
 								<!-- svelte-ignore node_invalid_placement_ssr -->
 								<form
