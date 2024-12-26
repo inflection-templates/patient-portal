@@ -7,6 +7,7 @@ import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils.ts/message.utils';
 import * as fs from 'fs';
 import {upload} from '$routes/api/services/file.resource';
+import { processFileData } from '$lib/utils.ts/file.handler';
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -87,11 +88,12 @@ export const actions = {
 		let imageResourceId: string | null = result.imageResourceId;
 
 		if (file && file.size > 0){
-			const filename = file.name;
-			const fileBuffer = Buffer.from(await file.arrayBuffer());
-			console.log('File buffer length:', fileBuffer.length);
-			const filePath = `/tmp/${filename}`;
-			fs.writeFileSync(filePath, fileBuffer);
+			// const filename = file.name;
+			// const fileBuffer = Buffer.from(await file.arrayBuffer());
+			// console.log('File buffer length:', fileBuffer.length);
+			// const filePath = `/tmp/${filename}`;
+			// fs.writeFileSync(filePath, fileBuffer);
+			const { filePath, filename } = await processFileData(file);
 			const uploadResponse = await upload(sessionId, filePath, filename, true);
 			console.log('Upload response:', JSON.stringify(uploadResponse, null, 2));
 			if (uploadResponse.Status === 'success') {

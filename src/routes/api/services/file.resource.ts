@@ -7,7 +7,7 @@ import { get_ } from './common';
 
 import path from 'path';
 import * as fs from 'fs';
-import FormData from 'Form-Data';
+import FormData from 'form-data';
 
 ////////////////////////////////////////////////////////////////
 
@@ -65,11 +65,9 @@ export const upload = async (sessionId: string, filePath: string, filename: stri
 
 	const mimeType = ServerHelper.getMimeTypeFromFileName(filename);
 	console.log(`mimeType = ${mimeType}`);
-
-    // const p = path.join(process.cwd(), filePath);
+	
     const p = filePath;
     const form = new FormData();
-    // form.append("name", fs.createReadStream(p));
 	form.append("name", fs.createReadStream(filePath));
     form.append("IsPublicResource", isPublic ? "true" : "false");
     console.log(filePath);
@@ -79,9 +77,6 @@ export const upload = async (sessionId: string, filePath: string, filename: stri
         'x-api-key' : API_CLIENT_INTERNAL_KEY,
         'Authorization' : `Bearer ${accessToken}`,
     };
-
-    // console.log(JSON.stringify(headers, null, 2));
-    console.log(form);
 
     const res = await axios.post(url, form, { headers });
     const response = res.data;
