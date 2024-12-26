@@ -70,12 +70,14 @@
 		Text: '',
 		Colour: 'border-b-surface-700'
 	};
+
 	const MAX_FILE_SIZE = 1024 * 150;
+
 	const onFileSelected = async (e) => {
 		let file = e.target.files[0];
 		const fileSize = file.size;
 		if (fileSize > MAX_FILE_SIZE) {
-			errorMessage.Text = 'File should be less than 150 KB';
+			errorMessage.Text = 'File should be less than 100 KB';
 			errorMessage.Colour = 'text-error-500';
 			profileImage.value = null;
 			return;
@@ -88,44 +90,6 @@
 			};
 			reader.readAsDataURL(file);
 		}
-
-		errorMessage.Text = 'Please wait, file upload is in progress';
-		errorMessage.Colour = 'text-error-500';
-
-		const formData = new FormData();
-		formData.append('file', file);
-		formData.append('filename', file.name);
-
-		try {
-			const res = await fetch(`/api/server/file-resources/upload`, {
-				method: 'POST',
-				body: formData
-			});
-
-			if (!res.ok) {
-				const errorText = await res.text();
-				throw new Error(errorText);
-			}
-			const response = await res.json();
-			if (response.Status === 'success' && response.HttpCode === 201) {
-				errorMessage.Text = 'File uploaded successfully';
-				errorMessage.Colour = 'text-success-500';
-				const imageResourceId_ = response.Data.FileResources[0].id;
-				console.log('ImageResource', imageResourceId_);
-				if (imageResourceId_) {
-					imageResourceId = imageResourceId_;
-					return true;
-				}
-				console.log('imageResourceId', imageResourceId);
-			} else {
-				errorMessage.Text = response.Message;
-				errorMessage.Colour = 'text-error-500';
-			}
-		} catch (error) {
-			console.error('Error uploading file:', error);
-			errorMessage.Text = 'Error uploading file: ' + error.message;
-			errorMessage.Colour = 'text-error-500';
-		}
 	};
 	
 </script>
@@ -135,6 +99,10 @@
 		<h1 class="my-settings">My Settings</h1>
 		<div class="grid grid-cols-4 gap-8">
 			<div>
+				<!-- <div>
+					<label for="file">Profile Picture</label>
+					<input type="file" id="file" name="file" on:change={(e) => (file = e.target.files[0])} required />
+				</div> -->
 				<h2 class="personal-Info">Personal Information</h2>
 				<p class=" text-info">Your personal information and account security settings.</p>
 				<div class="flex items-center mt-7">
@@ -188,10 +156,13 @@
 								type="file"
 								class="hidden"
 								accept="image/*"
+								name ='file'
 								on:change={onFileSelected}
 							/>
 						</div>
-			
+						{#if errorMessage && errorMessage.Text}
+						<p class={errorMessage.Colour}>{errorMessage.Text}</p>
+					  {/if}
 					</div>
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
 					{#if form?.errors?.imageResourceId}
@@ -289,7 +260,9 @@
 								on:change={onFileSelected}
 							/>
 						</div>
-			
+						{#if errorMessage && errorMessage.Text}
+						<p class={errorMessage.Colour}>{errorMessage.Text}</p>
+					  {/if}
 					</div>
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
 					{#if form?.errors?.imageResourceId}

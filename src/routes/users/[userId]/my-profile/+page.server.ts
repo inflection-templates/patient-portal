@@ -5,6 +5,8 @@ import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils.ts/message.utils';
+import * as fs from 'fs';
+import {upload} from '$routes/api/services/file.resource';
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -64,7 +66,9 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 		const formData = Object.fromEntries(data);
-
+		const file = data.get('file') as File;
+        console.log('file', file);
+      
 		type updateProfileSchema = z.infer<typeof updateUserProfile>;
 		let result: updateProfileSchema = {};
 
@@ -79,8 +83,22 @@ export const actions = {
 				errors
 			};
 		}
+		
+		let imageResourceId: string | null = result.imageResourceId;
 
-		// const phone = result.countryCode + '-' + result.phone;
+		if (file && file.size > 0){
+			const filename = file.name;
+			const fileBuffer = Buffer.from(await file.arrayBuffer());
+			console.log('File buffer length:', fileBuffer.length);
+			const filePath = `/tmp/${filename}`;
+			fs.writeFileSync(filePath, fileBuffer);
+			const uploadResponse = await upload(sessionId, filePath, filename, true);
+			console.log('Upload response:', JSON.stringify(uploadResponse, null, 2));
+			if (uploadResponse.Status === 'success') {
+				imageResourceId = uploadResponse.Data.FileResources[0]?.id || null;
+				console.log('Image resource ID:', imageResourceId);
+			}
+		}
 		
 		const response = await updatePatientById(
 			sessionId,
@@ -103,7 +121,7 @@ export const actions = {
 			result.state,
 			result.country,
 			result.postalCode,
-			result.imageResourceId
+			imageResourceId
 		);
 
 		if (response.Status == 'failure' || response.HttpCode !== 200) {
