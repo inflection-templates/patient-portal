@@ -142,23 +142,27 @@
 							{#if previewImage !== null}
 								<img src={previewImage} alt="Preview" class="profile-image" />
 								<label for="fileinput" class="absolute camera-icon" title="Update Image">
-									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6 " />
 								</label>
 							{:else if imageUrl !== undefined}
 								<Image source={imageUrl} w="36" h="36" cls="profile-image" />
 								<label for="fileinput" class="absolute camera-icon" title="Update Image">
-									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6 " />
 								</label>
 							{:else}
 								<label for="fileinput" class="cursor-pointer">
 									<div
-										class="bg-secondary text-info h-36 w-36 rounded-full flex items-center justify-center text-3xl my-4"
+										class="bg-secondary text-info h-36 w-36 rounded-full flex items-center justify-center text-3xl my-4 border border-outline"
 									>
 										{initials}
 									</div>
 								</label>
-								<label for="fileinput" class="absolute camera-icon" title="Update Image">
-									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+								<label
+									for="fileinput"
+									class="absolute camera-icon border border-outline rounded-full"
+									title="Update Image"
+								>
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6 " />
 								</label>
 							{/if}
 							<input
@@ -218,7 +222,7 @@
 							{#if previewImage !== null}
 								<img src={previewImage} alt="Preview" class="profile-image" />
 								<label for="fileinput" class="absolute camera-icon" title="Update Image">
-									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6 " />
 								</label>
 							{:else if imageUrl !== undefined}
 								<Image source={imageUrl} w="20" h="36" cls="profile-image" />
@@ -228,13 +232,17 @@
 							{:else}
 								<label for="fileinput" class="cursor-pointer">
 									<div
-										class="bg-secondary text-info h-36 w-36 rounded-full flex items-center justify-center text-3xl my-4"
+										class="bg-secondary text-info h-36 w-36 border border-outline rounded-full flex items-center justify-center text-3xl my-4"
 									>
 										{initials}
 									</div>
 								</label>
-								<label for="fileinput" class="absolute camera-icon" title="Update Image">
-									<Icon icon="ant-design:camera-outlined" class="h-6 w-6" />
+								<label
+									for="fileinput"
+									class="absolute camera-icon border border-outline rounded-full"
+									title="Update Image"
+								>
+									<Icon icon="ant-design:camera-outlined" class="h-6 w-6 " />
 								</label>
 							{/if}
 							<input
@@ -276,36 +284,34 @@
 				</div>
 				<div>
 					<label class="label" for="Gender">Sex</label>
-					<div class="relative">
-						<select id="Gender" class="input" name="gender" bind:value={gender}>
+					<div class="select-box">
+						<select id="Gender" class="sel input" name="gender" bind:value={gender}>
 							<option value="" disabled selected>Select an option</option>
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
 							<option value="Intersex">Intersex</option>
 						</select>
-						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
-						</div>
 					</div>
 				</div>
-				<div>
+				<div class="date-picker">
 					<label class="label" for="BirthDate">Date Of Birth</label>
 					<input
 						type="date"
 						id="BirthDate"
 						placeholder="MM-DD-YYYY"
 						name="birthDate"
-						class=" input "
+						class="input"
 						bind:value={formattedDateOfBirth}
 					/>
 				</div>
+
 				<div>
 					<label class="label" for="MaritalStatus">Marital Status</label>
-					<div class="relative">
+					<div class="select-box">
 						<select
 							id="MaritalStatus"
 							name="maritalStatus"
-							class=" input"
+							class="sel input"
 							bind:value={maritalStatus}
 						>
 							<option value="Married">Married</option>
@@ -313,9 +319,6 @@
 							<option value="Divorced">Divorced</option>
 							<option value="Widowed">Widowed</option>
 						</select>
-						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
-						</div>
 					</div>
 				</div>
 				<!-- <div>
@@ -368,8 +371,8 @@
 			<div class="col-span-3 mx-6">
 				<div>
 					<label class="label" for="Race">What is your race?</label>
-					<div class="relative">
-						<select id="Race" name="race" class="input" bind:value={race}>
+					<div class="select-box">
+						<select id="Race" name="race" class="sel input" bind:value={race}>
 							<option value="Prefer not to say" selected>Prefer not to say</option>
 							<option value="American Indian/Alaskan Native">American Indian/Alaskan Native</option>
 							<option value="Asian">Asian</option>
@@ -379,22 +382,16 @@
 							>
 							<option value="White">White</option>
 						</select>
-						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
-						</div>
 					</div>
 				</div>
 				<div>
 					<label class="label" for="Ethnicity">What is your ethnicity?</label>
-					<div class="relative">
-						<select id="Ethnicity" name="ethnicity" class="input" bind:value={ethnicity}>
+					<div class="select-box">
+						<select id="Ethnicity" name="ethnicity" class="sel input" bind:value={ethnicity}>
 							<option value="Prefer not to say" selected>Prefer not to say</option>
 							<option value="Hispanic/Latino">Hispanic/Latino</option>
 							<option value="Not Hispanic/Latino">Not Hispanic/Latino</option>
 						</select>
-						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
-						</div>
 					</div>
 				</div>
 			</div>
@@ -409,56 +406,57 @@
 					<label class="label" for="StrokeSurvivorOrCaregiver"
 						>Are you a stroke survivor or caregiver?</label
 					>
-					<div class="relative">
+					<div class="select-box">
 						<select
 							id="StrokeSurvivorOrCaregiver"
 							name="strokeSurvivorOrCaregiver"
-							class="input"
+							class="input sel"
 							bind:value={strokeSurvivorOrCaregiver}
 						>
 							<option value="Survivor">Survivor</option>
 							<option value="Caregiver">Caregiver</option>
 						</select>
-						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
-						</div>
 					</div>
 				</div>
 				<div>
 					<label class="label" for="WorkedPriorToStroke">Did you work prior to your stroke?</label>
-					<div class="relative">
+					<div class="select-box">
 						<select
 							id="WorkedPriorToStroke"
 							name="workedPriorToStroke"
-							class=" input"
+							class="sel input"
 							bind:value={workedPriorToStroke}
 						>
 							<option value="true">Yes</option>
 							<option value="false">No</option>
 						</select>
-						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
-						</div>
 					</div>
 				</div>
 
 				<div>
 					<label class="label" for="LivingAlone">Do you live alone?</label>
-					<div class="relative">
-						<select id="LivingAlone" name="livingAlone" class=" input" bind:value={livingAlone}>
+					<div class="select-box">
+						<select id="LivingAlone" name="livingAlone" class=" sel input" bind:value={livingAlone}>
 							<option value="true">Yes</option>
 							<option value="false">No</option>
 						</select>
-						<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-							<Icon icon="mdi:chevron-down" class="text-xl text-info" />
-						</div>
 					</div>
 				</div>
 
-				<div class="flex justify-end ">
+				<div class="flex justify-end">
 					<button class="save-changes" type="submit"> Save changes </button>
 				</div>
 			</div>
 		</div>
 	</div>
 </form>
+
+<style>
+	input[type='date']::-webkit-calendar-picker-indicator {
+		filter: invert(90%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(85%) contrast(85%);
+	}
+
+	input[type='date']::-webkit-calendar-picker-indicator:hover {
+		cursor: pointer;
+	}
+</style>
