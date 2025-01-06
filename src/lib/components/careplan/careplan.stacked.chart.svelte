@@ -4,14 +4,26 @@
 
     Chart.register(...registerables);
 
-    export let tasks: any[] = [];
+    // svelte-ignore export_let_unused
+        export let tasks: any[] = [];
     export let view: 'day' | 'week' = 'day';
+    export let selectedPlan: string;
+    export let careplanTasks_: any;
 
     let canvas: HTMLCanvasElement;
     let chart: Chart;
 
+    $: if (careplanTasks_ && selectedPlan) {
+        console.log('Current tasks:', careplanTasks_[selectedPlan]);
+    }
+
     function processTasksData(tasks: any[], viewType: 'day' | 'week') {
-        if (!tasks?.length) return { labels: [], datasets: [] };
+        if (!tasks?.length) {
+            console.log('No tasks available to process');
+            return { labels: [], datasets: [] };
+        }
+
+        console.log('Processing tasks:', tasks.length);
 
         const sortedTasks = [...tasks].sort(
             (a, b) => new Date(a.ScheduledStartTime).getTime() - new Date(b.ScheduledStartTime).getTime()
@@ -47,14 +59,10 @@
             let key;
 
             if (viewType === 'day') {
-				const dayDiff = Math.floor(
-					(taskDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24)
-				);
+                const dayDiff = Math.floor((taskDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24));
                 key = `Day ${dayDiff + 1}`;
             } else {
-				const weekDiff = Math.floor(
-					(taskDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24 * 7)
-				);
+                const weekDiff = Math.floor((taskDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24 * 7));
                 key = `Week ${weekDiff + 1}`;
             }
 
@@ -65,38 +73,44 @@
             }
         });
 
-        const sortedLabels = Array.from(dataMap.keys()).sort((a, b) => {
-            const aNum = parseInt(a.split(' ')[1]);
-            const bNum = parseInt(b.split(' ')[1]);
-            return aNum - bNum;
-        });
-
-        return {
-            labels: sortedLabels,
+        const chartData = {
+            labels: Array.from(dataMap.keys()),
             datasets: [
                 {
                     label: 'Completed',
-                    data: sortedLabels.map((label) => dataMap.get(label).Completed),
+                    data: Array.from(dataMap.values()).map(v => v.Completed),
                     backgroundColor: '#22C55E'
                 },
                 {
-                    label: 'Pending',
-                    data: sortedLabels.map((label) => dataMap.get(label).Delayed),
+                    label: 'Delayed',
+                    data: Array.from(dataMap.values()).map(v => v.Delayed),
                     backgroundColor: '#EF4444'
                 }
             ]
         };
+
+        console.log('Chart data:', chartData);
+        return chartData;
     }
 
     function createChart() {
+        if (!canvas) {
+            console.log('Canvas not available');
+            return;
+        }
+
         if (chart) {
             chart.destroy();
         }
 
         const ctx = canvas.getContext('2d');
-        if (!ctx) return;
+        if (!ctx) {
+            console.log('Context not available');
+            return;
+        }
 
-        const chartData = processTasksData(tasks, view);
+        const currentTasks = careplanTasks_[selectedPlan] || [];
+        const chartData = processTasksData(currentTasks, view);
 
         chart = new Chart(ctx, {
             type: 'bar',
@@ -109,14 +123,7 @@
                         stacked: true,
                         title: {
                             display: true,
-                            text: view === 'week' ? 'Weeks' : 'Days',
-                           font: {
-                            size: 16,
-                            weight: 'semi-bold'
-                        },
-                        },
-                        grid: {
-                            display: false
+                            text: view === 'week' ? 'Weeks' : 'Days'
                         }
                     },
                     y: {
@@ -124,71 +131,37 @@
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Number of Tasks',
-                            font: {
-                            size: 16,
-                            weight: 'semi-bold'
-                        },
-                        },
-                        grid: {
-                            display: true
+                            text: 'Number of Tasks'
                         }
                     }
                 },
                 plugins: {
-                    title: {
-                        display: true,
-                        text: `Task Status by ${view === 'week' ? 'Week' : 'day'}`,
-                        font: {
-                            size: 16,
-                            weight: 'semi-bold'
-                        },
-                        padding: { bottom: 2 }
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
                     },
                     legend: {
-                        position: 'top',
-                        align: 'center',
-                        labels: {
-                            padding: 20,
-                            usePointStyle: true,
-                            pointStyle: 'circle'
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: (context) => {
-                                const label = context.dataset.label || '';
-                                const value = context.parsed.y;
-                                const total = context.chart.data.datasets.reduce(
-                                    (sum, dataset) => sum + dataset.data[context.dataIndex],
-                                    0
-                                );
-                                const percentage = ((value / total) * 100).toFixed(1);
-                                return `${label}: ${value} (${percentage}%)`;
-                            },
-                            footer: (tooltipItems) => {
-                                const total = tooltipItems.reduce((sum, item) => sum + item.parsed.y, 0);
-                                return `Total: ${total} tasks`;
-                            }
-                        }
+                        display: true,
+                        position: 'top'
                     }
                 }
             }
         });
     }
 
-    $: if (canvas && tasks) {
+    $: if (canvas && careplanTasks_ && selectedPlan) {
+        console.log('Updating chart with new data');
         createChart();
     }
 
-    $: if (view) {
-        if (canvas && tasks) {
-            createChart();
-        }
+    $: if (view && canvas && careplanTasks_ && selectedPlan) {
+        console.log('View changed, updating chart');
+        createChart();
     }
 
     onMount(() => {
-        if (canvas && tasks) {
+        console.log('Component mounted');
+        if (canvas && careplanTasks_ && selectedPlan) {
             createChart();
         }
 
