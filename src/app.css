@@ -272,6 +272,9 @@
 .user-menu-item {
 	@apply flex items-center w-full px-4 py-2 text-info  hover:bg-active;
 }
+.delete-my-acc {
+	@apply text-error flex items-center w-full px-4 py-2   hover:bg-active;
+}
 .user-menu-item.delete-account {
 	@apply text-error bg-transparent border-none cursor-pointer;
 }
@@ -312,13 +315,13 @@
 }
 
 .sidebar {
-	@apply w-16 border-r border-outline sm:w-56 min-h-screen bg-secondary  text-info px-4 sm:px-8 py-4 fixed top-14 left-0;
+	@apply w-16 border-r border-outline sm:w-56 min-h-screen bg-secondary  text-info px-4  py-4 fixed top-14 left-0;
 }
 .sidebar-list {
-	@apply space-y-2 sm:ml-4;
+	@apply space-y-2;
 }
 .sidebar-item {
-	@apply flex items-center hover:bg-primary border-outline px-2 py-2 rounded-md;
+	@apply flex  hover:bg-primary border-outline px-2 py-2 rounded-md;
 }
 .sidebar-item span {
 	@apply ml-2;
