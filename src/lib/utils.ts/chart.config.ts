@@ -62,7 +62,7 @@ export function createTimeSeriesConfig(chartData: ProcessedChartData): ChartConf
                         text: 'Date'
                     },
                     grid: {
-                        color: '#E5E5E5'
+                        // color: '#E5E5E5'
                     }
                 },
                 y: {
@@ -78,7 +78,7 @@ export function createTimeSeriesConfig(chartData: ProcessedChartData): ChartConf
                     min: 0,
                     max: Math.ceil(Math.max(...enhancedDatasets.flatMap(d => d.data.map(point => point.y)))),
                     grid: {
-                        color: '#E5E5E5'
+                        // color: '#E5E5E5'
                     }
                 }
             },
