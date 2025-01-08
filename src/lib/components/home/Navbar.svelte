@@ -43,7 +43,7 @@
 		},
 		{ label: 'Themes', icon: 'mdi:palette-outline' },
 		{ label: 'Sign Out', icon: 'material-symbols:logout', action: openLogoutModal },
-		{ label: 'Delete Account', icon: 'ic:baseline-delete-forever', action: openDeleteModal }
+		{ label: 'Delete my Account', icon: 'ic:baseline-delete-forever', action: openDeleteModal }
 	];
 
 	const logoImageSource = getPublicLogoImageSource();
@@ -181,6 +181,7 @@
 								<Icon icon={item.icon} class="menu-icon" />
 								<span>{item.label}</span>
 							</button>
+							<hr class="user-menu-divider" />
 						{:else if item.label === 'Delete Account'}
 							<button class="user-menu-item" on:click={item.action}>
 								<Icon icon={item.icon} class="menu-icon" />
