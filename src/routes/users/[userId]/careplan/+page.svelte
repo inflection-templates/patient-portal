@@ -75,7 +75,8 @@
                             <option value="week">Week Wise</option>
                         </select>
                         <div class="absolute inset-y-0 right-2 flex items-center pointer-events-none">
-						<Icon icon="mdi:chevron-down" class="text-info w-5 h-5 " />
+						    <Icon icon="mdi:chevron-down" class="text-info w-5 h-5 " />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -18,7 +18,7 @@
 
 <div class="tasks">
 	<a
-		class={`history ${activeButton === 'basic' ? 'active' : ''}`}
+		class={`history flex items-center ${activeButton === 'basic' ? 'active' : ''}`}
 		href={basicStatsLink}
 		on:click={() => setActive('basic')}
 	>
