@@ -23,8 +23,16 @@
         }
         return color;
     }
+
+    // Function to determine text color based on the theme mode
+    function getThemeColor(): string {
+        const theme = document.documentElement.getAttribute('data-theme');
+        return theme === 'dark' ? '#d9dee9' : '#1c252a';
+    }
     
     export function createTimeSeriesConfig(chartData: ProcessedChartData) {
+        const themeColor = getThemeColor();
+        
         // Generate a new random color for each dataset
         const enhancedDatasets = chartData.datasets.map(dataset => ({
             ...dataset,
@@ -57,26 +65,40 @@
                         },
                         title: {
                             display: true,
-                            text: 'Date'
+                            text: 'Date',
+                            color: themeColor,
+                            font: {
+                                size: 16,
+                                weight: 'semi-bold'
+                            }
+                        },
+                        ticks: {
+                            color: themeColor
                         },
                         grid: {
-                            // color: '#E5E5E5'
+                            color: themeColor === '#d9dee9' ? 'rgba(217, 222, 233, 0.1)' : 'rgba(28, 37, 42, 0.1)'
                         }
                     },
                     y: {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Count'
+                            text: 'Count',
+                            color: themeColor,
+                            font: {
+                                size: 16,
+                                weight: 'semi-bold'
+                            }
                         },
                         ticks: {
                             stepSize: 1,
-                            precision: 0
+                            precision: 0,
+                            color: themeColor
                         },
                         min: 0,
                         max: Math.ceil(Math.max(...enhancedDatasets.flatMap(d => d.data.map(point => point.y)))),
                         grid: {
-                            // color: '#E5E5E5'
+                            color: themeColor === '#d9dee9' ? 'rgba(217, 222, 233, 0.1)' : 'rgba(28, 37, 42, 0.1)'
                         }
                     }
                 },
@@ -84,6 +106,7 @@
                     title: {
                         display: true,
                         text: 'Tasks by category over Time',
+                        color: themeColor,
                         font: {
                             size: 16,
                             weight: 'bold'
@@ -123,6 +146,7 @@
                         labels: {
                             usePointStyle: true,
                             padding: 20,
+                            color: themeColor,
                             font: {
                                 size: 12
                             }
