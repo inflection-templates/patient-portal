@@ -6,35 +6,27 @@
 	export let title: string;
 
 	let currentPage = 1;
-	let pageSize = 8;
+	let pageSize = 5; // Default to 5 records per page
 	let sortOrder = 'ascending';
 	let sortedData = [...data];
 	$: sortedData = [...data].sort((a, b) => {
 		const dateA = new Date(a.date);
 		const dateB = new Date(b.date);
-		if (sortOrder === 'ascending') {
-			return dateA.getTime() - dateB.getTime();
-		} else {
-			return dateB.getTime() - dateA.getTime();
-		}
+		return sortOrder === 'ascending'
+			? dateA.getTime() - dateB.getTime()
+			: dateB.getTime() - dateA.getTime();
 	});
 
 	$: paginatedData = sortedData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+	$: totalPages = Math.ceil(sortedData.length / pageSize);
 
 	function prevPage() {
-		if (currentPage > 1) {
-			currentPage--;
-		}
+		if (currentPage > 1) currentPage--;
 	}
 
 	function nextPage() {
-		const totalPages = Math.ceil(sortedData.length / pageSize);
-		if (currentPage < totalPages) {
-			currentPage++;
-		}
+		if (currentPage < totalPages) currentPage++;
 	}
-
-	$: totalPages = Math.ceil(sortedData.length / pageSize);
 
 	function sortByDate() {
 		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
@@ -43,17 +35,17 @@
 	function updatePageSize(event: Event) {
 		const value = parseInt((event.target as HTMLSelectElement).value, 10);
 		pageSize = value;
-		currentPage = 1; // Reset to first page
+		currentPage = 1; // Reset to the first page
 	}
 </script>
 
 {#if data.length > 0}
-	<div class="table-container ">
+	<div class="table-container">
 		<div class="table-wrapper">
 			<table class="w-full border-collapse text-sm">
-				<thead class="thead ">
-					<tr >
-						<th class="th w-[5%] "></th>
+				<thead class="thead">
+					<tr>
+						<th class="th w-[5%]"></th>
 						<th class="th w-[40%] lg:w-[15%]" on:click={sortByDate}>
 							<div class="flex items-center">
 								<span>Date</span>
@@ -67,10 +59,17 @@
 							</div>
 						</th>
 						{#if title == 'Blood Pressure'}
-							<th class="th w-[30%] lg:w-[15%]">Systolic ({data[0].unit})</th>
-							<th class="th">Diastolic ({data[0].unit})</th>
+							<th class="th w-[30%] lg:w-[15%]"
+								>Systolic {#if data.length > 0}({data[0].unit}){/if}</th
+							>
+							<th class="th"
+								>Diastolic {#if data.length > 0}({data[0].unit}){/if}</th
+							>
 						{:else}
-							<th class="th">{title} ({data[0].unit})</th>
+							<th class="th"
+								>{title}
+								{#if data.length > 0}({data[0].unit}){/if}</th
+							>
 						{/if}
 					</tr>
 				</thead>
@@ -100,7 +99,7 @@
 					<option class="pages" value="15">15 Records per page</option>
 				</select>
 				<div class="absolute inset-y-0 right-2 flex items-center pointer-events-none">
-					<Icon icon="mdi:chevron-down" class="text-info w-5 h-5 " />
+					<Icon icon="mdi:chevron-down" class="text-info w-5 h-5" />
 				</div>
 			</div>
 
@@ -116,13 +115,13 @@
 					<Icon icon="mdi:less-than" width="20" height="20" />
 				</button>
 				<span class="current-page">{currentPage}</span>
-				<button class="pagination-button" on:click={nextPage} disabled={currentPage === totalPages}>
+				<button class="pagination-button" on:click={nextPage} disabled={currentPage >= totalPages}>
 					<Icon icon="mdi:greater-than" width="20" height="20" />
 				</button>
 				<button
 					class="pagination-button"
 					on:click={() => (currentPage = totalPages)}
-					disabled={currentPage === totalPages}
+					disabled={currentPage >= totalPages}
 				>
 					Last
 				</button>
@@ -130,5 +129,5 @@
 		</div>
 	</div>
 {:else}
-	<p class="  not-available">No data available for {title}.</p>
+	<p class="not-available">No data available for {title}.</p>
 {/if}
