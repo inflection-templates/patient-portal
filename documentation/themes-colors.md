@@ -1,31 +1,130 @@
-# Theme Implementation in Patient Portal
+## Steps to implement Themes mode and colors
 
-This document outlines the implementation of Light and Dark themes for the Patient Portal dashboard. It leverages Tailwind CSS and custom CSS properties defined in the `tailwind.config.js` and `app.css` files.
+1. **Define custom colors using CSS variables into tailwind.config.js**
 
-## 1. Overview
+The extend.colors object defines custom colors using CSS variables (var(--primary-color), etc.).
+This approach is flexible and allows dynamic theming.
 
-The theme system allows users to switch between multiple themes (Light/Dark) and customize it further using different theme options (Blue, Mint, Grey, Teal, Gold). The primary goal is to update the application's appearance dynamically, based on user preference.
+```tailwind.config.js
 
-### 1.1 Tailwind CSS Configuration
+module.exports = {
+  content: ['./src/**/*.{html,js,svelte,ts}'],
+  theme: {
+    extend: {
+      colors: {
+        primary: 'var(--primary-color)',
+        secondary: 'var(--secondary-color)',
+        base: 'var(--base-color)',
+        info: 'var(--info-color)',
+        accent: 'var(--accent-color)',
+        neutral: 'var(--neutral-color)',
+        error: 'var(--error-color)',
+        success: 'var(--success-color)',
+        active: 'var(--active-color)',
+        outline: 'var(--outline-color)'
+      }
+    }
+  }
+}
+```
 
-In the `tailwind.config.js` file, we extend the default theme by adding custom colors. These colors are mapped to CSS variables, which are then modified based on the selected theme.
+2. **Setting colors into app.css file for Dark, Light mode and for specific color**
 
-## 2. CSS Custom Properties
+```app.css
 
-### 2.1 Global CSS Variables (in app.css)
+:root {
+	--primary-color: #ffffff;
+	--secondary-color: #fbfbfb;
+	--outline-color: #cacadb;
+	--accent-color: #f5f6f8;
+	--neutral-color: #eaeaef;
+	--base-color: #fff;
+	--info-color: #1c252a;
+	--error-color: #e02222;
+	--success-color: #50c878;
+	--active-color: #eaeaef;
+}
 
-We define the default color scheme and the CSS custom properties (variables) that will be used throughout the app for each theme. The colors are defined under :root for light mode and data-theme='dark' for dark mode. Additionally, each theme option (e.g., Blue, Mint, Grey, Teal, Gold) has its own configuration.
+[data-theme='dark'] {
+	--primary-color: #1c252a;
+	--secondary-color: #293338;
+	--outline-color: #64748b;
+	--accent-color: #232c32;
+	--neutral-color: #3a4e5c;
+	--base-color: #111827;
+	--info-color: #d9dee9;
+	--error-color: #e02222;
+	--success-color: #10b981;
+	--active-color: #3a4e5c;
+}
 
-## 3. Svelte Component for Theme Switching
+[data-theme='light'][data-theme-option='blue'] {
+	--primary-color: #ffffff;
+	--secondary-color: #fbfbfb;
+	--accent-color: #f5f6f8;
+	--base-color: #eff6ff;
+	--info-color: #1a202c;
+	--error-color: #e02222;
+	--success-color: #10b981;
+	--active-color: rgba(0, 149, 255, 0.244);
+}
 
-In the Navbar.svelte file, there is a menu for the user to select the theme. The mode (Light or Dark) and options (e.g., Blue, Mint, Grey, Teal, Gold) are displayed as buttons. When a user selects a theme, the corresponding CSS variables are applied dynamically.
+```
 
-### 3.1 Mode and Option Selection
+3. **Use theme modes and colors into Navbar.svelte component file**
 
-We define the themeModes (Light/Dark) and themeOptions (e.g., Blue, Mint, Grey, etc.) in the script section of the Navbar.svelte component.
+```Navbar.svlete
 
-### 3.2 HTML Structure for Theme Menu
+<script lang="ts">
+	// Default selected mode and theme option
+	let selectedMode = 'Light';
+	let selectedOption = 'Blue';
 
-The HTML structure of the Navbar.svelte file includes a user menu with an option to select the theme. When the user selects a theme or option, the handleModeChange or handleOptionChange functions are triggered.
+	// Available theme modes (Light and Dark)
+	const themeModes = ['Light', 'Dark'];
 
+	// Available theme options with colors
+	const themeOptions = [
+		{ name: 'Blue', color: 'rgba(0, 150, 255, 0.1)', borderColor: 'rgba(0, 150, 255, 1)' },
+		{ name: 'Mint', color: 'rgba(78, 197, 90, 0.1)', borderColor: 'rgba(78, 197, 90, 1)' },
+	];
 
+	// Change theme mode (Light/Dark)
+	const handleModeChange = (theme: string) => {
+		selectedMode = theme;
+		document.documentElement.setAttribute('data-theme', theme.toLowerCase());
+		applyThemeOption(); // Apply selected theme option
+	};
+
+	// Change theme option (e.g., Blue, Mint)
+	const handleOptionChange = (option: string) => {
+		selectedOption = option;
+		applyThemeOption(); // Apply selected theme option
+	};
+
+	// Apply selected theme option's styles
+	const applyThemeOption = () => {
+		document.documentElement.setAttribute('data-theme-option', selectedOption.toLowerCase());
+		const themeOption = themeOptions.find(opt => opt.name === selectedOption);
+		if (themeOption) {
+			document.documentElement.style.setProperty('--theme-border-color', themeOption.borderColor);
+		}
+	};
+</script>
+
+<!-- UI for theme and mode selection -->
+<div>
+	<p>Appearance</p>
+	{#each themeModes as theme}
+		<!-- Switch between Light and Dark modes -->
+		<button on:click={() => handleModeChange(theme)}>{theme}</button>
+	{/each}
+
+	<p>Themes</p>
+	{#each themeOptions as { name, color }}
+		<!-- Select a theme option (e.g., Blue, Mint) -->
+		<button on:click={() => handleOptionChange(name)} style="background-color: {color};">
+			{name}
+		</button>
+	{/each}
+</div>
