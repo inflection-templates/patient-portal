@@ -104,7 +104,7 @@
 
 	function handleLogoutConfirm() {
 		// Reset theme to default light mode
-		selectedMode = 'Light';
+		// selectedMode = 'Light';
 		selectedOption = '';
 		localStorage.setItem('themeMode', 'Light');
 		localStorage.removeItem('themeOption'); // Clear any selected theme option
