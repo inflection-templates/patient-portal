@@ -4,15 +4,26 @@
 
 	Chart.register(...registerables);
 
-	export let tasks: any[] = [];
-	export let view: 'day' | 'week' = 'day';
+    // svelte-ignore export_let_unused
+    export let tasks: any[] = [];
+    export let view: 'day' | 'week' = 'day';
+    export let selectedPlan: string;
+    export let careplanTasks_: any;
 
 	let canvas: HTMLCanvasElement;
 	let chart: Chart;
 
-	// Function to process tasks data based on the selected view ('day' or 'week')
-	function processTasksData(tasks: any[], viewType: 'day' | 'week') {
-		if (!tasks?.length) return { labels: [], datasets: [] };
+    $: if (careplanTasks_ && selectedPlan) {
+        console.log('Current tasks:', careplanTasks_[selectedPlan]);
+    }
+
+    function processTasksData(tasks: any[], viewType: 'day' | 'week') {
+        if (!tasks?.length) {
+            console.log('No tasks available to process');
+            return { labels: [], datasets: [] };
+        }
+
+        console.log('Processing tasks:', tasks.length);
 
 		const sortedTasks = [...tasks].sort(
 			(a, b) => new Date(a.ScheduledStartTime).getTime() - new Date(b.ScheduledStartTime).getTime()
@@ -41,17 +52,13 @@
 			const taskDate = new Date(task.ScheduledStartTime);
 			let key;
 
-			if (viewType === 'day') {
-				const dayDiff = Math.floor(
-					(taskDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24)
-				);
-				key = `Day ${dayDiff + 1}`;
-			} else {
-				const weekDiff = Math.floor(
-					(taskDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24 * 7)
-				);
-				key = `Week ${weekDiff + 1}`;
-			}
+            if (viewType === 'day') {
+                const dayDiff = Math.floor((taskDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24));
+                key = `Day ${dayDiff + 1}`;
+            } else {
+                const weekDiff = Math.floor((taskDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24 * 7));
+                key = `Week ${weekDiff + 1}`;
+            }
 
 			const entry = dataMap.get(key);
 			if (entry) {
@@ -60,146 +67,152 @@
 			}
 		});
 
-		const sortedLabels = Array.from(dataMap.keys()).sort((a, b) => {
-			const aNum = parseInt(a.split(' ')[1]);
-			const bNum = parseInt(b.split(' ')[1]);
-			return aNum - bNum;
-		});
+        const chartData = {
+            labels: Array.from(dataMap.keys()),
+            datasets: [
+                {
+                    label: 'Completed',
+                    data: Array.from(dataMap.values()).map(v => v.Completed),
+                    backgroundColor: '#22C55E'
+                },
+                {
+                    label: 'Delayed',
+                    data: Array.from(dataMap.values()).map(v => v.Delayed),
+                    backgroundColor: '#EF4444'
+                }
+            ]
+        };
 
-		return {
-			labels: sortedLabels,
-			datasets: [
-				{
-					label: 'Completed',
-					data: sortedLabels.map((label) => dataMap.get(label).Completed),
-					backgroundColor: '#22C55E'
-				},
-				{
-					label: 'Pending',
-					data: sortedLabels.map((label) => dataMap.get(label).Delayed),
-					backgroundColor: '#EF4444'
-				}
-			]
-		};
-	}
+        console.log('Chart data:', chartData);
+        return chartData;
+    }
 
-	// Function to determine text color based on the theme mode
 	function getThemeColor() {
-		const theme = document.documentElement.getAttribute('data-theme');
-		return theme === 'dark' ? '#d9dee9' : '#1c252a';
-	}
+        const theme = document.documentElement.getAttribute('data-theme');
+        return theme === 'dark' ? '#D9DEE9' : '#1C252A';
+    }
 
-	// Function to create the chart
-	function createChart() {
-		if (chart) {
-			chart.destroy(); // Destroy the existing chart before recreating it
-		}
+    function createChart() {
+        if (!canvas) {
+            console.log('Canvas not available');
+            return;
+        }
 
-		const ctx = canvas.getContext('2d');
-		if (!ctx) return;
+        if (chart) {
+            chart.destroy();
+        }
 
-		const chartData = processTasksData(tasks, view);
-		const themeColor = getThemeColor(); // Fetch current theme color
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.log('Context not available');
+            return;
+        }
 
+        const currentTasks = careplanTasks_[selectedPlan] || [];
+        const chartData = processTasksData(currentTasks, view);
+		const themeColor = getThemeColor();
 		chart = new Chart(ctx, {
-			type: 'bar',
-			data: chartData,
-			options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				scales: {
-					x: {
-						stacked: true,
-						title: {
-							display: true,
-							text: view === 'week' ? 'Weeks' : 'Days',
-							font: {
-								size: 16,
-								weight: 'semi-bold'
-							},
-							color: themeColor // Set text color dynamically
-						},
-						ticks: {
-							color: themeColor
-						},
-						grid: {
-							display: false
-						}
-					},
-					y: {
-						stacked: true,
-						beginAtZero: true,
-						title: {
-							display: true,
-							text: 'Number of Tasks',
-							font: {
-								size: 16,
-								weight: 'semi-bold'
-							},
-							color: themeColor // Set text color dynamically
-						},
+            type: 'bar',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: view === 'week' ? 'Weeks' : 'Days',
+                            font: {
+                                size: 16
+                            },
+                            color: themeColor // Set text color dynamically
+                        },
                         ticks: {
-							color: themeColor
-						},
-						grid: {
-							display: true
-						}
-					}
-				},
-				plugins: {
-					title: {
-						display: true,
-						text: `Task status by ${view === 'week' ? 'Week' : 'Day'}`,
-						font: {
-							size: 16,
-							weight: 'bold'
-						},
-						color: themeColor, // Set text color dynamically
-						padding: 8
-					},
-					legend: {
-						position: 'top',
-						align: 'center',
-						labels: {
-							padding: 20,
-							usePointStyle: true,
-							pointStyle: 'circle',
-							color: themeColor // Set legend text color dynamically
-						}
-					},
-					tooltip: {
-						callbacks: {
-							label: (context) => {
-								const label = context.dataset.label || '';
-								const value = context.parsed.y;
-								const total = context.chart.data.datasets.reduce(
-									(sum, dataset) => sum + dataset.data[context.dataIndex],
-									0
-								);
-								const percentage = ((value / total) * 100).toFixed(1);
-								return `${label}: ${value} (${percentage}%)`;
-							},
-							footer: (tooltipItems) => {
-								const total = tooltipItems.reduce((sum, item) => sum + item.parsed.y, 0);
-								return `Total: ${total} tasks`;
-							}
-						}
-					}
-				}
-			}
-		});
+                            color: themeColor
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Tasks',
+                            font: {
+                                size: 16
+                            },
+                            color: themeColor // Set text color dynamically
+                        },
+                        ticks: {
+                            color: themeColor
+                        },
+                        grid: {
+                            display: true
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `Task status by ${view === 'week' ? 'Week' : 'Day'}`,
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        },
+                        color: themeColor, // Set text color dynamically
+                        padding: 8
+                    },
+                    legend: {
+                        position: 'top',
+                        align: 'center',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            color: themeColor // Set legend text color dynamically
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                const label = context.dataset.label || '';
+                                const value = context.parsed.y;
+                                const total = context.chart.data.datasets.reduce(
+                                    (sum, dataset) => sum + dataset.data[context.dataIndex],
+                                    0
+                                );
+                                const percentage = ((value / total) * 100).toFixed(1);
+                                return `${label}: ${value} (${percentage}%)`;
+                            },
+                            footer: (tooltipItems) => {
+                                const total = tooltipItems.reduce((sum, item) => sum + item.parsed.y, 0);
+                                return `Total: ${total} tasks`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
 	}
 
-	// Mount the chart and ensure it updates on view or tasks change
-	$: if (canvas && tasks && view) {
-		createChart(); // This will trigger when `tasks` or `view` change
-	}
+    $: if (canvas && careplanTasks_ && selectedPlan) {
+        console.log('Updating chart with new data');
+        createChart();
+    }
 
-	// OnMount lifecycle to initialize the chart
-	onMount(() => {
-		if (canvas && tasks) {
-			createChart();
-		}
+    $: if (view && canvas && careplanTasks_ && selectedPlan) {
+        console.log('View changed, updating chart');
+        createChart();
+    }
+
+    onMount(() => {
+        console.log('Component mounted');
+        if (canvas && careplanTasks_ && selectedPlan) {
+            createChart();
+        }
 
 		// Update chart on theme change using MutationObserver
 		const updateChartOnThemeChange = () => {
