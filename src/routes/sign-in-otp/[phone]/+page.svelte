@@ -91,18 +91,6 @@
 </script>
 
 <section class="section">
-	<div class="absolute top-4 left-4 flex items-center">
-		<!-- <img src="/patient.png" alt="Logo" class="logo" /> -->
-		<!-- <h1 class="heading">Patient Portal</h1> -->
-		<img src={logoImageSource} alt="Logo" class="px-4 w-32 h-auto" />
-	</div>
-
-	<!-- <div class="absolute top-4 right-4 flex items-center">
-		<a href="/signup">
-			<button class=" py-2 px-3 btn"> Sign Up </button>
-		</a>
-	</div> -->
-
 	<div class="card">
 		<div class="p-8">
 			<form method="post" action="?/loginWithOtp" use:enhance>
@@ -155,11 +143,6 @@
 				</div>
 
 				<button type="submit" class="btn"> Submit </button>
-
-				<!-- <p class="para">
-					Don’t have an account?
-					<a href="/signup" class="anchor"> Sign up </a>
-				</p> -->
 			</form>
 		</div>
 	</div>
