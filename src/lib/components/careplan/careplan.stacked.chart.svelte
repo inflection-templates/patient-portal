@@ -10,7 +10,6 @@
 	let canvas: HTMLCanvasElement;
 	let chart: Chart;
 
-	// Function to process tasks data based on the selected view ('day' or 'week')
 	function processTasksData(tasks: any[], viewType: 'day' | 'week') {
 		if (!tasks?.length) return { labels: [], datasets: [] };
 
@@ -83,23 +82,21 @@
 		};
 	}
 
-	// Function to determine text color based on the theme mode
 	function getThemeColor() {
 		const theme = document.documentElement.getAttribute('data-theme');
 		return theme === 'dark' ? '#d9dee9' : '#1c252a';
 	}
 
-	// Function to create the chart
 	function createChart() {
 		if (chart) {
-			chart.destroy(); // Destroy the existing chart before recreating it
+			chart.destroy();
 		}
 
 		const ctx = canvas.getContext('2d');
 		if (!ctx) return;
 
 		const chartData = processTasksData(tasks, view);
-		const themeColor = getThemeColor(); // Fetch current theme color
+		const themeColor = getThemeColor();
 
 		chart = new Chart(ctx, {
 			type: 'bar',
@@ -117,7 +114,7 @@
 								size: 16,
 								weight: 'semi-bold'
 							},
-							color: themeColor // Set text color dynamically
+							color: themeColor
 						},
 						ticks: {
 							color: themeColor
@@ -136,9 +133,9 @@
 								size: 16,
 								weight: 'semi-bold'
 							},
-							color: themeColor // Set text color dynamically
+							color: themeColor
 						},
-                        ticks: {
+						ticks: {
 							color: themeColor
 						},
 						grid: {
@@ -154,7 +151,7 @@
 							size: 16,
 							weight: 'bold'
 						},
-						color: themeColor, // Set text color dynamically
+						color: themeColor,
 						padding: 8
 					},
 					legend: {
@@ -164,7 +161,7 @@
 							padding: 20,
 							usePointStyle: true,
 							pointStyle: 'circle',
-							color: themeColor // Set legend text color dynamically
+							color: themeColor
 						}
 					},
 					tooltip: {
@@ -190,18 +187,15 @@
 		});
 	}
 
-	// Mount the chart and ensure it updates on view or tasks change
 	$: if (canvas && tasks && view) {
-		createChart(); // This will trigger when `tasks` or `view` change
+		createChart();
 	}
 
-	// OnMount lifecycle to initialize the chart
 	onMount(() => {
 		if (canvas && tasks) {
 			createChart();
 		}
 
-		// Update chart on theme change using MutationObserver
 		const updateChartOnThemeChange = () => {
 			if (chart) {
 				createChart();
@@ -214,7 +208,6 @@
 			attributeFilter: ['data-theme']
 		});
 
-		// Cleanup function
 		return () => {
 			if (chart) {
 				chart.destroy();

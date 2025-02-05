@@ -31,13 +31,7 @@ export const careplanFilterData = async (careplanData: any) => {
 
 	const { startDate, endDate } = getStartAndEndDates(careplanTasks);
 
-	// const careplanFilterData = {
-	// 	careplanTasks,
-	// 	dayWiseSeparatedData,
-	// 	weekWiseSeparatedData,
-	// 	startDate,
-	// 	endDate
-	// };
+	
 
 	return {
 		careplanTasks,

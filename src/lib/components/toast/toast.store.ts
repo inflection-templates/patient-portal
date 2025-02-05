@@ -13,7 +13,6 @@ export const addToast = (toast: { message?: string; type?: "info" | "error" | "s
 
   toasts.update((all) => [{ ...defaults, ...toast }, ...all]);
 
-  // If toast is dismissible, dismiss it after "timeout" amount of time.
   if (toast.timeout) setTimeout(() => dismissToast(id), toast.timeout);
 };
 

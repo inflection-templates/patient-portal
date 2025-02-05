@@ -8,7 +8,7 @@
 	const sidebarTabs: TabDefinition[] = sidebarMenu(userId);
 
 	userId = $page.params.userId;
-	// let homeLink = `/users/${userId}/careplan`;
+
 </script>
 
 <div class="flex">

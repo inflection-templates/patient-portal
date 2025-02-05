@@ -9,10 +9,10 @@ export class RedisCache implements ISessionCache {
 
     private _client: RedisClientType| null = null;
 
-    private _expiry = 60 * 60 * 24; // 24 hours
+    private _expiry = 60 * 60 * 24; 
 
     constructor() {
-        // Create a client and connect to redis 
+      
         try {
             this._client = createClient({
                 url: CACHE_HOST,

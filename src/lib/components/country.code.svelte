@@ -1,10 +1,5 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-
-	// export let countryCode;
-	// function handleCountryCodeChange(event) {
-	// 	countryCode = event.target.value;
-	// }
 </script>
 
 <div class="relative inline-flex items-center">

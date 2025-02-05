@@ -30,7 +30,6 @@ const updateUserProfile = zfd.formData({
 	birthDate: z.string().optional(),
 	maritalStatus: z.string().optional(),
 	email: z.string().optional(),
-	// countryCode: z.string().optional(),
 	phone: z.string().optional(),
 	race: z.string().optional(),
 	ethnicity: z.string().optional(),
@@ -80,7 +79,7 @@ export const actions = {
 			};
 		}
 
-		// const phone = result.countryCode + '-' + result.phone;
+		
 		
 		const response = await updatePatientById(
 			sessionId,

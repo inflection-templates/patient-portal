@@ -50,13 +50,13 @@
 
 	const handleModeChange = (theme: string) => {
 		selectedMode = theme;
-		localStorage.setItem('themeMode', theme); // Save to localStorage
+		localStorage.setItem('themeMode', theme);
 		applyThemeOption();
 	};
 
 	const handleOptionChange = (option: string) => {
 		selectedOption = option;
-		localStorage.setItem('themeOption', option); // Save to localStorage
+		localStorage.setItem('themeOption', option);
 		applyThemeOption();
 	};
 
@@ -73,7 +73,6 @@
 		}
 	};
 
-	// Load stored settings on initialization
 	onMount(() => {
 		const storedMode = localStorage.getItem('themeMode');
 		const storedOption = localStorage.getItem('themeOption');
@@ -103,14 +102,12 @@
 	}
 
 	function handleLogoutConfirm() {
-		// Reset theme to default light mode
 		selectedMode = 'Light';
 		selectedOption = '';
 		localStorage.setItem('themeMode', 'Light');
-		localStorage.removeItem('themeOption'); // Clear any selected theme option
+		localStorage.removeItem('themeOption');
 		applyThemeOption();
 
-		// Execute logout logic
 		if (logout) logout();
 		showConfirmLogout_ = false;
 	}
@@ -133,7 +130,6 @@
 <header class="navbar">
 	<div class="flex items-center justify-between sm:px-4 h-14 w-full">
 		<div class="flex items-center">
-			<!-- <img src="/patient.png" alt="Logo" class="logo" /> -->
 			<img src={logoImageSource} alt="Logo" class="px-4" width="100" height="100" />
 		</div>
 
@@ -158,9 +154,6 @@
 						<Icon icon="ant-design:close-outlined" class="h-5 w-5" />
 					</button>
 					<div class="user-name">
-						<!-- <div class="initial-icon">
-							{userInitials}
-						</div> -->
 						{#if imageUrl}
 							<Image cls="initial-icon" source={imageUrl} w="24" h="24" />
 						{:else}
@@ -219,7 +212,6 @@
 										};`}
 										on:click={() => handleModeChange(theme)}
 									>
-										<!-- Text inside the button -->
 										<span class="flex items-center justify-center w-full h-full">
 											{theme}
 										</span>

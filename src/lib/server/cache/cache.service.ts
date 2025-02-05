@@ -7,7 +7,7 @@ import { building } from '$app/environment';
 ////////////////////////////////////////////////////////////////////////////////////////
 
 const getCache = () => {
-    //code should not be executed during the build step.
+
     if (!building) {
         if (CACHE_TYPE === 'in-memory') {
             return new InMemoryCache();

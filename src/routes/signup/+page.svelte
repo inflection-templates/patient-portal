@@ -5,7 +5,6 @@
 <section class="section">
 	<div class="absolute top-4 left-4 flex items-center">
 		<img src="patient.png" alt="Logo" class="logo" />
-		<!-- <h1 class="heading">Patient Portal</h1> -->
 	</div>
 
 	<div class="absolute top-4 right-4 flex items-center">
@@ -38,7 +37,13 @@
 
 				<div>
 					<label for="password" class="label">Password</label>
-					<input type="password" name="password" id="password" class="input" placeholder="password" />
+					<input
+						type="password"
+						name="password"
+						id="password"
+						class="input"
+						placeholder="password"
+					/>
 				</div>
 
 				<a href="/" class="block w-full">

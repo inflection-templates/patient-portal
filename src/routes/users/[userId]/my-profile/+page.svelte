@@ -182,41 +182,6 @@
 			</div>
 			<div class="col-span-3 mx-6">
 				<div class="flex items-center">
-					<!-- <div class="profile-container flex items-center gap-4">
-						{#if imageUrl === undefined}
-							<label for="fileinput" class="cursor-pointer">
-								<div class="profile-icon">
-									{initials}
-								</div>
-							</label>
-							<input
-								id="fileinput"
-								name="fileinput"
-								type="file"
-								class="hidden"
-								placeholder="Image"
-								on:change={async (e) => await onFileSelected(e)}
-							/>
-						{:else}
-							<label for="fileinput" class="cursor-pointer">
-								<Image cls="h-36 w-36 rounded-full" source={imageUrl} w="36" h="36" />
-							</label>
-							<input
-								id="fileinput"
-								name="fileinput"
-								type="file"
-								class="hidden"
-								bind:this={profileImage}
-								placeholder="Image"
-								on:change={async (e) => await onFileSelected(e)}
-							/>
-						{/if}
-						<div class ="flex flex-col">
-							<span class="text-lg text-info">{personObject.DisplayName || 'Unknown'}</span>
-							<span class="text-info opacity-50">{phone}</span>
-						</div>
-					
-					</div> -->
 					<div class="profile-container flex flex-col items-center gap-4">
 						<div class="relative flex md:hidden justify-center items-center">
 							{#if previewImage !== null}
@@ -321,32 +286,8 @@
 						</select>
 					</div>
 				</div>
-				<!-- <div>
-					<label class="label" for="Phone">Mobile Number</label>
-					<div class="flex flex-row space-x-2">
-						<select class="select" name="countryCode" bind:value={countryCode}>
-							<option value="+1">+1</option>
-							<option value="+91">+91</option>
-							<option value="+44">+44</option>
-							<option value="+61">+61</option>
-						</select>
-						<input
-							type="tel"
-							id="Phone"
-							placeholder="Phone"
-							name="phone"
-							pattern="[0-9]*"
-							inputmode="numeric"
-							minlength="10"
-							maxlength="10"
-							class="input"
-							bind:value={mobileNumber}
-							required
-						/>
-					</div>
-				</div> -->
+
 				<input hidden type="text" name="phone" bind:value={phone} />
-				<!-- <input hidden type="text" name="countryCode" bind:value={countryCode} /> -->
 				<div>
 					<label class="label" for="email">Email</label>
 					<input

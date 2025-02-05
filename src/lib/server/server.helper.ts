@@ -23,9 +23,7 @@ export class ServerHelper {
         return new Blob([u8arr], { type: mime });
     };
 
-    // static downloadAsInlineObjectUrl = (response) => {
-    //     return Helper.dataURLtoBlob(response.Data.Buffer);
-    // };
+
 
     static getFileExtensionFromMimeType = (mimeType) => {
         const parts = mimeType.split('/');

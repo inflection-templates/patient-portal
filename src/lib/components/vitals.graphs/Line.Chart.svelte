@@ -9,16 +9,14 @@
 	let barChart: Chart;
 	let canvas: HTMLCanvasElement;
 
-	// Function to determine theme color dynamically
 	function getThemeColor(): { textColor: string; gridColor: string } {
 		const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
 		return {
-			textColor: isDarkMode ? '#d9dee9' : '#1c252a', // Text color
-			gridColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)' // Grid color
+			textColor: isDarkMode ? '#d9dee9' : '#1c252a',
+			gridColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
 		};
 	}
 
-	// Function to initialize or update the chart
 	function createChart() {
 		const { textColor, gridColor } = getThemeColor();
 
@@ -111,7 +109,6 @@
 		});
 	}
 
-	// Recreate the chart on theme change
 	function updateChartOnThemeChange() {
 		createChart();
 	}
@@ -119,7 +116,6 @@
 	onMount(() => {
 		createChart();
 
-		// Observe theme changes using MutationObserver
 		const observer = new MutationObserver(updateChartOnThemeChange);
 		observer.observe(document.documentElement, {
 			attributes: true,

@@ -6,16 +6,15 @@
 	Chart.register(annotationPlugin);
 
 	export let labels: string[] = [];
-	export let data1: number[] = []; // Data for first line
-	export let data2: number[] = []; // Data for second line
+	export let data1: number[] = [];
+	export let data2: number[] = [];
 	export let title: string;
-	export let systolicReference: number = 120; // Reference line value for systolic
-	export let diastolicReference: number = 80; // Reference line value for diastolic
+	export let systolicReference: number = 120;
+	export let diastolicReference: number = 80;
 
 	let barChart: Chart;
 	let canvas: HTMLCanvasElement;
 
-	// Function to determine theme color dynamically
 	function getThemeColor(): { textColor: string; gridColor: string } {
 		const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
 		return {
@@ -24,12 +23,11 @@
 		};
 	}
 
-	// Function to initialize or update the chart
 	function createChart() {
 		const { textColor, gridColor } = getThemeColor();
 
 		if (barChart) {
-			barChart.destroy(); // Destroy the existing chart
+			barChart.destroy();
 		}
 
 		const ctx = canvas.getContext('2d');
@@ -84,7 +82,7 @@
 							display: true,
 							color: gridColor,
 							lineWidth: 0.3,
-							borderDash: [10, 10] // Dashed lines
+							borderDash: [10, 10]
 						},
 						ticks: {
 							color: textColor
@@ -144,7 +142,6 @@
 		});
 	}
 
-	// Recreate the chart on theme change
 	function updateChartOnThemeChange() {
 		createChart();
 	}
@@ -152,7 +149,6 @@
 	onMount(() => {
 		createChart();
 
-		// Observe theme changes using MutationObserver
 		const observer = new MutationObserver(updateChartOnThemeChange);
 		observer.observe(document.documentElement, {
 			attributes: true,

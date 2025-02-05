@@ -28,7 +28,6 @@
         { label: "Email", value: getValue(userProfileData?.Email) },
         { label: "Phone", value: getValue(userProfileData?.Phone) },
         { label: "Blood Group", value: getValue(healthProfile?.BloodGroup) },
-        // { label: "Health Journey", value: 'Not specified' }
     ];
 </script>
 

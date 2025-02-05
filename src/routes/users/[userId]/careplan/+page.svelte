@@ -98,7 +98,7 @@
 					</tbody>
 				</table>
 			</div>
-			<!-- chart -->
+
 			<div class=" chart">
 				<div class="canvas">
 					<CareplanStackedChart tasks={careplanTasks} view={selectedView} />

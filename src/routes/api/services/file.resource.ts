@@ -35,8 +35,6 @@ export const uploadBinary = async (
 		data: buffer
 	};
 
-	// console.log(JSON.stringify(config, null, 2));
-
 	const res = await axios(config);
 
 	const response = res.data;
@@ -52,54 +50,9 @@ export const uploadBinary = async (
 	return response;
 };
 
-// export const upload = async (sessionId: string, filePath: string, filename: string, isPublic = true) => {
-
-//     const url = BACKEND_API_URL + `/file-resources/upload`;
-//     const session = await SessionManager.getSession(sessionId);
-//     const accessToken = session.accessToken;
-
-// 	const mimeType = ServerHelper.getMimeTypeFromFileName(filename);
-// 	console.log(`mimeType = ${mimeType}`);
-
-//     const p = path.join(process.cwd(), filePath);
-//     const form = new FormData();
-//     form.append("name", fs.readFileSync(p));
-//     //form.append("IsPublicResource", isPublic ? "true" : "false");
-//     console.log(filePath);
-
-//     const headers = {
-//         ...form.getHeaders()
-//     };
-//     //headers['enc'] = 'multipart/form-data';
-//     // headers['Content-Type'] = "application/x-www-form-urlencoded";
-//     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
-//     headers['Authorization'] = `Bearer ${accessToken}`;
-
-//     // const config = {
-//     //     method: 'post',
-//     //     url: url,
-//     //     headers: headers,
-//     // };
-
-//     console.log(JSON.stringify(headers, null, 2));
-//     console.log(form);
-
-//     const response = await axios.post(url, form, headers);
-
-//     if (response['Status'] === 'failure') {
-//         if(response['HttpCode'] !== 201 && response['HttpCode'] !== 200) {
-//             console.log(`get_ response message: ${response['Message']}`);
-//             throw error(response['HttpCode'], response['Message']);
-//         }
-//     }
-
-//     console.log(`get_ response message: ${response['Message']}`);
-//     return response['Data'];
-// };
-
 export const getFileResourceById = async (sessionId, fileResourceId) => {
 	const url = BACKEND_API_URL + `file-resources/${fileResourceId}`;
-	return await get_( url, false, sessionId);
+	return await get_(url, false, sessionId);
 };
 
 export const deleteFileResource = async (sessionId: string, resourceId: string) => {
@@ -127,7 +80,7 @@ export const download = async (sessionId, fileResourceId, asAttachment = false) 
 	});
 
 	const data = await res.arrayBuffer();
-    if (data) {
+	if (data) {
 		const responseHeaders = res.headers;
 		const contentType = responseHeaders['content-type'];
 		const parts = contentType.split('/');
